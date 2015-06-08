@@ -39,8 +39,10 @@ class CreateUsersTable extends Migration {
 	 */
 	public function down()
 	{
-		Sehema::drop('wallet');
-		Schema::drop('users');
+	    DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+		Schema::dropIfExists('wallet');
+		Schema::dropIfExists('users');
+	    DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 	}
 
 }

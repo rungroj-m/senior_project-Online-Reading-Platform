@@ -33,7 +33,9 @@ class CreateCommentTable extends Migration {
 	 */
 	public function down()
 	{
-		Sehema::drop('comment');
+	    DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+	    Schema::dropIfExists('comment');
+	    DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 	}
 
 }

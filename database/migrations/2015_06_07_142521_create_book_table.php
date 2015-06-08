@@ -46,6 +46,7 @@ class CreateBookTable extends Migration {
 			$table->foreign('userKey')->references('userKey')->on('users');
 			$table->integer('bookKey')->unsigned();
 			$table->foreign('bookKey')->references('bookKey')->on('book');
+			$table->increments('catalogKey');
 			$table->double('price',10,2);
 		});
 	}
@@ -57,10 +58,14 @@ class CreateBookTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('book');
-		Sehema::drop('catalog');
-		Sehema::drop('sample_content');
-		Schema::drop('contentInfo');
+
+		DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+	    Schema::dropIfExists('book');
+		Schema::dropIfExists('catalog');
+		Schema::dropIfExists('sample_content');
+		Schema::dropIfExists('contentInfo');
+	    DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+
 	}
 
 }
