@@ -20,6 +20,7 @@ class CreateCommentTable extends Migration {
 			$table->integer('userKey')->unsigned();	
 			$table->foreign('userKey')->references('userKey')->on('users');
 			$table->timestamps();
+			$table->increments('commentKey');
 			$table->string('comment');
 			$table->integer('commentRating');
 		});
