@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class book extends Model {
+class Book extends Model {
 
 	/**
 	 * The database table used by the model.

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class contentInfo extends Model {
+class ContentInfo extends Model {
 
 	/**
 	 * The database table used by the model.
