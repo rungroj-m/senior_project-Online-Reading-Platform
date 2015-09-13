@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\ContentInfo;
+use App\Models\ContentInfo;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -14,6 +14,8 @@ class BookController extends Controller {
 	 */
 	public function index()
 	{
+		// $books = ContentInfo::all();
+
 		$book1 = new ContentInfo;
 		$book1->name = 'Example1';
 		$book1->description = 'desc1';
