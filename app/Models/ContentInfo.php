@@ -12,4 +12,5 @@ class ContentInfo extends Model {
 	protected $table = 'contentInfo';
 	protected $fillable = array('name','description','userRatingCount','userRating','criticRating','TAG','category');
 	protected $primaryKey = 'contentKey';
+	public $timestamps = false;
 }

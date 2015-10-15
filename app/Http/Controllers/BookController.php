@@ -1,9 +1,11 @@
 <?php namespace App\Http\Controllers;
 
 use App\Models\ContentInfo;
+use App\Models\Book;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Request;
+
 
 class BookController extends Controller {
 
@@ -16,24 +18,39 @@ class BookController extends Controller {
 	{
 		// $books = ContentInfo::all();
 
-		$book1 = new ContentInfo;
-		$book1->name = 'Example1';
-		$book1->description = 'desc1';
-		$book1->userRating = 5;
-		$book1->criticRating = 5;
-		$book1->category = 'Action';
+		// $book1 = new ContentInfo;
+		// $book1->name = 'Example1';
+		// $book1->description = 'desc1';
+		// $book1->userRating = 5;
+		// $book1->criticRating = 5;
+		// $book1->category = 'Action';
 
-		$book2 = new ContentInfo;
-		$book2->name = 'Example2';
-		$book2->description = 'desc2';
-		$book2->userRating = 1;
-		$book2->criticRating = 1;
-		$book2->category = 'Horror';
+//		 $book2 = new ContentInfo;
+//		 $book2->name = 'Example2';
+//		 $book2->description = 'desc2';
+//		 $book2->userRating = 1;
+//		 $book2->criticRating = 1;
+//		 $book2->category = 'Horror';
+		// $books = [
+		// 		$book1, $book2
+		// ];
+		// return view('pages.books', compact('books'));
 
-		$books = [
-				$book1, $book2
-		];
-		return view('pages.books', compact('books'));
+		// $books = ContentInfo::all(); 
+		// try{
+		// $book = new Book;
+		$books = ContentInfo::all();
+		return view('pages.books',compact('books'));
+		// $books = [
+		// 		$book1,$book1
+		// ];
+		// $book->contentKey = $book1-> contentKey;
+		// $book->save();
+		// }
+		// catch(Exception $e){
+		// 	echo $e->getMessage();
+		// }
+		// return view('pages.books', compact('books'));
 	}
 
 	/**
@@ -43,7 +60,7 @@ class BookController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('pages.create');
 	}
 
 	/**
@@ -53,6 +70,10 @@ class BookController extends Controller {
 	 */
 	public function store()
 	{
+		$input = Request::all();
+		ContentInfo::create($input);
+		return redirect('books');
+//		return $input;
 		//
 	}
 
@@ -64,7 +85,9 @@ class BookController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$book = ContentInfo::findOrFail($id);
+		$books = [$book];
+		return $book;
 	}
 
 	/**

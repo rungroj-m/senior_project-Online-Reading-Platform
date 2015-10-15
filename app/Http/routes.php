@@ -21,3 +21,8 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+
+Route::get('books/create','BookController@create');
+Route::get('books/{id}','BookController@show');
+Route::post('books','BookController@store');

@@ -10,6 +10,6 @@ class Book extends Model {
 	 * @var string
 	 */
 	protected $table = 'book';
-	protected $fillable = 'contentKey';
+	protected $fillable = ['contentKey'];
 	protected $primaryKey = 'bookKey';
 }
