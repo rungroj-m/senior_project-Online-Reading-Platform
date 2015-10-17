@@ -86,7 +86,6 @@ class BookController extends Controller {
 	public function show($id)
 	{
 		$book = ContentInfo::findOrFail($id);
-		$books = [$book];
 		return $book;
 	}
 
@@ -98,6 +97,8 @@ class BookController extends Controller {
 	 */
 	public function edit($id)
 	{
+		$book = ContentInfo::findOrFail($id);
+		return view('pages.edit',compact('book'));
 		//
 	}
 
@@ -109,7 +110,17 @@ class BookController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+		$book = ContentInfo::findOrFail($id);
+		$input = Request::all();
+		return Request::all();
+//		$book->name = $input->name;
+//		$book->description = $input->description;
+//		$book->userRating = $input->userRating;
+//		$book->criticRating = $input->criticRating;
+//		$book->category = $input->category;
+//		$book->save();
+//		return redirect('books');
+//		return 'update';
 	}
 
 	/**

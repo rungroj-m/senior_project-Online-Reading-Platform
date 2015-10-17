@@ -25,4 +25,7 @@ Route::controllers([
 
 Route::get('books/create','BookController@create');
 Route::get('books/{id}','BookController@show');
+Route::get('books/{id}/edit','BookController@edit');
 Route::post('books','BookController@store');
+Route::post('books/{id}','BookController@update');
+Route::resource('books','BookController');
