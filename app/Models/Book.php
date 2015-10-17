@@ -9,7 +9,18 @@ class Book extends Model {
 	 *
 	 * @var string
 	 */
-	protected $table = 'book';
-	protected $fillable = ['contentKey'];
+	protected $fillable = array('name','description','userRatingCount','userRating','criticRating','TAG','category');
 	protected $primaryKey = 'bookKey';
+
+	public function user() {
+		return $this->belongTo('User');
+	}
+
+	public function content() {
+		return $this->hasMany('Content');
+	}
+
+	public function comment() {
+		return $this->hasMany('Comment')
+	}
 }

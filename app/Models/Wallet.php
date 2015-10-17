@@ -9,6 +9,10 @@ class Wallet extends Model {
 	 *
 	 * @var string
 	 */
-	protected $table = 'wallet';
-	protected $fillable = array('userKey','bankAccount');
+	protected $primaryKey = 'walletKey'; 
+	protected $fillable = array('bankAccount');
+
+	public function user() {
+		return $this->hasOne('User');
+	}
 }
