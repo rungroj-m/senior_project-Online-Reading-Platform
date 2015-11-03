@@ -21,6 +21,6 @@ class Book extends Model {
 	}
 
 	public function comment() {
-		return $this->hasMany('Comment')
+		return $this->hasMany('Comment');
 	}
 }

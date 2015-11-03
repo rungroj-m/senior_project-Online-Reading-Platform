@@ -4,7 +4,9 @@ use App\Models\ContentInfo;
 use App\Models\Book;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Validator;
 use Request;
+use Illuminate\Database\Eloquent\Collection;
 
 
 class BookController extends Controller {
@@ -14,6 +16,8 @@ class BookController extends Controller {
 	 *
 	 * @return Response
 	 */
+
+
 	public function index()
 	{
 		// $books = ContentInfo::all();
@@ -39,7 +43,7 @@ class BookController extends Controller {
 		// $books = ContentInfo::all(); 
 		// try{
 		// $book = new Book;
-		$books = ContentInfo::all();
+		$books = Book::all();
 		return view('pages.books',compact('books'));
 		// $books = [
 		// 		$book1,$book1
@@ -71,7 +75,7 @@ class BookController extends Controller {
 	public function store()
 	{
 		$input = Request::all();
-		ContentInfo::create($input);
+		Book::create($input);
 		return redirect('books');
 //		return $input;
 		//
@@ -85,7 +89,10 @@ class BookController extends Controller {
 	 */
 	public function show($id)
 	{
-		$book = ContentInfo::findOrFail($id);
+		$book = Book::find($id);
+		if($book == null) {
+			return;
+		}
 		return $book;
 	}
 
@@ -97,7 +104,7 @@ class BookController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$book = ContentInfo::findOrFail($id);
+		$book = Book::findOrFail($id);
 		return view('pages.edit',compact('book'));
 		//
 	}
@@ -110,17 +117,15 @@ class BookController extends Controller {
 	 */
 	public function update($id)
 	{
-		$book = ContentInfo::findOrFail($id);
+		$book = Book::findOrFail($id);
 		$input = Request::all();
-		return Request::all();
-//		$book->name = $input->name;
-//		$book->description = $input->description;
-//		$book->userRating = $input->userRating;
-//		$book->criticRating = $input->criticRating;
-//		$book->category = $input->category;
-//		$book->save();
-//		return redirect('books');
-//		return 'update';
+		$book->name = $input['name'];
+		$book->description = $input['description'];
+		$book->userRating = $input['userRating'];
+		$book->criticRating = $input['criticRating'];
+		$book->category = $input['category'];
+		$book->save();
+		return redirect('books');
 	}
 
 	/**
