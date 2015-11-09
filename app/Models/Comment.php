@@ -19,10 +19,10 @@ class Comment extends Model {
 	protected $fillable = ['#comment', 'comment','commentRating'];
 
 	public function book() {
-		return $this->belongTo('Book')
+		return $this->belongTo('Book');
 	}
 
 	public function content() {
-		return $this->belongTo('Content')
+		return $this->belongTo('Content');
 	}
 }

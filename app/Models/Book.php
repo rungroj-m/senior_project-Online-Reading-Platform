@@ -17,7 +17,7 @@ class Book extends Model {
 	}
 
 	public function content() {
-		return $this->hasMany('Content');
+		return $this->belongsToMany('App\Models\Content','books_contents', 'contentKey', 'bookKey');
 	}
 
 	public function comment() {

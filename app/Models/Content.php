@@ -13,10 +13,10 @@ class Content extends Model {
 	protected $primaryKey = 'contentKey';
 
 	public function book() {
-		return $this->belongTo('Book');
+		return $this->belongTo('App\Models\Book');
 	}
 
 	public function comment() {
-		return $this->hasMany('Comment')
+		return $this->hasMany('Comment');
 	}
 }
