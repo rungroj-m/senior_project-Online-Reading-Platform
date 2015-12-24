@@ -14,7 +14,7 @@
 			<tbody>
 			@foreach($books as $b)
 				<tr>
-					<td><a href="/books/{{$b -> contentKey}}"> {{$b->name}} </a></td>
+					<td><a href="/books/{{$b -> bookKey}}"> {{$b->name}} </a></td>
 					<td>{{$b->description}}</td>
 					<td>{{$b->userRating}}</td>
 					<td>{{$b->criticRating}}</td>
