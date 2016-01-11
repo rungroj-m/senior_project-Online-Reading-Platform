@@ -1,13 +1,10 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Content;
-use Request;
 class ContentController extends Controller {
-
 	protected  $book;
 
 	public function __construct(Book $book){
@@ -41,11 +38,16 @@ class ContentController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store($id)
+	public function store(Request $request)
 	{
-		$input = Request::all();
-		Content::create($input);
-		redirect('books/$id/content');
+		$content = new Content;
+		$content->name = $request->name;
+		$content->chapter = $request->chapter;
+		$content->content = $request->content;
+		$content->save();
+//		$input = Request::all();
+//		Content::create($input);
+//		redirect('books/$id/content');
 	}
 
 	/**
