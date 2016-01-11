@@ -60,9 +60,11 @@ class ContentController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($bookid,$contentid)
 	{
-		//
+
+		$content = Content::findOrFail($contentid);
+		return $content;
 	}
 
 	/**
