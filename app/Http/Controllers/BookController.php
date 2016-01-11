@@ -20,41 +20,8 @@ class BookController extends Controller {
 
 	public function index()
 	{
-		// $books = ContentInfo::all();
-
-		// $book1 = new ContentInfo;
-		// $book1->name = 'Example1';
-		// $book1->description = 'desc1';
-		// $book1->userRating = 5;
-		// $book1->criticRating = 5;
-		// $book1->category = 'Action';
-
-//		 $book2 = new ContentInfo;
-//		 $book2->name = 'Example2';
-//		 $book2->description = 'desc2';
-//		 $book2->userRating = 1;
-//		 $book2->criticRating = 1;
-//		 $book2->category = 'Horror';
-		// $books = [
-		// 		$book1, $book2
-		// ];
-		// return view('pages.books', compact('books'));
-
-		// $books = ContentInfo::all(); 
-		// try{
-		// $book = new Book;
 		$books = Book::all();
 		return view('pages.books',compact('books'));
-		// $books = [
-		// 		$book1,$book1
-		// ];
-		// $book->contentKey = $book1-> contentKey;
-		// $book->save();
-		// }
-		// catch(Exception $e){
-		// 	echo $e->getMessage();
-		// }
-		// return view('pages.books', compact('books'));
 	}
 
 	/**
@@ -77,8 +44,7 @@ class BookController extends Controller {
 		$input = Request::all();
 		Book::create($input);
 		return redirect('books');
-//		return $input;
-		//
+
 	}
 
 	/**

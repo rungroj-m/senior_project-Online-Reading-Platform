@@ -5,11 +5,6 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Content;
 class ContentController extends Controller {
-	protected  $book;
-
-	public function __construct(Book $book){
-		$this->book = $book;
-	}
 
 	/**
 	 * Display a listing of the resource.
@@ -18,8 +13,7 @@ class ContentController extends Controller {
 	 */
 	public function index($id)
 	{
-//		return "test";
-		$contents = Book::find($id)->content;
+		$contents = Book::findOrFail($id)->content;
 		return $contents;
 	}
 
@@ -40,15 +34,12 @@ class ContentController extends Controller {
 	 */
 	public function store($id,Request $request)
 	{
-		$book = Book::find($id);
+		$book = Book::findOrFail($id);
 		$content = new Content;
 		$content->name = $request->name;
 		$content->chapter = $request->chapter;
 		$content->content = $request->content;
 		$book->content()->save($content);
-//		$content->save();
-//		$input = Request::all();
-//		Content::create($input);
 		return $this->index($id);
 	}
 
