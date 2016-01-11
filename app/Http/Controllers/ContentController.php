@@ -38,16 +38,18 @@ class ContentController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Request $request)
+	public function store($id,Request $request)
 	{
+		$book = Book::find($id);
 		$content = new Content;
 		$content->name = $request->name;
 		$content->chapter = $request->chapter;
 		$content->content = $request->content;
-		$content->save();
+		$book->content()->save($content);
+//		$content->save();
 //		$input = Request::all();
 //		Content::create($input);
-//		redirect('books/$id/content');
+		return $this->index($id);
 	}
 
 	/**
