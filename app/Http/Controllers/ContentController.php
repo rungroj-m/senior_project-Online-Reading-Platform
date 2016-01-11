@@ -51,7 +51,11 @@ class ContentController extends Controller {
 	 */
 	public function show($id, $chapter)
 	{
-
+		$content_chap = DB::table('books_contents')
+			->where('bookKey', $id)
+			->join('contents', 'books_contents.contentKey', '=', 'contents.contentKey')
+			->where('contents.chapter', $chapter);
+		return $content_chap;
 	}
 
 	/**
