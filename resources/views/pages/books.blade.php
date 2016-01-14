@@ -19,6 +19,14 @@
 					<td>{{$b->userRating}}</td>
 					<td>{{$b->criticRating}}</td>
 					<td>{{$b->category}}</td>
+					<td><div class="col-md-6 text-right">
+						{!! Form::open([
+                            'method' => 'DELETE',
+                            'route' => ['books.destroy', $b->bookKey]
+                        ]) !!}
+						{!! Form::submit('Delete this task?', ['class' => 'btn btn-danger']) !!}
+						{!! Form::close() !!}
+					</div></td>
 				</tr>
 			@endforeach
 			</tbody>

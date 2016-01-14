@@ -4,6 +4,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Content;
+use DB;
+use Illuminate\Support\Facades\Redirect;
+
 class ContentController extends Controller {
 
 	/**
@@ -51,10 +54,11 @@ class ContentController extends Controller {
 	 */
 	public function show($id, $chapter)
 	{
+
 		$content_chap = DB::table('books_contents')
 			->where('bookKey', $id)
 			->join('contents', 'books_contents.contentKey', '=', 'contents.contentKey')
-			->where('contents.chapter', $chapter);
+			->where('contents.chapter', $chapter)->get();
 		return $content_chap;
 	}
 
@@ -64,11 +68,13 @@ class ContentController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($bookid,$contentid)
+	public function edit($id,$chapter)
 	{
-
-		$content = Content::findOrFail($contentid);
-		return $content;
+		$content = DB::table('books_contents')
+			->where('bookKey', $id)
+			->join('contents', 'books_contents.contentKey', '=', 'contents.contentKey')
+			->where('contents.chapter', $chapter)->first();
+		return view('pages.contentEdit',compact('content'));
 	}
 
 	/**
@@ -77,9 +83,19 @@ class ContentController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, $chapter,Request $request)
 	{
-		//
+		$content_chap = DB::table('books_contents')
+			->where('bookKey', $id)
+			->join('contents', 'books_contents.contentKey', '=', 'contents.contentKey')
+			->where('contents.chapter', $chapter)->first();
+		$content = Content::find($content_chap->contentKey);
+		$content->name =  $request->name;
+		$content->content = $request->content;
+		$content->chapter = $request->chapter;
+		$content->type = $request->type;
+		$content->save();
+		return Redirect::action('ContentController@index',array($id));
 	}
 
 	/**
