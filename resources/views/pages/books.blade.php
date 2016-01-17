@@ -19,17 +19,29 @@
 					<td>{{$b->userRating}}</td>
 					<td>{{$b->criticRating}}</td>
 					<td>{{$b->category}}</td>
+					<td><div class="col-md-6">
+							{!! Form::open([
+                            'method' => 'GET',
+                            'route' => ['books.edit', $b->bookKey]
+                        ]) !!}
+							{!! Form::submit('Edit this book?', ['class' => 'btn btn-primary']) !!}
+							{!! Form::close() !!}
+					</div></td>
 					<td><div class="col-md-6 text-right">
 						{!! Form::open([
                             'method' => 'DELETE',
                             'route' => ['books.destroy', $b->bookKey]
                         ]) !!}
-						{!! Form::submit('Delete this task?', ['class' => 'btn btn-danger']) !!}
+						{!! Form::submit('Delete this book?', ['class' => 'btn btn-danger']) !!}
 						{!! Form::close() !!}
 					</div></td>
 				</tr>
 			@endforeach
+			<img src="http://searchengineland.com/figz/wp-content/seloads/2011/11/html-5-for-seo.png">
 			</tbody>
 			<table>
 	</center>
+	<div class="col-md-6">
+		<a href="{{ route('books.create') }}" class="btn btn-primary">Create new Book</a>
+	</div>
 @stop

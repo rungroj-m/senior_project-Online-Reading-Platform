@@ -25,3 +25,4 @@ Route::controllers([
 
 Route::resource('books','BookController');
 Route::resource('books/{book}/content','ContentController');
+

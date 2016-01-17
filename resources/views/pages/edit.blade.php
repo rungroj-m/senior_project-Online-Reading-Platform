@@ -4,7 +4,9 @@
 
 	<h1>{{$book->name}}</h1>
 	<hr/>
-	{!! Form::open(['method' => 'PATCH','route' => ['books.update',$book->contentKey]])!!}
+	{!! Form::open(['method' => 'PUT','route' => ['books.update', $book->bookKey]]) !!}
+	{{--{!! Form::open(array('action' => array('BookController@update', $book->bookKey,'_method' => 'PUT'))) !!}--}}
+	{{--{!! Form::open(['method' => 'PATCH','route' => ['books.update',$book->contentKey]])!!}--}}
 	<div class="form-group">
 		{!! Form::label('name','Name:') !!}
 		{!! Form::text('name',$book->name,['class'=>'form-control']) !!}

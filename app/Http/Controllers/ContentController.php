@@ -17,7 +17,8 @@ class ContentController extends Controller {
 	public function index($id)
 	{
 		$contents = Book::findOrFail($id)->content;
-		return $contents;
+//		return $contents;
+		return view('pages.contents',compact('contents'))->with('id',$id);
 	}
 
 	/**
@@ -54,7 +55,6 @@ class ContentController extends Controller {
 	 */
 	public function show($id, $chapter)
 	{
-
 		$content_chap = DB::table('books_contents')
 			->where('bookKey', $id)
 			->join('contents', 'books_contents.contentKey', '=', 'contents.contentKey')
@@ -85,11 +85,7 @@ class ContentController extends Controller {
 	 */
 	public function update($id, $chapter,Request $request)
 	{
-		$content_chap = DB::table('books_contents')
-			->where('bookKey', $id)
-			->join('contents', 'books_contents.contentKey', '=', 'contents.contentKey')
-			->where('contents.chapter', $chapter)->first();
-		$content = Content::find($content_chap->contentKey);
+		$content = $this->findContent($id,$chapter);
 		$content->name =  $request->name;
 		$content->content = $request->content;
 		$content->chapter = $request->chapter;
@@ -104,9 +100,20 @@ class ContentController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($id,$chapter)
 	{
-		//
+		$content = $this->findContent($id,$chapter);
+		$content->delete();
+		return Redirect::action('ContentController@index',array($id));
+	}
+
+	public function findContent($bookId,$chapter){
+		$content_chap = DB::table('books_contents')
+			->where('bookKey', $bookId)
+			->join('contents', 'books_contents.contentKey', '=', 'contents.contentKey')
+			->where('contents.chapter', $chapter)->first();
+		$content = Content::find($content_chap->contentKey);
+		return $content;
 	}
 
 }
