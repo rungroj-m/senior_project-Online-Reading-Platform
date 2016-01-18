@@ -5,6 +5,6 @@
   },
   "devDependencies": {
     "gulp": "3.*",
-    "laravel-elixir": "4.2"
+    "laravel-elixir": "*"
   }
 }

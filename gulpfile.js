@@ -1,6 +1,5 @@
-var elixir = require('laravel-elixir');
-var gulp = require('gulp');
+var gulp = require('gulp')
 
-elixir(function(mix) {
-    mix.less('app.less');
+gulp.task('test', function(){
+	console.log('test');
 });
