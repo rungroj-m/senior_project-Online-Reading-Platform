@@ -2,10 +2,12 @@
 
 use App\Models\ContentInfo;
 use App\Models\Book;
+use App\Models\Content;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Validator;
 use Request;
+use DB;
 use Illuminate\Database\Eloquent\Collection;
 
 
@@ -102,9 +104,22 @@ class BookController extends Controller {
 	 */
 	public function destroy($id)
 	{
+		$this->DeleteContent($id);
 		$book = Book::findOrFail($id);
+		$book->content()->detach();
 		$book->delete();
 		return redirect('books');
+	}
+
+	public function DeleteContent($bookId){
+		$content_chap = DB::table('books_contents')
+			->select('contentKey')
+			->where('bookKey', $bookId)
+			->get();
+		foreach($content_chap as $cid){
+			Content::find($cid->contentKey)->delete();
+		}
+//		$content = Content::find($content_chap->contentKey);
 	}
 
 }
