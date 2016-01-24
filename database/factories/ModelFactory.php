@@ -23,7 +23,7 @@ $factory->define(App\Comment::class, function (Faker\Generator $faker) {
 $factory->define(App\Content::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
-        'content' => $faker->text,
+        'content' => $faker->paragraph,
         'chapter' => $faker->randomDigit,
         'type' => $faker->word,
     ];
@@ -31,10 +31,10 @@ $factory->define(App\Content::class, function (Faker\Generator $faker) {
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
-        'firstName' => $faker->name,
-        'lastName' => $faker->name,
+        'firstName' => $faker->firstName,
+        'lastName' => $faker->lastName,
         'email' => $faker->safeEmail,
-        'username' => $faker->word,
+        'username' => $faker->userName,
         'level' => $faker->randomDigit,
         'password' => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
