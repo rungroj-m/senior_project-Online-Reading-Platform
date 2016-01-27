@@ -34,7 +34,8 @@
 	<body>
 		<div class="container">
 			<div class="content">
-				<div class="title">Be right back.</div>
+				<div class="title">Something is missing.</div>
+				<h1>Please go back</h1>
 			</div>
 		</div>
 	</body>

@@ -37,11 +37,10 @@
 					</div></td>
 				</tr>
 			@endforeach
-			<img src="http://searchengineland.com/figz/wp-content/seloads/2011/11/html-5-for-seo.png">
 			</tbody>
 			<table>
 	</center>
-	<div class="col-md-6">
+	<div class="col-md-4">
 		<a href="{{ route('books.create') }}" class="btn btn-primary">Create new Book</a>
 	</div>
 @stop

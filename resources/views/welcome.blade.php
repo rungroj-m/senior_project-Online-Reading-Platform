@@ -1,48 +1,24 @@
-<html>
-	<head>
-		<title>Laravel</title>
-		
-		<link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
+@extends('app')
 
-		<style>
-			body {
-				margin: 0;
-				padding: 0;
-				width: 100%;
-				height: 100%;
-				color: #B0BEC5;
-				display: table;
-				font-weight: 100;
-				font-family: 'Lato';
-			}
+<style>
+	.container {
+		text-align: center;
+		vertical-align: middle;
+		margin-top: 130px;
+	}
+</style>
 
-			.container {
-				text-align: center;
-				display: table-cell;
-				vertical-align: middle;
-			}
-
-			.content {
-				text-align: center;
-				display: inline-block;
-			}
-
-			.title {
-				font-size: 96px;
-				margin-bottom: 40px;
-			}
-
-			.quote {
-				font-size: 24px;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="container">
-			<div class="content">
-				<div class="title">Laravel 5</div>
-				<div class="quote">{{ Inspiring::quote() }}</div>
+@section('content')
+<body>
+	<div class="container">
+		<div class="content">
+			<div class="title">
+				<span class="glyphicon glyphicon-book"></span>
+				READISM
 			</div>
+			<div class="quote">Read. Write. Create. In one place.</div>
+			<button class="btn btn-default"
 		</div>
-	</body>
-</html>
+	</div>
+</body>
+@endsection

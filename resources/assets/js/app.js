@@ -1,16 +1,22 @@
+global.$ = global.jQuery = require('jquery');
+
 require('bootstrap');
 require('angular');
+require('angular-route');
 
 var app = angular.module('app', [
 	'ngRoute',
-	'ngResource',
 ])
 
 .controller('BooksController', require('./controllers/BooksController'))
 
-.config(function($routeProvider){
-	$routeProvider.when('/booktest',{
+.config(['routeProvider', function($routeProvider){
+	$routeProvider
+
+	.when('/test',{
 		templateUrl: 'books/index.html',
-		controller: 'BooksController'
+		controller: 'BooksController',
 	});
-});
+    
+	$locationProvider.html5Mode(true);
+}]);

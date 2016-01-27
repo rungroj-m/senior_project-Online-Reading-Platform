@@ -11,11 +11,7 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
-
-Route::get('books', 'BookController@index');
-
-Route::get('home', 'HomeController@index');
+Route::get('home', 'WelcomeController@index');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
@@ -26,3 +22,4 @@ Route::controllers([
 Route::resource('books','BookController');
 Route::resource('books/{book}/content','ContentController');
 
+Route::any('/', 'WelcomeController@index');
