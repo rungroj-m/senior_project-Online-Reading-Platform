@@ -16,8 +16,9 @@
 				<span class="glyphicon glyphicon-book"></span>
 				READISM
 			</div>
-			<div class="quote">Read. Write. Create. In one place.</div>
-			<button class="btn btn-default"
+			<div class="quote">Read. Write. Create. In one place.
+				<a href="/books" role="button" class="btn btn-default"><div class="quote">Go to Creator's Hub</div></a>
+			</div>
 		</div>
 	</div>
 </body>
