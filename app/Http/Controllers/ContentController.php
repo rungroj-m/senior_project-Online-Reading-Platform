@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\Content;
 use DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class ContentController extends Controller {
 
@@ -28,7 +29,8 @@ class ContentController extends Controller {
 	 */
 	public function create($id)
 	{
-		return view('pages.contentCreate')->with("bookId",$id);
+		$book = Book::findOrFail($id);
+		return view('pages.contentCreate')->with("bookName", $book->name)->with("bookId", $id);
 	}
 
 	/**
@@ -38,13 +40,23 @@ class ContentController extends Controller {
 	 */
 	public function store($id,Request $request)
 	{
-		$book = Book::findOrFail($id);
-		$content = new Content;
-		$content->name = $request->name;
-		$content->chapter = $request->chapter;
-		$content->content = $request->content;
-		$book->content()->save($content);
-		return $this->index($id);
+		$validator = Validator::make($request->all(), [
+        'chapter' => 'integer'
+    ]);
+		if ($validator->fails()) {
+    	 return redirect()->action('ContentController@create',  ['bookId' => $id])
+                				->withErrors($validator)
+                      	->withInput();
+    }
+		else {
+			$book = Book::findOrFail($id);
+			$content = new Content;
+			$content->name = $request->name;
+			$content->chapter = $request->chapter;
+			$content->content = $request->content;
+			$book->content()->save($content);
+			return $this->index($id);
+		}
 	}
 
 	/**
