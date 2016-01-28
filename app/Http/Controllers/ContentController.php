@@ -70,8 +70,8 @@ class ContentController extends Controller {
 		$content_chap = DB::table('books_contents')
 			->where('bookKey', $id)
 			->join('contents', 'books_contents.contentKey', '=', 'contents.contentKey')
-			->where('contents.chapter', $chapter)->get();
-		return $content_chap;
+			->where('contents.chapter', $chapter)->first();
+		return view('pages.showContent',compact('content_chap'))->with('id',$id);
 	}
 
 	/**

@@ -37,7 +37,6 @@
 									</div></td>
 							</tr>
 						@endforeach
-						<img src="http://searchengineland.com/figz/wp-content/seloads/2011/11/html-5-for-seo.png">
 						</tbody>
 						</table>
 		<div class="col-md-6">

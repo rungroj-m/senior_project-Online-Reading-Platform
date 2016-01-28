@@ -19,21 +19,23 @@
 				<div class="form-group">
 					<label class="h4" for="category">Category</label>
 					<p>Category is permanent.</p>
-					<select class="form-control" name="category" ng-model="category">
+					<select class="form-control" name="category">
 						<option>Novel</option>
 						<option>Comic</option>
 					</select>
 				</div>
 				<div class="form-group">
-					{!! Form::submit('Add new content',['class' => 'btn btn-primary form-control']) !!}
+					<br/>
+					<div align="right">
+						<button type="submit" class="btn btn-default">Submit</button>
+					</div>
 				</div>
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			</form>
 		</div>
 		<div class="col-md-6">
-			<h1 class="word-wrap">@{{name}}</h1>
+			<h1 class="word-wrap">@{{name}}</h1><br/><br/><br/>
 			<p class="word-wrap">@{{description}}</p>
-			<h3>@{{category}}</h3>
 		</div>
 	</div>
 </div>

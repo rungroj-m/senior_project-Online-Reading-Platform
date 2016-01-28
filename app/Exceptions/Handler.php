@@ -38,7 +38,7 @@ class Handler extends ExceptionHandler {
 	{	
 		if ($e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException)
         {
-            return response()->view('index');
+            return response()->view('/errors/503');
         }
 		return parent::render($request, $e);
 	}

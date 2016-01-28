@@ -18,7 +18,6 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-
 Route::resource('books','BookController');
 Route::resource('books/{book}/content','ContentController');
 

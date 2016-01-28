@@ -57,11 +57,12 @@ class BookController extends Controller {
 	 */
 	public function show($id)
 	{
-		$book = Book::find($id);
-		if($book == null) {
-			return;
-		}
-		return $book;
+		// $book = Book::find($id);
+		// if($book == null) {
+		// 	return;
+		// }
+		return redirect('books/'.$id.'/content');
+		// return $book;
 	}
 
 	/**
