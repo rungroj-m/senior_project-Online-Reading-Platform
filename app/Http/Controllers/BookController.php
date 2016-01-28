@@ -118,7 +118,9 @@ class BookController extends Controller {
 			->where('bookKey', $bookId)
 			->get();
 		foreach($content_chap as $cid){
-			Content::find($cid->contentKey)->delete();
+			$findContent = Content::find($cid->contentKey);
+			if($findContent != null)
+				$findContent->delete();
 		}
 //		$content = Content::find($content_chap->contentKey);
 	}

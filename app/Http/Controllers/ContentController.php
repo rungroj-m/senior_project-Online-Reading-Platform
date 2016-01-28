@@ -53,7 +53,7 @@ class ContentController extends Controller {
 			$content = new Content;
 			$content->name = $request->name;
 			$content->chapter = $request->chapter;
-			$content->content = $request->content;
+			$content->content = str_replace("\r\n", "<br/>", $request->content);
 			$book->content()->save($content);
 			return $this->index($id);
 		}
