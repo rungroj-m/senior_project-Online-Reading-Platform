@@ -18,8 +18,8 @@ class ContentController extends Controller {
 	public function index($id)
 	{
 		$contents = Book::findOrFail($id)->content;
-//		return $contents;
-		return view('pages.contents',compact('contents'))->with('id',$id);
+		$book = Book::findOrFail($id);
+		return view('pages.contents',compact('contents', 'book'))->with('id',$id);
 	}
 
 	/**
@@ -53,7 +53,8 @@ class ContentController extends Controller {
 			$content = new Content;
 			$content->name = $request->name;
 			$content->chapter = $request->chapter;
-			$content->content = str_replace("\r\n", "<br/>", $request->content);
+			$content->content = $request->content;
+			// $content->content = str_replace("\r\n", "<br/>", $request->content);
 			$book->content()->save($content);
 			return $this->index($id);
 		}
@@ -71,7 +72,8 @@ class ContentController extends Controller {
 			->where('bookKey', $id)
 			->join('contents', 'books_contents.contentKey', '=', 'contents.contentKey')
 			->where('contents.chapter', $chapter)->first();
-		return view('pages.showContent',compact('content_chap'))->with('id',$id);
+		$book = Book::findOrFail($id);
+		return view('pages.showContent',compact('content_chap', 'book'))->with('id',$id);
 	}
 
 	/**
@@ -101,7 +103,6 @@ class ContentController extends Controller {
 		$content->name =  $request->name;
 		$content->content = $request->content;
 		$content->chapter = $request->chapter;
-		$content->type = $request->type;
 		$content->save();
 		return Redirect::action('ContentController@index',array($id));
 	}

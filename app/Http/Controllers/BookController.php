@@ -90,9 +90,6 @@ class BookController extends Controller {
 		$input = Request::all();
 		$book->name = $input['name'];
 		$book->description = $input['description'];
-		$book->userRating = $input['userRating'];
-		$book->criticRating = $input['criticRating'];
-		$book->category = $input['category'];
 		$book->save();
 		return redirect('books');
 	}

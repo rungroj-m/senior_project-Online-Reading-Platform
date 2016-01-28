@@ -16,22 +16,34 @@
 		.word-wrap {
 			word-wrap: break-word;
 		}
+		.content-text {
+			white-space: pre-wrap;
+		}
+		.content-bg {
+			background: #F5F5F5;
+		}
+		.content-body {
+			background: white;
+		}
 	</style>
 
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>READI Writer's Hub</title>
 
-	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+	<!-- <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+ -->
+
+ 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+
+ 	<link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
-	<!-- Fonts -->
-	<link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
-	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
-
 	<script src="{{ asset('js/app.js') }}"></script>
 	<script src="{{ asset('js/templates.js') }}"></script>
+
 </head>
 </html>
