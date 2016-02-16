@@ -16,7 +16,7 @@
 				<span class="glyphicon glyphicon-book"></span>
 				READI
 			</div>
-			<div class="quote">Read. Write. Create. In one place.
+			<div class="quote">Read. Create. In one place.
 				<a href="/books" role="button" class="btn btn-default"><div class="quote">Go to Creator's Hub</div></a>
 			</div>
 		</div>

@@ -5,7 +5,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-6">
-			<h1>New content in {{$bookName}}</h1>
+			<h1>Add {{$bookName}} Chapter</h1>
 			<hr/>
 			{!! Form::open(['url' => URL::to("/books/$bookId/content")]) !!}
 			<div class="form-group">
@@ -23,7 +23,7 @@
 				{!! Form::text('chapter',null,['class'=>'form-control']) !!}
 			</div>
 			<div class="form-group">
-				{!! Form::submit('Add new content',['class' => 'btn btn-primary form-control']) !!}
+				{!! Form::submit('Add Chapter',['class' => 'btn btn-default']) !!}
 			</div>
 			{!! Form::close() !!}
 		</div>

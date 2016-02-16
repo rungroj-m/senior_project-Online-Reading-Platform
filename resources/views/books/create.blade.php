@@ -35,7 +35,7 @@
 		</div>
 		<div class="col-md-6">
 			<h1 class="word-wrap">@{{name}}</h1><br/><br/><br/>
-			<p class="word-wrap" class="content-text">@{{description}}</p>
+			<p class="word-wrap content-text">@{{description}}</p>
 		</div>
 	</div>
 </div>

@@ -19,7 +19,7 @@
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
-					<li><a>About READI</a></li>
+					<li><a></a></li>
 					<li><a class="span glyphicon glyphicon-search"></a></span></li>
 					@if (Auth::guest())
 						<!-- <li><a href="{{ url('/auth/login') }}">Login</a></li>

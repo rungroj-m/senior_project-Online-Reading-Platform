@@ -4,7 +4,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-6">
-			<h1>{{$content->name}}</h1>
+			<h1>Edit {{$content->name}}</h1>
 			<hr/>
 			{!! Form::open(['method' => 'PATCH','route' =>  ['books.{book}.content.update',$content->bookKey,$content->chapter]])!!}
 			<div class="form-group">

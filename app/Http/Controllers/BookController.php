@@ -23,7 +23,7 @@ class BookController extends Controller {
 	public function index()
 	{
 		$books = Book::all();
-		return view('pages.books',compact('books'));
+		return view('books.index',compact('books'));
 	}
 
 	/**
@@ -33,7 +33,7 @@ class BookController extends Controller {
 	 */
 	public function create()
 	{
-		return view('pages.create');
+		return view('books.create');
 	}
 
 	/**
@@ -74,7 +74,7 @@ class BookController extends Controller {
 	public function edit($id)
 	{
 		$book = Book::findOrFail($id);
-		return view('pages.edit',compact('book'));
+		return view('books.edit',compact('book'));
 		//
 	}
 
@@ -91,7 +91,7 @@ class BookController extends Controller {
 		$book->name = $input['name'];
 		$book->description = $input['description'];
 		$book->save();
-		return redirect('books');
+		return redirect('books/'.$id.'/content');
 	}
 
 	/**

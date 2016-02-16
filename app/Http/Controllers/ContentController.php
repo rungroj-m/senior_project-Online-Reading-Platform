@@ -19,7 +19,7 @@ class ContentController extends Controller {
 	{
 		$contents = Book::findOrFail($id)->content;
 		$book = Book::findOrFail($id);
-		return view('pages.contents',compact('contents', 'book'))->with('id',$id);
+		return view('contents.index',compact('contents', 'book'))->with('id',$id);
 	}
 
 	/**
@@ -30,7 +30,7 @@ class ContentController extends Controller {
 	public function create($id)
 	{
 		$book = Book::findOrFail($id);
-		return view('pages.contentCreate')->with("bookName", $book->name)->with("bookId", $id);
+		return view('contents.create')->with("bookName", $book->name)->with("bookId", $id);
 	}
 
 	/**
@@ -73,7 +73,7 @@ class ContentController extends Controller {
 			->join('contents', 'books_contents.contentKey', '=', 'contents.contentKey')
 			->where('contents.chapter', $chapter)->first();
 		$book = Book::findOrFail($id);
-		return view('pages.showContent',compact('content_chap', 'book'))->with('id',$id);
+		return view('contents.show',compact('content_chap', 'book'))->with('id',$id);
 	}
 
 	/**
@@ -88,7 +88,7 @@ class ContentController extends Controller {
 			->where('bookKey', $id)
 			->join('contents', 'books_contents.contentKey', '=', 'contents.contentKey')
 			->where('contents.chapter', $chapter)->first();
-		return view('pages.contentEdit',compact('content'));
+		return view('contents.edit',compact('content'));
 	}
 
 	/**
