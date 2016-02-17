@@ -1,3 +1,4 @@
+
 <html>
 	<head>
 		<link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
@@ -34,8 +35,8 @@
 	<body>
 		<div class="container">
 			<div class="content">
-				<div class="title">Something is missing.</div>
-				<h1>Please go back</h1>
+				<div class="title">404 Something is missing.</div>
+				<h1>Please go <a href="/">back</a></h1>
 			</div>
 		</div>
 	</body>

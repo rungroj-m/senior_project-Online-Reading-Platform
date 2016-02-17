@@ -10,7 +10,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="{{ url('/') }}">READISM</a>
+				<a class="navbar-brand" href="{{ url('/') }}">READI</a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -19,7 +19,8 @@
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
-					<li><a>About READISM</a></li>
+					<li><a></a></li>
+					<li><a class="span glyphicon glyphicon-search"></a></span></li>
 					@if (Auth::guest())
 						<!-- <li><a href="{{ url('/auth/login') }}">Login</a></li>
 						<li><a href="{{ url('/auth/register') }}">Register</a></li> -->

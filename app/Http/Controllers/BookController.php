@@ -23,7 +23,7 @@ class BookController extends Controller {
 	public function index()
 	{
 		$books = Book::all();
-		return view('pages.books',compact('books'));
+		return view('books.index',compact('books'));
 	}
 
 	/**
@@ -33,7 +33,7 @@ class BookController extends Controller {
 	 */
 	public function create()
 	{
-		return view('pages.create');
+		return view('books.create');
 	}
 
 	/**
@@ -57,11 +57,12 @@ class BookController extends Controller {
 	 */
 	public function show($id)
 	{
-		$book = Book::find($id);
-		if($book == null) {
-			return;
-		}
-		return $book;
+		// $book = Book::find($id);
+		// if($book == null) {
+		// 	return;
+		// }
+		return redirect('books/'.$id.'/content');
+		// return $book;
 	}
 
 	/**
@@ -73,7 +74,7 @@ class BookController extends Controller {
 	public function edit($id)
 	{
 		$book = Book::findOrFail($id);
-		return view('pages.edit',compact('book'));
+		return view('books.edit',compact('book'));
 		//
 	}
 
@@ -89,11 +90,8 @@ class BookController extends Controller {
 		$input = Request::all();
 		$book->name = $input['name'];
 		$book->description = $input['description'];
-		$book->userRating = $input['userRating'];
-		$book->criticRating = $input['criticRating'];
-		$book->category = $input['category'];
 		$book->save();
-		return redirect('books');
+		return redirect('books/'.$id.'/content');
 	}
 
 	/**

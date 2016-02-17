@@ -18,8 +18,8 @@ class ContentController extends Controller {
 	public function index($id)
 	{
 		$contents = Book::findOrFail($id)->content;
-//		return $contents;
-		return view('pages.contents',compact('contents'))->with('id',$id);
+		$book = Book::findOrFail($id);
+		return view('contents.index',compact('contents', 'book'))->with('id',$id);
 	}
 
 	/**
@@ -30,7 +30,7 @@ class ContentController extends Controller {
 	public function create($id)
 	{
 		$book = Book::findOrFail($id);
-		return view('pages.contentCreate')->with("bookName", $book->name)->with("bookId", $id);
+		return view('contents.create')->with("bookName", $book->name)->with("bookId", $id);
 	}
 
 	/**
@@ -53,7 +53,8 @@ class ContentController extends Controller {
 			$content = new Content;
 			$content->name = $request->name;
 			$content->chapter = $request->chapter;
-			$content->content = str_replace("\r\n", "<br/>", $request->content);
+			$content->content = $request->content;
+			// $content->content = str_replace("\r\n", "<br/>", $request->content);
 			$book->content()->save($content);
 			return $this->index($id);
 		}
@@ -70,8 +71,9 @@ class ContentController extends Controller {
 		$content_chap = DB::table('books_contents')
 			->where('bookKey', $id)
 			->join('contents', 'books_contents.contentKey', '=', 'contents.contentKey')
-			->where('contents.chapter', $chapter)->get();
-		return $content_chap;
+			->where('contents.chapter', $chapter)->first();
+		$book = Book::findOrFail($id);
+		return view('contents.show',compact('content_chap', 'book'))->with('id',$id);
 	}
 
 	/**
@@ -86,7 +88,7 @@ class ContentController extends Controller {
 			->where('bookKey', $id)
 			->join('contents', 'books_contents.contentKey', '=', 'contents.contentKey')
 			->where('contents.chapter', $chapter)->first();
-		return view('pages.contentEdit',compact('content'));
+		return view('contents.edit',compact('content'));
 	}
 
 	/**
@@ -101,7 +103,6 @@ class ContentController extends Controller {
 		$content->name =  $request->name;
 		$content->content = $request->content;
 		$content->chapter = $request->chapter;
-		$content->type = $request->type;
 		$content->save();
 		return Redirect::action('ContentController@index',array($id));
 	}
