@@ -1,7 +1,10 @@
-<?php namespace App\Http\Middleware;
+<?php
+
+namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Contracts\Auth\Guard;
+// use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Guard;
 
 class Authenticate {
 
@@ -30,17 +33,12 @@ class Authenticate {
 	 * @param  \Closure  $next
 	 * @return mixed
 	 */
-	public function handle($request, Closure $next)
-	{
-		if ($this->auth->guest())
-		{
-			if ($request->ajax())
-			{
+	public function handle($request, Closure $next) {
+		if ($this->auth->guest()) {
+			if ($request->ajax()) {
 				return response('Unauthorized.', 401);
-			}
-			else
-			{
-				return redirect()->guest('auth/login');
+			} else {
+				return redirect()->guest('login');
 			}
 		}
 
