@@ -27,6 +27,15 @@ Route::get('register', 'Auth\AuthController@getRegister');
 Route::post('register', 'Auth\AuthController@postRegister');
 
 Route::resource('books','BookController');
-Route::resource('books/{book}/content','ContentController');
+Route::group(['middleware' => 'auth'], function () {
+	Route::resource('books/{book}/content', 'ContentController');
+//	Route::get('profile','ProfileController@index');
 
+	Route::Controller('profile','ProfileController');
+	Route::get('profile/edit','ProfileController@edit');
+	Route::put('profile',[
+		'as' => 'profile','uses' =>'ProfileController@update'
+	]);
+
+});
 Route::any('/', 'WelcomeController@index');
