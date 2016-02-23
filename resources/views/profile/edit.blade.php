@@ -24,10 +24,6 @@
 				{!! Form::text('email',$user->email,['class'=>'form-control']) !!}
 			</div>
 
-			{{--<div class="form-group">--}}
-			{{--{!! Form::label('description','Description:') !!}--}}
-			{{--{!! Form::textarea('description',$book->description,['class'=>'form-control']) !!}--}}
-		{{--</div>--}}
 		<div class="form-group">
 			{!! Form::submit('Edit',['class' => 'btn btn-default']) !!}
 		</div>
