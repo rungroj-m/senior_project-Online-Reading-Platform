@@ -100,8 +100,14 @@ class ProfileController extends Controller
 
             $file->move(public_path().'/images/', $name);
         }
+//        return $image->filePath;
         $image->save();
-        return $this->create()->with('success', 'Image Uploaded Successfully');
+
+        $id = Auth::id();
+        $user = User::findOrFail($id);
+        $user->image = $image -> filePath;
+        $user->save();
+        return 'Image Uploaded Successfully';
     }
 
 }
