@@ -1,2 +1,0 @@
-angular.module("templates", []).run(["$templateCache", function($templateCache) {$templateCache.put("index.html","<html ng-app>\n<input ng-model=\'{{ testName }}\'>\n<h1>{{ testName }}</h1>\n\n</html>");
-$templateCache.put("books/index.html","<div>\n	Test\n</div>");}]);
