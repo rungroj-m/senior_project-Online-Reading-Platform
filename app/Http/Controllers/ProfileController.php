@@ -6,7 +6,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use Input;
+use App\Models\Image;
+use Carbon\Carbon;
 
 class ProfileController extends Controller
 {
@@ -73,4 +75,39 @@ class ProfileController extends Controller
     public function resetPassword($id,$password){
 
     }
+
+
+    public function imageUpload(){
+        return view('profile.imageUpload');
+    }
+
+    public function imageSave(Request $request){
+        $image = new Image();
+        $this->validate($request, [
+            'title' => 'required',
+            'image' => 'required'
+        ]);
+        $image->title = $request->title;
+        $image->description = $request->description;
+        if($request->hasFile('image')) {
+            $file = Input::file('image');
+            //getting timestamp
+            $timestamp = str_replace([' ', ':'], '-', Carbon::now()->toDateTimeString());
+
+            $name = $timestamp. '-' .$file->getClientOriginalName();
+
+            $image->filePath = $name;
+
+            $file->move(public_path().'/images/', $name);
+        }
+//        return $image->filePath;
+        $image->save();
+
+        $id = Auth::id();
+        $user = User::findOrFail($id);
+        $user->image = $image -> filePath;
+        $user->save();
+        return 'Image Uploaded Successfully';
+    }
+
 }

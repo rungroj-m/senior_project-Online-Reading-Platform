@@ -4,10 +4,13 @@ use App\Models\ContentInfo;
 use App\Models\Book;
 use App\Models\Content;
 use App\Http\Requests;
+use App\Models\User;
+use App\Models\Rating;
 use App\Http\Controllers\Controller;
 use Validator;
 use Request;
 use DB;
+use Auth;
 use Illuminate\Database\Eloquent\Collection;
 
 
@@ -61,6 +64,10 @@ class BookController extends Controller {
 		// if($book == null) {
 		// 	return;
 		// }
+
+
+//		return $this->userVote($id);
+		
 		return redirect('books/'.$id.'/content');
 		// return $book;
 	}
@@ -102,14 +109,14 @@ class BookController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		$this->DeleteContent($id);
+		$this->deleteContent($id);
 		$book = Book::findOrFail($id);
 		$book->content()->detach();
 		$book->delete();
 		return redirect('books');
 	}
 
-	public function DeleteContent($bookId){
+	public function deleteContent($bookId){
 		$content_chap = DB::table('books_contents')
 			->select('contentKey')
 			->where('bookKey', $bookId)
@@ -120,6 +127,63 @@ class BookController extends Controller {
 				$findContent->delete();
 		}
 //		$content = Content::find($content_chap->contentKey);
+	}
+
+	public function alreadyRate($id){
+
+		$userID = Auth::id();
+		$book = Book::findOrFail($id);
+		$bookKey = $book->getKey();
+		$condition = ['userKey' => $userID , 'bookKey' => $bookKey];
+		$check = DB::table('ratings')->where($condition)->first();
+
+		if($check == null)
+			return false;
+		return true;
+
+	}
+
+	public function rate($id){
+
+		// if user already vote ( nothing happen )
+		// else
+
+		if($this->alreadyRate($id)){
+			return 'already vote';
+		}
+
+		$userID = Auth::id();
+
+		$user = User::findOrfail($userID);
+
+		$input = Request::all();
+		$book = Book::findOrFail($id);
+
+		// check user level if level == 0 -> basic user
+		// if level == 1 -> critic user
+		// level 2 -> admin
+
+		// assume it pass data user vote
+
+		if($user -> userLevel == '0' || $user -> userLevel == '2') {
+			$book->userRating += $input['userVote'];
+//			$book->userRating += 4;
+			$book->userRatingCount += 1;
+			$book->save();
+		}
+		else{
+			$book->criticRating += $input['userVote'];
+			$book->criticRatingCount += 1;
+			$book->save();
+		}
+
+		$rating = new Rating();
+		$rating -> bookKey = $book->getKey();
+		$rating -> userKey = $userID;
+		$rating -> save();
+
+		return 'save complete';
+
 	}
 
 }

@@ -149,6 +149,7 @@ return [
 		'App\Providers\RouteServiceProvider',
 		'App\Providers\AuthServiceProvider',
 
+		Intervention\Image\ImageServiceProvider::class,
 	],
 
 	/*
@@ -198,8 +199,10 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Form'		=> 'Illuminate\Html\FormFacade',
-		'Html'			=> 'Illuminate\Html\HtmlFacade',
+		'Html'		=> 'Illuminate\Html\HtmlFacade',
 		'Gate'    	=> 'Illuminate\Support\Facades\Gate',
+		'Image' 	=> Intervention\Image\Facades\Image::class,
+
 	),
 
 ];

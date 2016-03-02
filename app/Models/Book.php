@@ -9,7 +9,7 @@ class Book extends Model {
 	 *
 	 * @var string
 	 */
-	protected $fillable = array('name','description','userRatingCount','userRating','criticRating','TAG','category');
+	protected $fillable = array('name','description','userRatingCount','userRating','criticRating','TAG','category','criticRatingCount');
 	protected $primaryKey = 'bookKey';
 
 	public function user() {
