@@ -23,12 +23,14 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
+						<ul class="dropdown-menu">
 						@if (Auth::guest())
-							<!-- <li><a href="{{ url('/login') }}">Login</a></li>
-							<li><a href="{{ url('/register') }}">Register</a></li> -->
+							<li><a href="{{ url('/login') }}">Login</a></li>
+							<li><a href="{{ url('/register') }}">Register</a></li>
 						@else
-							
+							<li><a href="#">Profile</a></li>
 						@endif
+						</ul>
 					</li>
 				</ul>
 			</div>
