@@ -33,8 +33,8 @@
                     <td>{{ $user->userLevel }}</td>
                     <td>{{ $user->created_at->format('F d, Y h:ia') }}</td>
                     <td>
-                        <a href="/admin/user/{{ $user->id }}/edit" class="btn btn-info pull-left" style="margin-right: 3px;">Edit</a>
-                        {!! Form::open(['url' => '/admin/user/' . $user->id, 'method' => 'DELETE']) !!}
+                        <a href="/admin/user/{{ $user->userKey }}/edit" class="btn btn-info pull-left" style="margin-right: 3px;">Edit</a>
+                        {!! Form::open(['url' => '/admin/user/' . $user->userKey, 'method' => 'DELETE']) !!}
                         {!! Form::submit('Delete', ['class' => 'btn btn-danger'])!!}
                         {!! Form::close() !!}
                     </td>

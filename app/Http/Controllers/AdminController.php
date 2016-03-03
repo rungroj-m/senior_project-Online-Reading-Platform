@@ -88,10 +88,7 @@ class AdminController extends Controller
 
       $user->firstName = $request->firstName;
       $user->lastName  = $request->lastName;
-      $user->username   = $request->username;
       $user->email      = $request->email;
-      $user->userLevel  = $request->userLevel;
-      $user->password   = bcrypt($request->password);
 
       $user->save();
 
