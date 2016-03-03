@@ -43,5 +43,17 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'profile','uses' =>'ProfileController@update'
 	]);
 
+	Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function() {
+		Route::get('admin/user/create', 'AdminController@create');
+		Route::post('admin/user/create', 'AdminController@store');
+		Route::get('admin/user/{id}/edit', 'AdminController@edit');
+		Route::put('admin/user/{id}/edit', [
+			'as' => 'admin-edit-user', 'uses' => 'AdminController@update'
+		]);
+		Route::delete('admin/user/{id}', 'AdminController@destroy');
+		Route::get('admin', 'AdminController@index');
+	});
 });
+
+
 Route::any('/', 'WelcomeController@index');
