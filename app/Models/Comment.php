@@ -16,13 +16,10 @@ class Comment extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['#comment', 'comment','commentRating'];
+	protected $fillable = ['ownerKey', 'comment','parentKey','rating','bookKey'];
 
 	public function book() {
 		return $this->belongTo('Book');
 	}
 
-	public function content() {
-		return $this->belongTo('Content');
-	}
 }
