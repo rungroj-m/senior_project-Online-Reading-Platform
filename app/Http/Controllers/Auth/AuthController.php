@@ -29,7 +29,7 @@ class AuthController extends Controller {
 
 		protected $loginPath = '/login'; // path to the login URL
 		protected $registerPath = '/register';
-	 	protected $redirectPath = '/'; // path to the route where you want users to be redirected once logged in
+	 	protected $redirectPath = '/books'; // path to the route where you want users to be redirected once logged in
 	 	protected $redirectTo = '/'; // path you're sent to once you've reset your password
 
     /**
