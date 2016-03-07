@@ -11,8 +11,6 @@
 |
 */
 
-Route::get('home', 'WelcomeController@index');
-
 Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
@@ -54,5 +52,5 @@ Route::group(['middleware' => 'auth'], function () {
 	});
 });
 
-
+Route::get('home', 'WelcomeController@index');
 Route::any('/', 'WelcomeController@index');

@@ -23,9 +23,9 @@
 		<div class="container">
 			<div class="col-md-5 col-md-offset-1 home-left">
 				<div class="title">
-					READI
+					Readi
 				</div>
-				<h1>I don't have a slogan yet so anything would do here.</h1>
+				<h1>I don't have a slogan yet, so anything would do here.</h1>
 			</div>
 			<div class="col-md-4 home-right">
 				<h2>Welcome</h2>

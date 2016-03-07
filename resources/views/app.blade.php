@@ -10,7 +10,11 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="{{ url('/') }}">READI</a>
+				@if(Auth::guest())
+					<a class="navbar-brand" href="{{ url('/') }}">READI</a>
+				@else
+					<a class="navbar-brand" href="{{ url('/books') }}">READI</a>
+				@endif
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -24,12 +28,12 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						@if (Auth::guest())
-							Hello, guest!
+							Guest
 						@else
-							Hello, user!
+							USER_NAME_HERE
 						@endif
-							<span class="glyphicon glyphicon-user"></span>
-							<span class="caret"></span>
+						<span class="glyphicon glyphicon-user"></span>
+						<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
 						@if (Auth::guest())
