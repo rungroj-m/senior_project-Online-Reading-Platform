@@ -14,10 +14,8 @@ class CreateBookBridgedTable extends Migration {
 	{
 		Schema::create('books_comments', function(Blueprint $table){
 			$table->increments('id');
-
 			$table->integer('bookKey')->unsigned()->references('bookKey')->on('books');
 			$table->integer('commentKey')->unsigned()->references('commentKey')->on('comments');
-			$table->integer('contentKey')->unsigned()->references('contentKey')->on('contents');
 		});
 
 		Schema::create('books_contents', function(Blueprint $table){

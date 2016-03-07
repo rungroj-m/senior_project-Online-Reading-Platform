@@ -8,5 +8,5 @@ class Rating extends Model
 {
     protected $table = 'ratings';
     protected $fillable = array('bookKey','userKey');
-    protected $primaryKey = 'bookKey';
+    protected $primaryKey = 'ratingKey';
 }

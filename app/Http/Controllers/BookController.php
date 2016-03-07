@@ -67,7 +67,7 @@ class BookController extends Controller {
 
 
 //		return $this->userVote($id);
-		
+
 		return redirect('books/'.$id.'/content');
 		// return $book;
 	}
