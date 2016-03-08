@@ -30,7 +30,7 @@
 						@if (Auth::guest())
 							Guest
 						@else
-							USER_NAME_HERE
+							{{$user->username}}
 						@endif
 						<span class="glyphicon glyphicon-user"></span>
 						<span class="caret"></span>

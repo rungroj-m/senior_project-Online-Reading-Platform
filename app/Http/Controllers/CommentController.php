@@ -26,6 +26,18 @@ class commentController extends Controller
         return $comment;
     }
 
+    public function getComment($bookId){
+
+        $book = Book::findOrFail($bookId);
+
+
+        $book_comments = DB::table('comments')
+            ->where('bookKey',$book->getKey())
+            ->orderBy('created_at', 'desc')->get();
+        return $book_comments;
+
+    }
+
     /**
      * replied comment
      */
