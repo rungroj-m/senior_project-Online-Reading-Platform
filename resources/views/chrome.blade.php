@@ -6,6 +6,12 @@
 			text-align: center;
 			display: inline-block;
 		}
+		.container {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
 		.title {
 			font-size: 96px;
 			margin-bottom: 40px;
@@ -22,6 +28,26 @@
 		.home-background {
 			background-size: cover;
 			background-image: url('/images/home_book.jpg');
+		}
+		.transparent-white{
+			background-color: rgba(255,255,255,0.9);
+		}
+		.home-left {
+			background-color: rgba(255,255,255,0.9);
+			height: 300;
+		}
+		.home-right {
+			background-color: rgba(0,0,0,0.7);
+			color: white;
+			height: 300;
+		}
+		.carousel-image{
+			width: auto;
+			height: 200px;
+			max-height: 200px;
+		}
+		.top-button{
+			text-align: right;
 		}
 	</style>
 

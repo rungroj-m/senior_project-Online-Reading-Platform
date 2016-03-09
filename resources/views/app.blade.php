@@ -1,7 +1,7 @@
 @extends('chrome')
 
 <body>
-	<nav class="navbar navbar-inverse">
+	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -11,9 +11,9 @@
 					<span class="icon-bar"></span>
 				</button>
 				@if(Auth::guest())
-					<a class="navbar-brand" href="{{ url('/') }}">READI</a>
+					<a class="navbar-brand" href="{{ url('/') }}">Readi</a>
 				@else
-					<a class="navbar-brand" href="{{ url('/books') }}">READI</a>
+					<a class="navbar-brand" href="{{ url('/books') }}">Readi</a>
 				@endif
 			</div>
 
