@@ -2,11 +2,17 @@
 
 @section('content')
 <body>
-	<div class="container transparent-white">
+	<div>
 		<div class="col-md-10 col-md-offset-1">
 			<div>
-				<h1>Readi CREATORS</h1><br/>
-
+				<div align="right" style="float: right">
+					<a href="{{ route('books.create') }}" class="btn btn-default">Create New</a>
+					<input type="textarea">
+					<button type="submit">
+						<i class="glyphicon glyphicon-search"></i>
+					</button>
+				</div>
+				<h1>Readi CREATORS</h1>
 				<div>
 					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 						<!-- Indicators -->
@@ -19,7 +25,7 @@
 							<div class="item active carousel-image">
 								<img src="/images/book1.jpg" alt="">
 								<div class="carousel-caption">
-									Book 1
+								Book 1
 								</div>
 							</div>
 							<div class="item carousel-image">
@@ -40,14 +46,14 @@
 						</a>
 					</div>
 				</div><br/>
-				<div>
+				<div class="col-md-6">
 					<table class="table" style="width:100%" align="center">
-						<thead>
+<!-- 						<thead>
 							<th>Title</th>
 							<th>Description</th>
 							<th>User Rating</th>
 							<th>Category</th>
-						</thead>
+						</thead> -->
 						<tbody>
 							@foreach($books as $b)
 								<tr>
@@ -61,7 +67,11 @@
 							@endforeach
 						</tbody>
 					</table>
-					<a href="{{ route('books.create') }}" class="btn btn-primary">New Book</a>
+				</div>
+				<div class="col-md-6">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus quam ut orci dignissim interdum. Curabitur ipsum mi, facilisis id nisl mollis, consequat egestas felis. Cras id lacus faucibus, vehicula nibh tincidunt, porta sem. Sed ornare scelerisque vehicula. Duis tempor maximus purus. Curabitur gravida, magna sit amet semper viverra, lorem lorem lacinia justo, a feugiat quam lectus quis purus. Pellentesque pretium neque vitae accumsan tincidunt.
+
+					Donec id pellentesque mauris. Donec at arcu lorem. Aenean fringilla metus eu consequat suscipit. Fusce id dignissim erat. Suspendisse dignissim urna ut dolor sagittis sollicitudin. Cras ornare leo odio, vel egestas metus ornare ut. Curabitur sagittis neque vel sem tempor convallis. Praesent a diam cursus, feugiat neque et, ornare leo. Morbi mattis ultricies ullamcorper. Phasellus vehicula, mi eget gravida placerat, tellus felis congue quam, facilisis vestibulum ligula elit vitae tellus. Aenean non euismod neque, non sagittis orci. Vestibulum convallis mollis tellus et maximus.
 				</div>
 			</div>
 		</div>

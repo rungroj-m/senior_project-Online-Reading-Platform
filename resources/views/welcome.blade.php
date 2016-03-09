@@ -12,7 +12,7 @@
 			</div>
 			<div class="col-md-5 home-right">
 				<h2>Welcome</h2>
-				<p>Login to start reading and creating, or <a href="register">register</a> to be part of us</p>
+				<p>Login to start reading, become a creator, or <a href="register">register</a> to be part of our community</p>
 				<form class="form-vertical" role="form" method="POST" action="{{ url('/login') }}">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<div class="form-group">
