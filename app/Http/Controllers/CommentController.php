@@ -30,11 +30,13 @@ class commentController extends Controller
 
         $book = Book::findOrFail($bookId);
 
+        return Comment::with(['ownerKey','comment','rating'])->where('bookKey'$book->getKey());
 
-        $book_comments = DB::table('comments')
-            ->where('bookKey',$book->getKey())
-            ->orderBy('created_at', 'desc')->get();
-        return $book_comments;
+
+//        $book_comments = DB::table('comments')
+//            ->where('bookKey',$book->getKey())
+//            ->orderBy('created_at', 'desc')->get();
+//        return $book_comments;
 
     }
 
@@ -54,6 +56,15 @@ class commentController extends Controller
         return $comment;
 
     }
+
+//    public function nodeComment($book_comments,$parentKey){
+//        foreach($book_comments as $comment){
+//            if($comment -> ownerKey == $parentKey){
+//                return nodeComment($book_comments,$comment->getKey());
+//            }
+//
+//        }
+//    }
 
     public function alreadyRate($commentKey){
         $userID = Auth::id();

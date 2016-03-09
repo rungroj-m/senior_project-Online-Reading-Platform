@@ -22,4 +22,13 @@ class Comment extends Model {
 		return $this->belongTo('Book');
 	}
 
+	public function parent()
+	{
+		return $this->belongsTo('App\Models\Comment');
+	}
+
+	public function child(){
+		return $this->hasMany('App\Models\Comment');
+	}
+
 }
