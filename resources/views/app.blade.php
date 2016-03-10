@@ -19,9 +19,9 @@
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="{{ url('/books') }}">NOVEL</a></li>
-					<li><a href="{{ url('/books') }}">COMIC</a></li>
-					<li><a href="{{ url('/books') }}">FEED</a></li>
+					<li><a href="{{ url('/books') }}"><span class="first-navbar-letter">N</span>OVEL</a></li>
+					<li><a href="{{ url('/books') }}"><span class="first-navbar-letter">C</span>OMIC</a></li>
+					<li><a href="{{ url('/books') }}"><span class="first-navbar-letter">F</span>EED</a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">

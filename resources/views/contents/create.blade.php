@@ -2,11 +2,10 @@
 
 @section('content')
 
-<div class="container">
-	<div class="row">
-		<div class="col-md-6">
+<body>
+	<div>
+		<div class="col-md-10 col-md-offset-1">
 			<h1>Add {{$bookName}} Chapter</h1>
-			<hr/>
 			{!! Form::open(['url' => URL::to("/books/$bookId/content")]) !!}
 			<div class="form-group">
 				{!! Form::label('name','Name:') !!}
@@ -28,6 +27,6 @@
 			{!! Form::close() !!}
 		</div>
 	</div>
-</div>
+</body>
 
 @stop

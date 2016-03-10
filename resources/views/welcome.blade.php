@@ -1,6 +1,7 @@
 @extends('app')
 
 @section('content')
+
 <body class="home-background">
 	<div>
 		<div class="container">

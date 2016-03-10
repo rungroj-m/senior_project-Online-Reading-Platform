@@ -23,6 +23,9 @@
 		tinymce.init({
 			selector: 'textarea',
 			menubar: false,
+			forced_root_block : "", 
+			force_br_newlines : true,
+			force_p_newlines : false,
 			content_css: "css/app_custom.css",
 			setup : function(ed){
 				ed.on('init', function(){

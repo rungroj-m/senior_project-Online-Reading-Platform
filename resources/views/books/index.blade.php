@@ -25,13 +25,13 @@
 						<!-- Wrapper for slides -->
 						<div class="carousel-inner" role="listbox">
 							<div class="item active carousel-image">
-								<img src="/images/book1.jpg" alt="">
+								<img src="" alt="">
 								<div class="carousel-caption">
 									<h2>Novel 1</h2>
 								</div>
 							</div>
 							<div class="item carousel-image">
-								<img src="/images/book2.jpg" alt="">
+								<img src="" alt="">
 								<div class="carousel-caption">
 									<h2>Novel 2</h2>
 								</div>
@@ -56,17 +56,11 @@
 							<h2><span class="first-letter">R</span>ECENT</h2><br/>
 					</div>
 					<table class="table" style="width:100%" align="center">
-<!-- 						<thead>
-							<th>Title</th>
-							<th>Description</th>
-							<th>User Rating</th>
-							<th>Category</th>
-						</thead> -->
 						<tbody>
 							@foreach($books as $b)
 								<tr>
 									<td><h4><a href="/books/{{$b -> bookKey}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
-									Last updated: DATE_HERE</td>
+									Last updated: {{$b->updated_at}}</td>
 									<td><h5>+ {{$b->userRating}}</h5></td>
 									<td><h5><span class="glyphicon glyphicon-list-alt"> Author</span></h5></td>
 								</tr>
