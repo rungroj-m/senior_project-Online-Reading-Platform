@@ -43,8 +43,11 @@
 		}
 		.carousel-image{
 			width: auto;
-			height: 200px;
-			max-height: 200px;
+			height: 250px;
+			max-height: 250px;
+		}
+		.carousel-caption{
+			text-align: left;
 		}
 		.top-button{
 			text-align: right;
@@ -60,7 +63,7 @@
  	<link href='https://fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 
-	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+	<!-- <link href="{{ asset('/css/app.css') }}" rel="stylesheet"> -->
 	<link href="{{ asset('/css/app_template.css') }}" rel="stylesheet">
 
 	<script src="{{ asset('js/app.js') }}"></script>
