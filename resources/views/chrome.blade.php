@@ -16,5 +16,20 @@
 
 	<script src="{{ asset('js/app.js') }}"></script>
 	<script src="{{ asset('js/templates.js') }}"></script>
+
+	<!-- TinyMCE Text Editor Init -->
+	<script src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
+	<script>
+		tinymce.init({
+			selector: 'textarea',
+			menubar: false,
+			content_css: "css/app_custom.css",
+			setup : function(ed){
+				ed.on('init', function(){
+					this.getDoc().body.style.fontSize = '14px';
+				});
+			}
+		});
+	</script>
 </head>
 </html>

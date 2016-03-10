@@ -13,15 +13,15 @@
 				@if(Auth::guest())
 					<a class="navbar-brand" href="{{ url('/') }}"><span class="first-letter">R</span>EADI</a>
 				@else
-					<a class="navbar-brand" href="{{ url('/books') }}"><span class="first-letter">R</span>eadi</a>
+					<a class="navbar-brand" href="{{ url('/books') }}"><span class="first-letter">R</span>EADI</a>
 				@endif
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="{{ url('/books') }}">Novel</a></li>
-					<li><a href="{{ url('/books') }}">Comic</a></li>
-					<li><a href="{{ url('/books') }}">Feed</a></li>
+					<li><a href="{{ url('/books') }}">NOVEL</a></li>
+					<li><a href="{{ url('/books') }}">COMIC</a></li>
+					<li><a href="{{ url('/books') }}">FEED</a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
@@ -42,6 +42,7 @@
 							<li><a href="{{ url('/login') }}">Login</a></li>
 							<li><a href="{{ url('/register') }}">Register</a></li>
 						@else
+							<li><a href="#">Dashboard</a></li>
 							<li><a href="#">Profile</a></li>
 							<li role="separator" class="divider"></li>
 							<li><a href="{{ url('/logout') }}">Logout</a></li>
