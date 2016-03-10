@@ -11,9 +11,9 @@
 					<span class="icon-bar"></span>
 				</button>
 				@if(Auth::guest())
-					<a class="navbar-brand" href="{{ url('/') }}">Readi</a>
+					<a class="navbar-brand" href="{{ url('/') }}"><span class="first-letter">R</span>EADI</a>
 				@else
-					<a class="navbar-brand" href="{{ url('/books') }}">Readi</a>
+					<a class="navbar-brand" href="{{ url('/books') }}"><span class="first-letter">R</span>eadi</a>
 				@endif
 			</div>
 
@@ -27,13 +27,15 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						@if (Auth::guest())
-							Guest
-						@else
-							{{$user->username}}
-						@endif
-						<span class="glyphicon glyphicon-user"></span>
-						<span class="caret"></span>
+							<div>
+								@if (Auth::guest())
+									Guest 
+								@else
+									{{$user->username}} 
+								@endif
+								<span class="glyphicon glyphicon-user"></span>
+								<span class="caret"></span>
+							</div>
 						</a>
 						<ul class="dropdown-menu">
 						@if (Auth::guest())

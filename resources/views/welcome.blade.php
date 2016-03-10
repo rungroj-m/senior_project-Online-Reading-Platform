@@ -6,20 +6,20 @@
 		<div class="container">
 			<div class="col-md-5 col-md-offset-1 home-left">
 				<div class="title">
-					Readi
+					<span class="first-letter">R</span>EADI
 				</div>
 				<h2>I don't have a slogan yet, so anything would do here.</h2>
 			</div>
 			<div class="col-md-5 home-right">
-				<h2>Welcome</h2>
-				<p>Login to start reading, become a creator, or <a href="register">register</a> to be part of our community</p>
 				<form class="form-vertical" role="form" method="POST" action="{{ url('/login') }}">
+					<h1><span class="first-letter">W</span>elcome!</h1>
+					<p>Login to start reading, become a creator, or <a href="register">register</a> to be part of our community</p><br/>
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<div class="form-group">
 						<div class="col-md-10 col-md-offset-1">
 							<input placeholder="E-mail" type="email" class="form-control" name="email" value="{{ old('email') }}">
 							<input placeholder="Password" type="password" class="form-control" name="password"><br/>
-							<button type="submit" class="form-control btn btn-default">Login</button>
+							<button type="submit" class="form-control btn btn-success">Login</button>
 						</div>
 					</div>
 				</form>

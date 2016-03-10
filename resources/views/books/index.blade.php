@@ -7,10 +7,13 @@
 			<div>
 				<div class="header">
 					<div class="pull-right">
-						<a href="{{ route('books.create') }}" class="btn btn-default">Learn More</a>
-						<a href="{{ route('books.create') }}" class="btn btn-default">Create Now</a>
+						<a href="{{ route('books.create') }}" class="btn btn-info">Learn More</a>
+						<a href="{{ route('books.create') }}" class="btn btn-success">Create Now</a>
 					</div>
-					<h1><span style="color: teal; font-weight: bold">C</span>REATORS</h1>
+					<div>
+						<h1 class="inline"><span class="first-letter">C</span>REATORS</h1>
+						<h4 class="inline">novel</h4>
+					</div>
 				</div><br/>
 				<div>
 					<div id="carousel-data" class="carousel slide" data-ride="carousel">
@@ -24,13 +27,13 @@
 							<div class="item active carousel-image">
 								<img src="/images/book1.jpg" alt="">
 								<div class="carousel-caption">
-									<h2>Book 1</h2>
+									<h2>Novel 1</h2>
 								</div>
 							</div>
 							<div class="item carousel-image">
 								<img src="/images/book2.jpg" alt="">
 								<div class="carousel-caption">
-									<h2>Book 2</h2>
+									<h2>Novel 2</h2>
 								</div>
 							</div>
 						</div>
@@ -50,7 +53,7 @@
 						<div class="pull-right">
 							<input type="text" class="form-control pull-right" placeholder="Search">
 						</div>
-							<h2><span style="color: teal; font-weight: bold">R</span>ECENT</h2><br/>
+							<h2><span class="first-letter">R</span>ECENT</h2><br/>
 					</div>
 					<table class="table" style="width:100%" align="center">
 <!-- 						<thead>

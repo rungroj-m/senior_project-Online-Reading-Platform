@@ -1,11 +1,11 @@
 @extends('app')
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid container">
 	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
+		<div class="col-md-6 col-md-offset-3">
+			<h1><span class="first-letter">R</span>EGISTER</h1>
 			<div class="panel panel-default">
-				<div class="panel-heading">Register</div>
 				<div class="panel-body">
 					@if (count($errors) > 0)
 						<div class="alert alert-danger">
@@ -51,7 +51,7 @@
 
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">
+								<button type="submit" class="btn btn-success">
 									Register
 								</button>
 							</div>
