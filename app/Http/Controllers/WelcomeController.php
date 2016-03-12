@@ -1,5 +1,8 @@
 <?php namespace App\Http\Controllers;
 
+use Auth;
+use Book;
+
 class WelcomeController extends Controller {
 
 	/*
@@ -27,6 +30,7 @@ class WelcomeController extends Controller {
 	 *
 	 * @return Response
 	 */
+	
 	public function index(){
 		return view('welcome');
 	}

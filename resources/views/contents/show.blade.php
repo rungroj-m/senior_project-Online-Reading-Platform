@@ -2,17 +2,14 @@
 
 @section('content')
 
-<div  class="container content-bg">
-	<div class="row">
-		<div class="col-md-2">
-		</div>
-
-		<div class="col-md-8 content-body">
+<body>
+	<div>
+		<div class="col-md-8 col-md-offset-2 content-body">
 			<h1 align="center">{{ $book-> name }}</h1><br/>
 			<h3 align="center">Chapter {{ $content_chap->chapter }}</h3><br/>
 			<h4 align="center">{{ $content_chap->name }}</h1>
 			<hr>
-			<p class="content-text">{{ $content_chap->content }}</p>
+			<p class="content-text">{!! $content_chap->content !!}</p>
 		</div>
 
 		<div class="col-md-2">
@@ -32,6 +29,6 @@
 			</div>
 		</div>
 	</div>
-</div>
+</body>
 
 @stop
