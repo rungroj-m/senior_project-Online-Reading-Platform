@@ -13,7 +13,6 @@ use DB;
 use Auth;
 use Illuminate\Database\Eloquent\Collection;
 
-
 class BookController extends Controller {
 
 	/**
@@ -68,6 +67,7 @@ class BookController extends Controller {
 
 //		return $this->userVote($id);
 
+		return Book::find($id)->user;
 		return redirect('books/'.$id.'/content');
 		// return $book;
 	}

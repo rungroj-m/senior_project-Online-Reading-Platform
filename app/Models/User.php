@@ -35,8 +35,8 @@ class User extends Model implements AuthenticatableContract,  AuthorizableContra
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
-	public function book() {
-		return $this->hasMany('Book');
+	public function books() {
+		return $this->hasMany('App\Models\Book','bookKey','userKey');
 	}
 
 	public function wallet() {
