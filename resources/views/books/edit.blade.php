@@ -6,7 +6,7 @@
 		<div class="col-md-6">
 		<h1>Edit {{$book->name}}</h1>
 		<hr/>
-		{!! Form::open(['method' => 'PUT','route' => ['books.update', $book->bookKey]]) !!}
+		{!! Form::open(['method' => 'PUT','route' => ['books.update', $book->id]]) !!}
 		{{--{!! Form::open(array('action' => array('BookController@update', $book->bookKey,'_method' => 'PUT'))) !!}--}}
 		{{--{!! Form::open(['method' => 'PATCH','route' => ['books.update',$book->contentKey]])!!}--}}
 		<div class="form-group">

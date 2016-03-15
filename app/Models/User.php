@@ -19,7 +19,7 @@ class User extends Model implements AuthenticatableContract,  AuthorizableContra
 	 * @var string
 	 */
 
-	protected $primaryKey = 'userKey';
+	protected $primaryKey = 'id';
 
 	/**
 	 * The attributes that are mass assignable.
@@ -36,10 +36,10 @@ class User extends Model implements AuthenticatableContract,  AuthorizableContra
 	protected $hidden = ['password', 'remember_token'];
 
 	public function books() {
-		return $this->hasMany('App\Models\Book','bookKey','userKey');
+		return $this->hasMany('App\Models\Book');
 	}
 
 	public function wallet() {
-		return $this->hasOne('Wallet');
+		return $this->hasOne('App\Models\Wallet');
 	}
 }

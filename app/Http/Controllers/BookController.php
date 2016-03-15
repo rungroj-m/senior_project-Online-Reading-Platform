@@ -46,7 +46,9 @@ class BookController extends Controller {
 	public function store()
 	{
 		$input = Request::all();
-		Book::create($input);
+		$book  = Book::create($input);
+		$book -> user_id = Auth::id();
+		$book->save();
 		return redirect('books');
 
 	}
@@ -67,7 +69,7 @@ class BookController extends Controller {
 
 //		return $this->userVote($id);
 
-		return Book::find($id)->user;
+//		return Book::find($id)->user;
 		return redirect('books/'.$id.'/content');
 		// return $book;
 	}
@@ -111,18 +113,18 @@ class BookController extends Controller {
 	{
 		$this->deleteContent($id);
 		$book = Book::findOrFail($id);
-		$book->content()->detach();
+		$book->contents()->detach();
 		$book->delete();
 		return redirect('books');
 	}
 
 	public function deleteContent($bookId){
 		$content_chap = DB::table('books_contents')
-			->select('contentKey')
-			->where('bookKey', $bookId)
+			->select('content_id')
+			->where('book_id', $bookId)
 			->get();
 		foreach($content_chap as $cid){
-			$findContent = Content::find($cid->contentKey);
+			$findContent = Content::find($cid->content_id);
 			if($findContent != null)
 				$findContent->delete();
 		}
@@ -134,7 +136,7 @@ class BookController extends Controller {
 		$userID = Auth::id();
 		$book = Book::findOrFail($id);
 		$bookKey = $book->getKey();
-		$condition = ['userKey' => $userID , 'bookKey' => $bookKey];
+		$condition = ['user_id' => $userID , 'book_id' => $bookKey];
 		$check = DB::table('ratings')->where($condition)->first();
 
 		if($check == null)

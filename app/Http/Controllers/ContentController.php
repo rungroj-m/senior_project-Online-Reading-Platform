@@ -17,7 +17,7 @@ class ContentController extends Controller {
 	 */
 	public function index($id)
 	{
-		$contents = Book::findOrFail($id)->content;
+		$contents = Book::findOrFail($id)->contents;
 		$book = Book::findOrFail($id);
 		return view('contents.index',compact('contents', 'book'))->with('id',$id);
 	}
@@ -55,7 +55,7 @@ class ContentController extends Controller {
 			$content->chapter = $request->chapter;
 			$content->content = $request->content;
 			// $content->content = str_replace("\r\n", "<br/>", $request->content);
-			$book->content()->save($content);
+			$book->contents()->save($content);
 			return $this->index($id);
 		}
 	}
@@ -69,8 +69,8 @@ class ContentController extends Controller {
 	public function show($id, $chapter)
 	{
 		$content_chap = DB::table('books_contents')
-			->where('bookKey', $id)
-			->join('contents', 'books_contents.contentKey', '=', 'contents.contentKey')
+			->where('book_id', $id)
+			->join('contents', 'books_contents.content_id', '=', 'contents.id')
 			->where('contents.chapter', $chapter)->first();
 		$book = Book::findOrFail($id);
 		return view('contents.show',compact('content_chap', 'book'))->with('id',$id);
@@ -85,8 +85,8 @@ class ContentController extends Controller {
 	public function edit($id,$chapter)
 	{
 		$content = DB::table('books_contents')
-			->where('bookKey', $id)
-			->join('contents', 'books_contents.contentKey', '=', 'contents.contentKey')
+			->where('book_id', $id)
+			->join('contents', 'books_contents.content_id', '=', 'contents.id')
 			->where('contents.chapter', $chapter)->first();
 		return view('contents.edit',compact('content'));
 	}
@@ -122,10 +122,10 @@ class ContentController extends Controller {
 
 	public function findContent($bookId,$chapter){
 		$content_chap = DB::table('books_contents')
-			->where('bookKey', $bookId)
-			->join('contents', 'books_contents.contentKey', '=', 'contents.contentKey')
+			->where('book_id', $bookId)
+			->join('contents', 'books_contents.content_id', '=', 'contents.id')
 			->where('contents.chapter', $chapter)->first();
-		$content = Content::find($content_chap->contentKey);
+		$content = Content::find($content_chap->content_id);
 		return $content;
 	}
 

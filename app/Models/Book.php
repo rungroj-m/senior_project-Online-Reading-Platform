@@ -9,18 +9,18 @@ class Book extends Model {
 	 *
 	 * @var string
 	 */
-	protected $fillable = array('name','description','userRatingCount','userRating','criticRating','TAG','category','criticRatingCount','ownerKey');
-	protected $primaryKey = 'bookKey';
+	protected $fillable = array('name','description','userRatingCount','userRating','criticRating','TAG','category','criticRatingCount','user_id');
+	protected $primaryKey = 'id';
 
 	public function user() {
-		return $this->belongsTo('App\Models\User','ownerKey','userKey');
+		return $this->belongsTo('App\Models\User');
 	}
 
 	public function contents() {
-		return $this->belongsToMany('App\Models\Content','books_contents', 'bookKey', 'contentKey');
+		return $this->belongsToMany('App\Models\Content','books_contents', 'book_id', 'content_id');
 	}
 
 	public function comments() {
-		return $this->hasMany('App\Models\Comment','commentKey','commentKey');
+		return $this->hasMany('App\Models\Comment');
 	}
 }

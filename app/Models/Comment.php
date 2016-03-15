@@ -9,17 +9,17 @@ class Comment extends Model {
 	 * @var string
 	 */
 
-	protected $primaryKey = 'commentKey';
+	protected $primaryKey = 'id';
 
 	/**
 	 * The attributes that are mass assignable.
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['ownerKey', 'comment','parentKey','rating','bookKey'];
+	protected $fillable = ['user_id', 'comment','comment_id','rating','book_id'];
 
 	public function book() {
-		return $this->belongTo('Book');
+		return $this->belongsTo('App\Models\Book');
 	}
 
 	public function parent()
@@ -27,7 +27,7 @@ class Comment extends Model {
 		return $this->belongsTo('App\Models\Comment');
 	}
 
-	public function child(){
+	public function childs(){
 		return $this->hasMany('App\Models\Comment');
 	}
 

@@ -10,13 +10,13 @@ class Content extends Model {
 	 * @var string
 	 */
 	protected $fillable = array('name','content','chapter','type');
-	protected $primaryKey = 'contentKey';
+	protected $primaryKey = 'id';
 
 	public function book() {
-		return $this->belongTo('App\Models\Book');
+		return $this->belongsTo('App\Models\Book');
 	}
 
-	public function comment() {
-		return $this->hasMany('Comment');
+	public function comments() {
+		return $this->hasMany('App\Models\Comment');
 	}
 }
