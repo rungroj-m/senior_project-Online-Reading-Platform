@@ -6,13 +6,13 @@
 	<div class="pull-right">
 		{!! Form::open([
 			'method' => 'GET',
-			'route' => ['books.edit', $book->bookKey]
+			'route' => ['books.edit', $book->id]
 		]) !!}
 		{!! Form::submit('Edit This Book', ['class' => 'btn btn-default']) !!}
 		{!! Form::close() !!}
 		{!! Form::open([
 			'method' => 'DELETE',
-			'route' => ['books.destroy', $book->bookKey]
+			'route' => ['books.destroy', $book->id]
 		]) !!}
 		{!! Form::submit('Delete This Book', ['class' => 'btn btn-default']) !!}
 		{!! Form::close() !!}

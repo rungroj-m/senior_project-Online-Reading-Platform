@@ -11,4 +11,5 @@ class Image extends Model
         'title',
         'description',
         'image'
-    ];}
+    ];
+}

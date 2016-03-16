@@ -20,8 +20,8 @@ class commentController extends Controller
         $ownerId = Auth::id();
         $input = Request::all();
         $comment = Comment::create($input);
-        $comment -> bookKey = $book->getKey();
-        $comment -> ownerKey = $ownerId;
+        $comment -> book_id = $book->getKey();
+        $comment -> user_id = $ownerId;
         $comment -> save();
         return $comment;
     }
@@ -30,7 +30,7 @@ class commentController extends Controller
 
         $book = Book::findOrFail($bookId);
 
-        return Comment::with(['ownerKey','comment','rating'])->where('bookKey'$book->getKey());
+        return Comment::with(['user_id','comment','rating'])->where('book_id'$book->getKey());
 
 
 //        $book_comments = DB::table('comments')
@@ -49,9 +49,9 @@ class commentController extends Controller
         $ownerId = Auth::id();
         $input = Request::all();
         $comment = Comment::create($input);
-        $comment -> bookKey = $book->getKey();
-        $comment -> ownerKey = $ownerId;
-        $comment -> parentKey = $commentKey;
+        $comment -> book_id = $book->getKey();
+        $comment -> user_id = $ownerId;
+        $comment -> comment_id = $commentKey;
         $comment -> save();
         return $comment;
 
@@ -68,7 +68,7 @@ class commentController extends Controller
 
     public function alreadyRate($commentKey){
         $userID = Auth::id();
-        $condition = ['userKey' => $userID , 'commentKey' => $commentKey];
+        $condition = ['user_id' => $userID , 'id' => $commentKey];
         $check = DB::table('commentRatings')->where($condition)->first();
         if($check == null)
             return false;
@@ -85,8 +85,8 @@ class commentController extends Controller
         $comment -> save();
 
         $commentRating = new CommentRating();
-        $commentRating -> commentKey = $commentKey;
-        $commentRating -> userKey = $userID;
+        $commentRating -> id = $commentKey;
+        $commentRating -> user_id = $userID;
         $commentRating -> save();
         return 'voteup success';
     }
@@ -100,8 +100,8 @@ class commentController extends Controller
         $comment -> save();
 
         $commentRating = new CommentRating();
-        $commentRating -> commentKey = $commentKey;
-        $commentRating -> userKey = $userID;
+        $commentRating -> id = $commentKey;
+        $commentRating -> user_id = $userID;
         $commentRating -> save();
         return 'votedown success';
     }
@@ -109,7 +109,7 @@ class commentController extends Controller
     public function deleteComment($commentKey){
         $comment = Comment::findOrfail($commentKey);
         $userID = Auth::id();
-        if( $comment->ownerKey == $userID ) {
+        if( $comment->user_id == $userID ) {
             // delete
             $comment -> delete();
             return 'can delete';

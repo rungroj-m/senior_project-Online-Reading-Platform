@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Rating extends Model
 {
     protected $table = 'ratings';
-    protected $fillable = array('bookKey','userKey');
-    protected $primaryKey = 'ratingKey';
+    protected $fillable = array('book_id','user_id');
+    protected $primaryKey = 'id';
 }

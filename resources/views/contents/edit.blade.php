@@ -6,7 +6,7 @@
 		<div class="col-md-6">
 			<h1>Edit {{$content->name}}</h1>
 			<hr/>
-			{!! Form::open(['method' => 'PATCH','route' =>  ['books.{book}.content.update',$content->bookKey,$content->chapter]])!!}
+			{!! Form::open(['method' => 'PATCH','route' =>  ['books.{book}.content.update',$content->book_id,$content->chapter]])!!}
 			<div class="form-group">
 			{!! Form::label('chapter','Chapter:') !!}
 			{!! Form::text('chapter',$content->chapter,['class'=>'form-control']) !!}

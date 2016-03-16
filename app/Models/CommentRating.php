@@ -8,7 +8,7 @@ class commentRating extends Model
 {
 
     protected $table = 'commentRatings';
-    protected $fillable = array('commentKey','userKey');
-    protected $primaryKey = 'commentRatingKey';
+    protected $fillable = array('comment_id','user_id');
+    protected $primaryKey = 'id';
 
 }
