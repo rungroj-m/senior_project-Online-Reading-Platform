@@ -18,12 +18,19 @@
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
+				<ul class="nav navbar-nav navbar-left">
 					<li><a href="{{ url('/books') }}"><span class="first-navbar-letter">N</span>OVEL</a></li>
 					<li><a href="{{ url('/books') }}"><span class="first-navbar-letter">C</span>OMIC</a></li>
 					<li><a href="{{ url('/books') }}"><span class="first-navbar-letter">F</span>EED</a></li>
 				</ul>
-
+				<form class="navbar-form navbar-left" role="search">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Search">
+						<div class="input-group-btn">
+							<button class="btn btn-success form-control">Go</button>
+						</div>
+					</div>
+				</form>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
