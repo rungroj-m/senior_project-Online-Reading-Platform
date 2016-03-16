@@ -59,7 +59,7 @@
 						<tbody>
 							@foreach($books as $b)
 								<tr>
-									<td><h4><a href="/books/{{$b -> bookKey}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
+									<td><h4><a href="/books/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
 									Last updated: {{$b->updated_at}}
 									in {{$b->category}}</td>
 									<td><h5>+ {{$b->userRating}}</h5></td>

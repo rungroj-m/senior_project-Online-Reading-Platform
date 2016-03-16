@@ -4,7 +4,8 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-6">
-		<h1><span class="first-letter">E</span>DIT {{$book->name}}</h1>
+		<h1 class="inline"><span class="first-letter">E</span>DIT</h1>
+		<h4 class="inline">{{$book->name}}</h4>
 		<hr/>
 		{!! Form::open(['method' => 'PUT','route' => ['books.update', $book->id]]) !!}
 		{{--{!! Form::open(array('action' => array('BookController@update', $book->bookKey,'_method' => 'PUT'))) !!}--}}
