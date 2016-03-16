@@ -6,7 +6,7 @@
 	<div>
 		<div class="col-md-10 col-md-offset-1">
 			<div class="header">
-				<h1><span style="color: teal; font-weight: bold">C</span>REATE</h1>
+				<h1><span class="first-letter">C</span>REATE</h1>
 			</div>
 			<form method="POST" action="/books">
 				<div class="col-md-8">
@@ -18,13 +18,13 @@
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-					<label class="h3" for="category">Category</label>
-					<p>Category is permanent.</p>
-					<select class="form-control" name="category">
-						<option>Novel</option>
-						<option>Comic</option>
-					</select>
-				</div>
+						<label class="h3" for="category">Category</label>
+						<p>Category is permanent.</p>
+						<select class="form-control" name="category">
+							<option>Novel</option>
+							<option>Comic</option>
+						</select>
+					</div>
 				</div>
 				<div class="form-group">
 					<label class="h3" for="description">Description</label>
