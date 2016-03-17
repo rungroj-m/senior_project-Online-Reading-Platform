@@ -5,7 +5,8 @@
 <body>
 	<div>
 		<div class="col-md-10 col-md-offset-1">
-			<h1>Add {{$bookName}} Chapter</h1>
+			<h1 class="inline">NEW <span class="first-letter">C</span>HAPTER</h1>
+			<h4 class="inline">{{$bookName}}</h4>
 			{!! Form::open(['url' => URL::to("/books/$bookId/content")]) !!}
 			<div class="form-group">
 				{!! Form::label('name','Name:') !!}

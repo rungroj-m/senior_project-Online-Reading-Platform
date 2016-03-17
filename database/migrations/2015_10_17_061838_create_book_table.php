@@ -16,13 +16,12 @@ class CreateBookTable extends Migration {
 		{
 			$table->increments('bookKey');
 			$table->integer('ownerKey');
-			// ->unsigned()->references('userKey')->on('users');
 			$table->String('name');
-			$table->String('description');
+			$table->text('description');
 			$table->integer('userRatingCount');
 			$table->double('userRating',20,2);
 			$table->double('criticRating',10,2);
-			$table->String('TAG');
+			$table->text('TAG');
 			$table->String('category');
 			$table->timestamps();
 		});

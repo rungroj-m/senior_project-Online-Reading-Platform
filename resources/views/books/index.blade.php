@@ -60,7 +60,8 @@
 							@foreach($books as $b)
 								<tr>
 									<td><h4><a href="/books/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
-									Last updated: {{$b->updated_at}}</td>
+									Last updated: {{$b->updated_at}}
+									in {{$b->category}}</td>
 									<td><h5>+ {{$b->userRating}}</h5></td>
 									<td><h5><span class="glyphicon glyphicon-list-alt"> Author</span></h5></td>
 								</tr>
@@ -69,8 +70,11 @@
 					</table>
 				</div>
 				<div class="col-md-6">
+					<h1>TEST</h1>
+				</div>
+				<div class="col-md-6">
 					<div class="header">
-							<h2><span style="color: teal; font-weight: bold">E</span>XPLORE</h2>
+							<h2><span class="first-letter">E</span>XPLORE</h2>
 					</div><br/>
 					<div>
 						<p>

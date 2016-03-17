@@ -16,6 +16,18 @@
 		]) !!}
 		{!! Form::submit('Delete This Book', ['class' => 'btn btn-default']) !!}
 		{!! Form::close() !!}
+		{!! Form::open([
+			'method' => 'GET',
+			'route' => ['subscribe', $book->id]
+		]) !!}
+		{!! Form::submit('Subscribe', ['class' => 'btn btn-default']) !!}
+		{!! Form::close() !!}
+		{!! Form::open([
+			'method' => 'GET',
+			'route' => ['unsubscribe', $book->id]
+		]) !!}
+		{!! Form::submit('Unsubscribe', ['class' => 'btn btn-default']) !!}
+		{!! Form::close() !!}
 		{{--<a href="{{ route('books.create') }}" class="btn btn-primary">Create new Book</a>--}}
 	</div>
 		<div class="col-md-3">
