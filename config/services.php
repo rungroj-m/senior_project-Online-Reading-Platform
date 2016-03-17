@@ -34,4 +34,11 @@ return [
 		'secret' => '',
 	],
 
+	//Socialite
+	'facebook' => [
+		'client_id'     => '811596832280396',
+		'client_secret' => '2f2e3fb44143bbf8543850d7cddc8c28',
+		'redirect'      => 'http://homestead.app/login/callback/facebook',
+	],
+
 ];

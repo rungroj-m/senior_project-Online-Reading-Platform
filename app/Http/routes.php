@@ -4,10 +4,24 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+
 // Authentication routes...
 Route::get('login', 'Auth\AuthController@getLogin');
 Route::post('login', 'Auth\AuthController@postLogin');
 Route::get('logout', 'Auth\AuthController@getLogout');
+
+//Social Login
+Route::get('/login/{provider?}',[
+	'uses' => 'Auth\AuthController@getSocialAuth',
+	'as'   => 'auth.getSocialAuth'
+]);
+
+
+Route::get('/login/callback/{provider?}',[
+	'uses' => 'Auth\AuthController@getSocialAuthCallback',
+	'as'   => 'auth.getSocialAuthCallback'
+]);
+
 
 // Registration routes...
 Route::get('register', 'Auth\AuthController@getRegister');
