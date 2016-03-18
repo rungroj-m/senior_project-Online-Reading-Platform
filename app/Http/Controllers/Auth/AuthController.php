@@ -1,11 +1,13 @@
 <?php namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Redirect;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Laravel\Socialite\Contracts\Factory as Socialite;
+use Auth;
 
 class AuthController extends Controller {
 
@@ -59,10 +61,37 @@ class AuthController extends Controller {
     public function getSocialAuthCallback($provider=null)
     {
         if($user = $this->socialite->with($provider)->user()){
-            dd($user);
+
+            $authUser = $this->findOrCreateUser($user);
+
+            Auth::login($authUser,true);
+
+            return redirect('books');
+
         }else{
             return 'something went wrong';
         }
+    }
+
+    function findOrCreateUser($facebookUser){
+
+        if($authUser =  User::where('facebook_id', $facebookUser->getId())->first()){
+            return $authUser;
+        }
+
+        if($authUser =  User::where('email', $facebookUser->getEmail())->first()){
+            $authUser -> facebook_id = $facebookUser -> getId();
+            $authUser -> facebook_token = $facebookUser -> token;
+            $authUser -> save();
+            return $authUser;
+        }
+
+        return User::create([
+            'username' => $facebookUser->getName(),
+            'email' => $facebookUser->getEmail(),
+            'facebook_id' => $facebookUser -> getId(),
+            'facebook_token' => $facebookUser -> token,
+        ]);
     }
 
     /**
