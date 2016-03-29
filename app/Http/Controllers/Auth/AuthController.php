@@ -1,10 +1,15 @@
 <?php namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Redirect;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Laravel\Socialite\Contracts\Factory as Socialite;
+use Auth;
+use Socialize;
+//use Laravel\Socialite as Socialite;
 
 class AuthController extends Controller {
 
@@ -26,7 +31,7 @@ class AuthController extends Controller {
      *
      * @var string
      */
-
+        private $socialite;
 		protected $loginPath = '/login'; // path to the login URL
 		protected $registerPath = '/register';
 	 	protected $redirectPath = '/books'; // path to the route where you want users to be redirected once logged in
@@ -37,9 +42,60 @@ class AuthController extends Controller {
      *
      * @return void
      */
-    public function __construct()
+//    public function __construct()
+//    {
+//        // $this->middleware('guest', ['except' => 'logout']);
+//    }
+
+    public function __construct(Socialite $socialite){
+        $this->socialite = $socialite;
+    }
+
+
+    public function getSocialAuth($provider=null)
     {
-        // $this->middleware('guest', ['except' => 'logout']);
+        if(!config("services.$provider")) abort('404'); //just to handle providers that doesn't exist
+
+        return Socialize::with($provider)->redirect();
+    }
+
+
+    public function getSocialAuthCallback($provider=null)
+    {
+        if($user = Socialize::with($provider)->user()){
+
+            $authUser = $this->findOrCreateUser($user);
+
+            Auth::login($authUser,true);
+
+            return redirect('books');
+
+        }else{
+            return 'something went wrong';
+        }
+    }
+
+    function findOrCreateUser($facebookUser){
+
+//        dd($facebookUser);
+
+        if($authUser =  User::where('facebook_id', $facebookUser->getId())->first()){
+            return $authUser;
+        }
+
+        if($authUser =  User::where('email', $facebookUser->getEmail())->first()){
+            $authUser -> facebook_id = $facebookUser -> getId();
+            $authUser -> facebook_token = $facebookUser -> token;
+            $authUser -> save();
+            return $authUser;
+        }
+
+        return User::create([
+            'username' => $facebookUser->getName(),
+            'email' => $facebookUser->getEmail(),
+            'facebook_id' => $facebookUser -> getId(),
+            'facebook_token' => $facebookUser -> token,
+        ]);
     }
 
     /**

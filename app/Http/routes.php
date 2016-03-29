@@ -4,10 +4,24 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+
 // Authentication routes...
 Route::get('login', 'Auth\AuthController@getLogin');
 Route::post('login', 'Auth\AuthController@postLogin');
 Route::get('logout', 'Auth\AuthController@getLogout');
+
+//Social Login
+Route::get('/login/{provider?}',[
+	'uses' => 'Auth\AuthController@getSocialAuth',
+	'as'   => 'auth.getSocialAuth'
+]);
+
+
+Route::get('/login/callback/{provider?}',[
+	'uses' => 'Auth\AuthController@getSocialAuthCallback',
+	'as'   => 'auth.getSocialAuthCallback'
+]);
+
 
 // Registration routes...
 Route::get('register', 'Auth\AuthController@getRegister');
@@ -16,6 +30,9 @@ Route::post('register', 'Auth\AuthController@postRegister');
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('books','BookController');
 	Route::resource('books/{book}/content', 'ContentController');
+
+	Route::get('books/{book}/subscribe', [ 'as' => 'subscribe', 'uses' => 'SubscriptionController@subscribe']);
+	Route::get('books/{book}/unsubscribe', [ 'as' => 'unsubscribe', 'uses' => 'SubscriptionController@unsubscribe']);
 
 	Route::get('profile/{id}','ProfileController@index');
 	Route::get('profile/image','ProfileController@imageUpload');
@@ -27,6 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile',[
 		'as' => 'profile','uses' =>'ProfileController@update'
 	]);
+	Route::get('profile/subscription', 'SubscriptionController@index');
 
 	Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function() {
 		Route::get('admin/user/create', 'AdminController@create');
