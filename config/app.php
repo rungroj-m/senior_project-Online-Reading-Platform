@@ -152,7 +152,7 @@ return [
 
 		Intervention\Image\ImageServiceProvider::class,
 		Laravel\Socialite\SocialiteServiceProvider::class,
-
+		Fenos\Notifynder\NotifynderServiceProvider::class,
 	],
 
 	/*
@@ -201,10 +201,11 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
-		'Form'		=> 'Illuminate\Html\FormFacade',
-		'Html'		=> 'Illuminate\Html\HtmlFacade',
+		'Form'			=> 'Illuminate\Html\FormFacade',
+		'Html'			=> 'Illuminate\Html\HtmlFacade',
 		'Gate'    	=> 'Illuminate\Support\Facades\Gate',
-		'Image' 	=> Intervention\Image\Facades\Image::class,
+		'Image' 		=> Intervention\Image\Facades\Image::class,
+		'Notifynder'=>Fenos\Notifynder\Facades\Notifynder::class,
 	),
 
 ];
