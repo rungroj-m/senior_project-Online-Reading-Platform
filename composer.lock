@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2bd9d42a803de337a15f8d1c2de2a12a",
-    "content-hash": "a40be61be0fe7c96f7153f73c2e50645",
+    "hash": "23fea107ae50f22d0fa79943037b357e",
+    "content-hash": "74048cebffa45dde1dc08317c4f3119b",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -673,6 +673,56 @@
                 "sdk"
             ],
             "time": "2015-11-19 21:07:36"
+        },
+        {
+            "name": "fenos/notifynder",
+            "version": "3.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fenos/Notifynder.git",
+                "reference": "cc4d966f1b71fed0a69e765e03601f968f6b1717"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fenos/Notifynder/zipball/cc4d966f1b71fed0a69e765e03601f968f6b1717",
+                "reference": "cc4d966f1b71fed0a69e765e03601f968f6b1717",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.*",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "laracasts/testdummy": "~2.0",
+                "laravel/framework": "5.0.*",
+                "orchestra/testbench": "3.0.*",
+                "phpspec/phpspec": "~2.1",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [],
+                "psr-4": {
+                    "Fenos\\Notifynder\\": "src/Notifynder"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabrizio Fenoglio",
+                    "email": "fabri_feno@yahoo.it",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Management system of internal notifications for Laravel 5.*",
+            "keywords": [
+                "laravel",
+                "notifications"
+            ],
+            "time": "2016-03-26 12:35:52"
         },
         {
             "name": "fzaninotto/faker",
