@@ -22,6 +22,10 @@ class Comment extends Model {
 		return $this->belongsTo('App\Models\Book');
 	}
 
+	public function user(){
+		return $this->belongsTo('App\Models\User');
+	}
+
 	public function parent()
 	{
 		return $this->belongsTo('App\Models\Comment');

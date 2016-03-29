@@ -23,6 +23,8 @@
 	<script>
 		tinymce.init({
 			selector: 'textarea',
+			plugins: 'textcolor link image',
+			toolbar: 'undo redo | styleselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
 			menubar: false,
 			forced_root_block : "", 
 			force_br_newlines : true,
