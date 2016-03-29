@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Book;
 use App\Models\Comment;
 use App\Models\CommentRating;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Auth;
 
 class commentController extends Controller
 {
@@ -27,11 +29,8 @@ class commentController extends Controller
     }
 
     public function getComment($bookId){
-
         $book = Book::findOrFail($bookId);
-
-        return Comment::with(['user_id','comment','rating'])->where('book_id'$book->getKey());
-
+        return Comment::with(['user_id','comment','rating'])->where('book_id'==$book->getKey());
 
 //        $book_comments = DB::table('comments')
 //            ->where('bookKey',$book->getKey())
