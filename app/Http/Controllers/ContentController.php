@@ -56,8 +56,24 @@ class ContentController extends Controller {
 			$content->content = $request->content;
 			// $content->content = str_replace("\r\n", "<br/>", $request->content);
 			$book->contents()->save($content);
+
 			return $this->index($id);
 		}
+	}
+
+	private function notify($book, $content) {
+		$bookname = $book->name;
+		$chapter = $content->chapter;
+		$chaptername = $content->name;
+
+		$notifynder = $this->notifynder;
+
+		$notifynder['category'] = 'book.updatechapter';
+		$notifynder['to'] = 20;
+		$notifynder['from'] = $book->id;
+		$notifynder['extra'] = compact('bookname', 'chapter', 'chaptername');
+
+		$notifynder->send();
 	}
 
 	/**
