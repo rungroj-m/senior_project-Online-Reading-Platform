@@ -151,7 +151,7 @@ return [
 		'App\Providers\ComposerServiceProvider',
 
 		Intervention\Image\ImageServiceProvider::class,
-		Laravel\Socialite\SocialiteServiceProvider::class,
+		'Laravel\Socialite\SocialiteServiceProvider'
 
 	],
 
@@ -205,6 +205,7 @@ return [
 		'Html'		=> 'Illuminate\Html\HtmlFacade',
 		'Gate'    	=> 'Illuminate\Support\Facades\Gate',
 		'Image' 	=> Intervention\Image\Facades\Image::class,
+		'Socialize' => 'Laravel\Socialite\Facades\Socialite'
 	),
 
 ];

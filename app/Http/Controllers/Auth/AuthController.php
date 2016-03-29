@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Laravel\Socialite\Contracts\Factory as Socialite;
 use Auth;
+use Socialize;
+//use Laravel\Socialite as Socialite;
 
 class AuthController extends Controller {
 
@@ -29,7 +31,7 @@ class AuthController extends Controller {
      *
      * @var string
      */
-
+        private $socialite;
 		protected $loginPath = '/login'; // path to the login URL
 		protected $registerPath = '/register';
 	 	protected $redirectPath = '/books'; // path to the route where you want users to be redirected once logged in
@@ -54,13 +56,13 @@ class AuthController extends Controller {
     {
         if(!config("services.$provider")) abort('404'); //just to handle providers that doesn't exist
 
-        return $this->socialite->with($provider)->redirect();
+        return Socialize::with($provider)->redirect();
     }
 
 
     public function getSocialAuthCallback($provider=null)
     {
-        if($user = $this->socialite->with($provider)->user()){
+        if($user = Socialize::with($provider)->user()){
 
             $authUser = $this->findOrCreateUser($user);
 
@@ -74,6 +76,8 @@ class AuthController extends Controller {
     }
 
     function findOrCreateUser($facebookUser){
+
+//        dd($facebookUser);
 
         if($authUser =  User::where('facebook_id', $facebookUser->getId())->first()){
             return $authUser;
