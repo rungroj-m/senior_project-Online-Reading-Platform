@@ -27,7 +27,7 @@ class BookController extends Controller {
 		$books = Book::all();
 		return view('books.index',compact('books'));
 	}
-
+	
 	/**
 	 * Show the form for creating a new resource.
 	 *

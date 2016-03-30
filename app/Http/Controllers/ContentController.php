@@ -76,6 +76,42 @@ class ContentController extends Controller {
 		$notifynder->send();
 	}
 
+
+	/**
+	 * Use this function to send notification to facebook user.
+	 */
+	public function facebookNotification(){
+
+		$app_id = '811596832280396';
+		$app_secret = '2f2e3fb44143bbf8543850d7cddc8c28';
+
+		$fb = new Facebook([
+			'app_id' => '{app-id}',
+			'app_secret' => '{app-secret}',
+			'default_graph_version' => 'v2.5',
+		]);
+
+//		$access_token = '811596832280396|RqbSrEt8yah1feLwm4OGKQo-5as';
+
+		$access_token = $app_id.'|'.$app_secret;
+
+		$user_id = Auth::id();
+
+		$user = User::find($user_id);
+
+		try{
+			$response = $fb->post('/'.$user->facebook_id.'/notifications', ['template' => 'You have people waiting to play with you, play now!'], $access_token);
+		}catch(Facebook\Exceptions\FacebookResponseException $e){
+			echo 'Graph returned an error: ' . $e->getMessage();
+			exit;
+		}catch(Facebook\Exceptions\FacebookSDKException $e) {
+			echo 'Facebook SDK returned an error: ' . $e->getMessage();
+			exit;
+		}
+		$graphNode = $response->getGraphNode();
+	}
+
+
 	/**
 	 * Display the specified resource.
 	 *
