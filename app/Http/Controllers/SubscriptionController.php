@@ -32,9 +32,17 @@ class SubscriptionController extends Controller
     public function subscribe($id)
     {
         $user_id = Auth::id();
-        DB::table('subscriptions')->insert(
-            ['user_id' => $user_id, 'book_id' => $id, 'active' => true]
-        );
+        $verify = DB::table('subscriptions')->select('user_id')->where('book_id', '=', $id)->get();
+        if($verify > 0) {
+          DB::table('subscriptions')
+            ->where('user_id', $user_id)
+            ->where('book_id', $id)
+            ->update(['active' => true]);
+        } else {
+          DB::table('subscriptions')->insert(
+              ['user_id' => $user_id, 'book_id' => $id, 'active' => true]
+          );
+        }
         return redirect()->back();
     }
 
