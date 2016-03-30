@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use Request;
 use App\Models\Book;
 use App\Models\Comment;
 use App\Models\CommentRating;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Auth;
 
@@ -18,14 +16,13 @@ class commentController extends Controller
      */
     public function postComment($bookId){
         $book = Book::findOrFail($bookId);
-
         $ownerId = Auth::id();
         $input = Request::all();
         $comment = Comment::create($input);
         $comment -> book_id = $book->getKey();
         $comment -> user_id = $ownerId;
         $comment -> save();
-        return $comment;
+        return redirect('books/'.$bookId);
     }
 
     public function getComment($bookId){
