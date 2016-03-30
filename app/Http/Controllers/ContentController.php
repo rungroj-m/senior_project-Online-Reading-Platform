@@ -7,6 +7,9 @@ use App\Models\Content;
 use DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Facebook\Facebook;
+use Auth;
+use App\Models\User;
 
 class ContentController extends Controller {
 
