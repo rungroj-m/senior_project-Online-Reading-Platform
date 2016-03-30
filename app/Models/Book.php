@@ -9,7 +9,7 @@ class Book extends Model {
 	 *
 	 * @var string
 	 */
-	protected $fillable = array('name','description','userRatingCount','userRating','criticRating','TAG','category','criticRatingCount','user_id');
+	protected $fillable = array('name','description','userRatingCount','userRating','criticRating','category','criticRatingCount','user_id');
 	protected $primaryKey = 'id';
 
 	public function user() {
@@ -22,5 +22,9 @@ class Book extends Model {
 
 	public function comments() {
 		return $this->hasMany('App\Models\Comment');
+	}
+
+	public function tags() {
+		return $this->hasMany('App\Models\Tag');
 	}
 }
