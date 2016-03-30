@@ -1,9 +1,9 @@
 @extends('app')
 
 @section('content')
-<div class="container">
-	<div class="row">
-		<div class="col-md-6">
+<div>
+	<div>
+		<div class="col-md-10 col-md-offset-1">
 			<h1>Edit {{$content->name}}</h1>
 			<hr/>
 			{!! Form::open(['method' => 'PATCH','route' =>  ['books.{book}.content.update',$content->book_id,$content->chapter]])!!}

@@ -1,9 +1,9 @@
 @extends('app')
 
 @section('content')
-<div class="container">
-	<div class="row">
-		<div class="col-md-6">
+<div>
+	<div>
+		<div class="col-md-10 col-md-offset-1">
 		<h1 class="inline"><span class="first-letter">E</span>DIT</h1>
 		<h4 class="inline">{{$book->name}}</h4>
 		<hr/>

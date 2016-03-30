@@ -12,7 +12,7 @@
 					</div>
 					<div>
 						<h1 class="inline"><span class="first-letter">C</span>REATORS</h1>
-						<h4 class="inline">novel</h4>
+						<h4 class="inline">feed</h4>
 					</div>
 				</div><br/>
 				<div>
@@ -50,10 +50,7 @@
 				</div><br/>
 				<div class="col-md-6">
 					<div class="header">
-						<div class="pull-right">
-							<input type="text" class="form-control pull-right" placeholder="Search">
-						</div>
-							<h2><span class="first-letter">R</span>ECENT</h2><br/>
+						<h2><span class="first-letter">R</span>ECENT</h2><br/>
 					</div>
 					<table class="table" style="width:100%" align="center">
 						<tbody>
@@ -62,8 +59,8 @@
 									<td><h4><a href="/books/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
 									Last updated: {{$b->updated_at}}
 									in {{$b->category}}</td>
-									<td><h5>+ {{$b->userRating}}</h5></td>
-									<td><h5><span class="glyphicon glyphicon-list-alt"> Author</span></h5></td>
+									<td><h5>+ {{$b->userRating}}</h5><h6>+ {{$b->criticRating}}</h6></td>
+									<td><h5><span class="glyphicon glyphicon-list-alt"></span> {{$b->user->username}}</h5></td>
 								</tr>
 							@endforeach
 						</tbody>

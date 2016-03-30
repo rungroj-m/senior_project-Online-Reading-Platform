@@ -4,7 +4,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-6">
-		{!! Form::open(['method' => 'POST','files'=>true,'route' => ['profile/image/save']]) !!}
+			{!! Form::open(['method' => 'POST','files'=>true,'route' => ['profile/image/save']]) !!}
 
 			<div class="form-group">
 				{!! Form::label('title', 'Title:') !!}

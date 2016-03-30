@@ -23,6 +23,11 @@ class ProfileController extends Controller
         return $this->showProfile($id);
     }
 
+    public function index($id){
+        $user = User::findOrFail($id);
+        return $user;
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
