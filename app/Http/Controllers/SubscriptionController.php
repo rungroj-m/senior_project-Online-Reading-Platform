@@ -32,8 +32,8 @@ class SubscriptionController extends Controller
     public function subscribe($id)
     {
         $user_id = Auth::id();
-        $verify = DB::table('subscriptions')->select('user_id')->where('book_id', '=', $id)->get();
-        if($verify > 0) {
+        $subscribe = DB::table('subscriptions')->select('id')->where('book_id', '=', $id)->where('user_id', '=', $user_id)->count() > 0;
+        if($subscribe) {
           DB::table('subscriptions')
             ->where('user_id', $user_id)
             ->where('book_id', $id)

@@ -17,9 +17,11 @@ class ContentController extends Controller {
 	 */
 	public function index($id)
 	{
+		$user_id = Auth::id();
 		$contents = Book::findOrFail($id)->contents;
 		$book = Book::findOrFail($id);
-		return view('contents.index',compact('contents', 'book'))->with('id',$id);
+		$subscribe = DB::table('subscriptions')->select('id')->where('book_id', '=', $id)->where('user_id', '=', $user_id)->count() > 0;
+		return view('contents.index',compact('contents', 'book', 'subscribe'))->with('id',$id);
 	}
 
 	/**
