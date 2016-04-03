@@ -152,7 +152,7 @@ return [
 
 		Intervention\Image\ImageServiceProvider::class,
 		'Laravel\Socialite\SocialiteServiceProvider',
-		Fenos\Notifynder\NotifynderServiceProvider::class,
+		'Fenos\Notifynder\NotifynderServiceProvider',
 	],
 
 	/*
@@ -206,7 +206,7 @@ return [
 		'Gate'    	=> 'Illuminate\Support\Facades\Gate',
 		'Socialize' => 'Laravel\Socialite\Facades\Socialite',
 		'Image' 		=> Intervention\Image\Facades\Image::class,
-		'Notifynder' => Fenos\Notifynder\Facades\Notifynder::class,
+		'Notifynder'    => 'Fenos\Notifynder\Facades\Notifynder',
 ),
 
 ];

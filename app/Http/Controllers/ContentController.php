@@ -10,6 +10,7 @@ use Facebook\Facebook;
 use Auth;
 use App\Models\User;
 use App\Models\BookReport;
+// use Fenos\Notifynder\Notifynder;
 
 class ContentController extends Controller {
 
@@ -78,33 +79,37 @@ class ContentController extends Controller {
 			// $content->content = str_replace("\r\n", "<br/>", $request->content);
 			$book->contents()->save($content);
 
+			$this->notify($book, $content);
+
 			return $this->index($id);
 		}
 	}
 
-	private function notify($book, $content) {
+	protected function notify($book, $content) {
 		$bookname = $book->name;
 		$chapter = $content->chapter;
 		$chaptername = $content->name;
 		$users = $book->subscribers();
-		$this->notifynder->loop($users, function(NotifynderBuilder $builder, $user) {
 
-       $builder->category('book.updatechapter')
-           ->from($book->id)
-           ->to($user->id)
-           ->url('http://localhost:8000')
-           ->extra(compact('bookname', 'chapter', 'chaptername'));
-
-			})->send();
-
-		// $notifynder = $this->notifynder;
+		foreach($users as $user) {
+			if(DB::table('subscriptions')->select('id')->where('book_id', '=', $book->id)->where('user_id', '=', $user->id)->where('active', '=', '1')->count() > 0) {
+				Notifynder::category('book.updatechapter')
+						->from('App\Models\Book', $book->id)
+						->to('App\Models\User', $user->id)
+						->url(url('/books'.'/'.$book->id.'/content'.'/'.$content->chapter))
+						->extra(compact('bookname', 'chapter', 'chaptername'))
+						->send();
+			}
+		}
+		// $this->notifynder->loop($users, function(NotifynderBuilder $builder, $user) {
 		//
-		// $notifynder['category'] = 'book.updatechapter';
-		// $notifynder['to'] = 20;
-		// $notifynder['from'] = $book->id;
-		// $notifynder['extra'] = compact('bookname', 'chapter', 'chaptername');
+    //    $builder->category('book.updatechapter')
+    //        ->from($book->id)
+    //        ->to($user->id)
+    //        ->url(url('/books'.'/'.$book->id.'/content'.'/'.$content->chapter))
+    //        ->extra(compact('bookname', 'chapter', 'chaptername'));
 		//
-		// $notifynder->send();
+		// 	})->send();
 	}
 
 
