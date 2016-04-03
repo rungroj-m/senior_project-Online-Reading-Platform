@@ -27,4 +27,8 @@ class Book extends Model {
 	public function tags() {
 		return $this->hasMany('App\Models\Tag');
 	}
+
+	public function subscribers() {
+		return $this->hasMany('App\Models\Subscription');
+	}
 }

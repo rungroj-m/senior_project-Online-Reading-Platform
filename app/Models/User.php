@@ -42,4 +42,8 @@ class User extends Model implements AuthenticatableContract,  AuthorizableContra
 	public function wallet() {
 		return $this->hasOne('App\Models\Wallet');
 	}
+
+	public function subscriptions() {
+		return $this->hasMany('App\Models\Subscription');
+	}
 }

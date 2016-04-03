@@ -86,15 +86,25 @@ class ContentController extends Controller {
 		$bookname = $book->name;
 		$chapter = $content->chapter;
 		$chaptername = $content->name;
+		$users = $book->subscribers();
+		$this->notifynder->loop($users, function(NotifynderBuilder $builder, $user) {
 
-		$notifynder = $this->notifynder;
+       $builder->category('book.updatechapter')
+           ->from($book->id)
+           ->to($user->id)
+           ->url('http://localhost:8000')
+           ->extra(compact('bookname', 'chapter', 'chaptername'));
 
-		$notifynder['category'] = 'book.updatechapter';
-		$notifynder['to'] = 20;
-		$notifynder['from'] = $book->id;
-		$notifynder['extra'] = compact('bookname', 'chapter', 'chaptername');
+			})->send();
 
-		$notifynder->send();
+		// $notifynder = $this->notifynder;
+		//
+		// $notifynder['category'] = 'book.updatechapter';
+		// $notifynder['to'] = 20;
+		// $notifynder['from'] = $book->id;
+		// $notifynder['extra'] = compact('bookname', 'chapter', 'chaptername');
+		//
+		// $notifynder->send();
 	}
 
 
