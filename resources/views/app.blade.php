@@ -13,7 +13,7 @@
 				@if(Auth::guest())
 					<a class="navbar-brand" href="{{ url('/') }}"><span class="first-letter">R</span>EADI</a>
 				@else
-					<a class="navbar-brand" href="{{ url('/books') }}"><span class="first-letter">R</span>EADI</a>
+					<a class="navbar-brand" href="{{ url('/index') }}"><span class="first-letter">R</span>EADI</a>
 				@endif
 			</div>
 
@@ -25,7 +25,7 @@
 				</ul>
 				<form class="navbar-form navbar-left" role="search" method="GET" action="/books/search">
 					<div class="input-group">
-						<input type="text" class="form-control" name="name" placeholder="Search">
+						<input type="text" class="form-control" name="request" placeholder="Search">
 						<div class="input-group-btn">
 							<button class="btn btn-success form-control">Go</button>
 						</div>

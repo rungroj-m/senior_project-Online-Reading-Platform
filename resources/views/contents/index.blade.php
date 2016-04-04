@@ -37,16 +37,16 @@
 						{!! Form::close() !!}
 					</li>
 					<li class="list-group-item">
-						<div>
-							<span class="glyphicon glyphicon-list"></span> Tags
+						<div data-toggle="collapse" href="#collapseTags" aria-controls="collapseTags">
+							<span class="glyphicon glyphicon-list"></span> Tags <span class="glyphicon glyphicon-arrow-down"></span>
 						</div>
-						<div>
-							<span class="label label-success">Sci-Fi</span></h5>
-							<span class="label label-success">Drama</span></h5>
-							<span class="label label-success">Light Novel</span>
-							<span class="label label-success">Fantasy</span>
-							<span class="label label-success">Comedy</span>
-							<span class="label label-success">MMORPG</span>
+						<div class="collapse" id="collapseTags">
+							<h5><span class="badge">Sci-Fi</span></h5>
+							<h5><span class="badge">Drama</span></h5>
+							<h5><span class="badge">Light Novel</span></h5>
+							<h5><span class="badge">Fantasy</span></h5>
+							<h5><span class="badge">Comedy</span></h5>
+							<h5><span class="badge">MMORPG</span></h5>
 						</div>
 					</li>
 					<li class="list-group-item">
@@ -58,6 +58,7 @@
 							</div>
 						</span>
 						<div class="collapse" id="collapseUserRating">
+							RATING FORM HERE
 							<!-- RATING FORM HERE -->
 						</div>
 					</li>
@@ -68,6 +69,7 @@
 							<h2>{{$book->criticRating}}</h2>
 						</span>
 						<div class="collapse" id="collapseCriticRating">
+							RATING FORM ALSO HERE
 							<!-- RATING FORM HERE -->
 						</div>
 					</li>

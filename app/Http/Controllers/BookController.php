@@ -29,9 +29,12 @@ class BookController extends Controller {
 	}
 
 	public function searchName(){
-		$name = Request::get('name');
-		$books = Book::all();
-		return $name;
+		$request = Request::get('request');
+		$books = Book::where(function ($query) use ($request){
+			$query	->where('name', '=', $request)
+					->orWhere('id', '=', $request);
+		})->get();
+		return view('books.index', compact('books'));
 	}
 	
 	/**

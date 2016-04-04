@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use Auth;
-use Book;
+use App\Models\Book;
 
 class WelcomeController extends Controller {
 
@@ -31,7 +31,12 @@ class WelcomeController extends Controller {
 	 * @return Response
 	 */
 	
-	public function index(){
+	public function welcome(){
 		return view('welcome');
+	}
+
+	public function index(){
+		$books = Book::all();
+		return view('index', compact ('books'));
 	}
 }

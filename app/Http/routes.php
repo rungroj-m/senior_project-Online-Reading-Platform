@@ -26,6 +26,9 @@ Route::post('register', 'Auth\AuthController@postRegister');
 
 Route::group(['middleware' => 'auth'], function () {
 
+	// Index
+	Route::get('index', 'WelcomeController@index');
+
 	// Books & Content Route
 	Route::get('books/search/', 'BookController@searchName');
 	Route::resource('books','BookController');
@@ -61,5 +64,5 @@ Route::group(['middleware' => 'auth'], function () {
 	});
 });
 
-Route::get('home', 'WelcomeController@index');
+Route::get('home', 'WelcomeController@welcome');
 Route::any('/', 'WelcomeController@index');
