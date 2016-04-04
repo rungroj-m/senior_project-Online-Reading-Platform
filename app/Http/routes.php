@@ -54,6 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::put('admin/user/{id}/edit', ['as' => 'admin-edit-user', 'uses' => 'AdminController@update']);
 		Route::delete('admin/user/{id}', 'AdminController@destroy');
 		Route::get('admin', 'AdminController@index');
+		Route::get('admin/bookreport', 'AdminController@bookReport');
 	});
 });
 
