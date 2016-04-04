@@ -11,7 +11,7 @@ use Auth;
 use App\Models\User;
 use App\Models\BookReport;
 use Log;
-// use Fenos\Notifynder\Notifynder;
+use Notifynder;
 
 class ContentController extends Controller {
 
@@ -81,6 +81,7 @@ class ContentController extends Controller {
 			// $content->content = str_replace("\r\n", "<br/>", $request->content);
 			$book->contents()->save($content);
 
+			// notify subscribed user
 			$this->notify($book, $content);
 
 			return $this->index($id);
@@ -92,12 +93,11 @@ class ContentController extends Controller {
 		$bookname = $book->name;
 		$chapter = $content->chapter;
 		$chaptername = $content->name;
-		$subs = $book->subscribers();
-		Log::info('ATTEMPT TO PRINT SUBS ');
+		$subs = $book->subscribers;
 		foreach($subs as $sub) {
 			Log::info('subs loop');
 			if($sub->active) {
-				$user = $sub->user();
+				$user = $sub->user;
 				Notifynder::category('book.updatechapter')
 						->from('App\Models\Book', $book->id)
 						->to('App\Models\User', $user->id)
@@ -106,15 +106,6 @@ class ContentController extends Controller {
 						->send();
 			}
 		}
-		// $this->notifynder->loop($users, function(NotifynderBuilder $builder, $user) {
-		//
-    //    $builder->category('book.updatechapter')
-    //        ->from($book->id)
-    //        ->to($user->id)
-    //        ->url(url('/books'.'/'.$book->id.'/content'.'/'.$content->chapter))
-    //        ->extra(compact('bookname', 'chapter', 'chaptername'));
-		//
-		// 	})->send();
 	}
 
 
