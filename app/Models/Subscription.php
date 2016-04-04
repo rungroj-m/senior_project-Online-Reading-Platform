@@ -9,7 +9,7 @@ class Subscription extends Model {
 	 *
 	 * @var string
 	 */
-	protected $fillable = array('user_id','book_id');
+	protected $fillable = array('user_id', 'book_id', 'active');
 	protected $primaryKey = 'id';
 
 	public function user() {
@@ -17,6 +17,6 @@ class Subscription extends Model {
 	}
 
 	public function book() {
-		return $this->belongTo('App\Models\Book');
+		return $this->belongsTo('App\Models\Book');
 	}
 }

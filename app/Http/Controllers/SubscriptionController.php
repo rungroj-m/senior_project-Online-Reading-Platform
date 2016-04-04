@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Book;
 use App\Http\Requests;
 use Auth;
 use DB;
 use App\Http\Controllers\Controller;
+use App\Models\Subscription;
 
 class SubscriptionController extends Controller
 {
@@ -39,9 +41,16 @@ class SubscriptionController extends Controller
             ->where('book_id', $id)
             ->update(['active' => true]);
         } else {
-          DB::table('subscriptions')->insert(
-              ['user_id' => $user_id, 'book_id' => $id, 'active' => true]
-          );
+          $user = User::findOrFail($user_id);
+          $book = Book::findOrFail($id);
+          $sub = new Subscription;
+          $sub->active = true;
+          $sub->book()->associate($book);
+          $sub->user()->associate($user);
+          $sub->save();
+          // DB::table('subscriptions')->insert(
+          //     ['user_id' => $user_id, 'book_id' => $id, 'active' => true]
+          // );
         }
         return redirect()->back();
     }
