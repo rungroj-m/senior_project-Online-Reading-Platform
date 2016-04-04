@@ -87,14 +87,15 @@ class ContentController extends Controller {
 		}
 	}
 
+	/**
+	 * Notify all user whom subscribe to specify book.
+	 */
 	protected function notify($book, $content) {
-		Log::info('NOTIFY!');
 		$bookname = $book->name;
 		$chapter = $content->chapter;
 		$chaptername = $content->name;
 		$subs = $book->subscribers;
 		foreach($subs as $sub) {
-			Log::info('subs loop');
 			if($sub->active) {
 				$user = $sub->user;
 				Notifynder::category('book.updatechapter')
@@ -106,7 +107,6 @@ class ContentController extends Controller {
 			}
 		}
 	}
-
 
 	/**
 	 * Use this function to send notification to facebook user.
