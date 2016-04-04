@@ -33,15 +33,18 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('books/search/', 'BookController@searchName');
 	Route::resource('books','BookController');
 	Route::resource('books/{book}/content', 'ContentController');
+	Route::get('books/{book}/report', [ 'as' => 'report', 'uses' => 'ContentController@report']);
 
 	// Comment Routes
 	Route::post('books/{book}/content/comment', 'CommentController@postComment');
-	Route::put('books/{book}/content/comment/{comment}/up', 'CommentController@voteUpComment');
-	Route::put('books/{book}/content/comment/{comment}/down', 'CommentController@voteDownComment');
+	Route::get('books/{book}/content/comment/{comment}/up', 'CommentController@voteUpComment');
+	Route::get('books/{book}/content/comment/{comment}/down', 'CommentController@voteDownComment');
+	Route::get('books/{book}/content/comment/{comment}/report', [ 'as' => 'commentreport', 'uses' => 'CommentController@report']);
 
 	// Subscription Route
 	Route::get('books/{book}/subscribe', [ 'as' => 'subscribe', 'uses' => 'SubscriptionController@subscribe']);
 	Route::get('books/{book}/unsubscribe', [ 'as' => 'unsubscribe', 'uses' => 'SubscriptionController@unsubscribe']);
+
 
 	// Profile Routes
 	Route::get('profile/{id}','ProfileController@index');
@@ -61,6 +64,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::delete('admin/user/{id}', 'AdminController@destroy');
 		Route::get('admin', 'AdminController@index');
 		Route::get('admin/bookreport', 'AdminController@bookReport');
+		Route::get('admin/commentreport', 'AdminController@commentReport');
 	});
 });
 

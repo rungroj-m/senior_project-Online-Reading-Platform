@@ -37,7 +37,6 @@ class ContentController extends Controller {
 		$bookreport -> book_id = $book->getKey();
 		$bookreport -> user_id = $ownerId;
 		$bookreport -> save();
-		return $this->showTotalReport($id);
 		return redirect('books/'.$id);
 	}
 
@@ -112,7 +111,7 @@ class ContentController extends Controller {
 	/**
 	 * Use this function to send notification to facebook user.
 	 */
-	public function facebookNotification(){
+	public function facebookNotification($user_id){
 
 		$app_id = '811596832280396';
 		$app_secret = '2f2e3fb44143bbf8543850d7cddc8c28';
@@ -126,8 +125,6 @@ class ContentController extends Controller {
 //		$access_token = '811596832280396|RqbSrEt8yah1feLwm4OGKQo-5as';
 
 		$access_token = $app_id.'|'.$app_secret;
-
-		$user_id = Auth::id();
 
 		$user = User::find($user_id);
 
