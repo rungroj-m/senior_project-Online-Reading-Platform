@@ -142,7 +142,7 @@
 							<div style="text-align: right">
 								<p>- {{$c->user->username}} | 
 									{{$c->rating}}
-									<a href="#" class="first-letter">+</a>
+									<a href="#" class="first-letter" href="">+</a>
 									<a href="#" class="first-letter">-</a>
 								</p>
 							</div>

@@ -27,6 +27,12 @@ class BookController extends Controller {
 		$books = Book::all();
 		return view('books.index',compact('books'));
 	}
+
+	public function searchName(){
+		$name = Request::get('name');
+		$books = Book::all();
+		return $name;
+	}
 	
 	/**
 	 * Show the form for creating a new resource.

@@ -23,9 +23,9 @@
 					<li><a href="{{ url('/books') }}"><span class="first-navbar-letter">C</span>OMIC</a></li>
 					<li><a href="{{ url('/books') }}"><span class="first-navbar-letter">F</span>EED</a></li>
 				</ul>
-				<form class="navbar-form navbar-left" role="search">
+				<form class="navbar-form navbar-left" role="search" method="GET" action="/books/search">
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search">
+						<input type="text" class="form-control" name="name" placeholder="Search">
 						<div class="input-group-btn">
 							<button class="btn btn-success form-control">Go</button>
 						</div>

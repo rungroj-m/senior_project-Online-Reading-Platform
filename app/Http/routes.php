@@ -27,11 +27,14 @@ Route::post('register', 'Auth\AuthController@postRegister');
 Route::group(['middleware' => 'auth'], function () {
 
 	// Books & Content Route
+	Route::get('books/search/', 'BookController@searchName');
 	Route::resource('books','BookController');
 	Route::resource('books/{book}/content', 'ContentController');
 
 	// Comment Routes
 	Route::post('books/{book}/content/comment', 'CommentController@postComment');
+	Route::put('books/{book}/content/comment/{comment}/up', 'CommentController@voteUpComment');
+	Route::put('books/{book}/content/comment/{comment}/down', 'CommentController@voteDownComment');
 
 	// Subscription Route
 	Route::get('books/{book}/subscribe', [ 'as' => 'subscribe', 'uses' => 'SubscriptionController@subscribe']);
