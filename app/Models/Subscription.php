@@ -9,7 +9,7 @@ class Subscription extends Model {
 	 *
 	 * @var string
 	 */
-	protected $fillable = array('user_id','book_id');
+	protected $fillable = array('user_id', 'book_id', 'active');
 	protected $primaryKey = 'id';
 
 	public function user() {

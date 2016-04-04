@@ -89,10 +89,11 @@ class ContentController extends Controller {
 		$bookname = $book->name;
 		$chapter = $content->chapter;
 		$chaptername = $content->name;
-		$users = $book->subscribers();
-
-		foreach($users as $user) {
-			if(DB::table('subscriptions')->select('id')->where('book_id', '=', $book->id)->where('user_id', '=', $user->id)->where('active', '=', '1')->count() > 0) {
+		$subs = $book->subscribers();
+		
+		foreach($subs as $sub) {
+			if($sub->active) {
+				$user = User::findOrFail($sub->user_id);
 				Notifynder::category('book.updatechapter')
 						->from('App\Models\Book', $book->id)
 						->to('App\Models\User', $user->id)

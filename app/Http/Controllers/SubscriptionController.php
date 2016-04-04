@@ -8,6 +8,7 @@ use App\Http\Requests;
 use Auth;
 use DB;
 use App\Http\Controllers\Controller;
+use App\Models\Subscription;
 
 class SubscriptionController extends Controller
 {
@@ -39,9 +40,14 @@ class SubscriptionController extends Controller
             ->where('book_id', $id)
             ->update(['active' => true]);
         } else {
-          DB::table('subscriptions')->insert(
-              ['user_id' => $user_id, 'book_id' => $id, 'active' => true]
-          );
+          $sub = new Subscription;
+          $sub->active = true;
+          $sub->user_id = $user_id;
+          $sub->book_id = $id;
+          $sub->save();
+          // DB::table('subscriptions')->insert(
+          //     ['user_id' => $user_id, 'book_id' => $id, 'active' => true]
+          // );
         }
         return redirect()->back();
     }
