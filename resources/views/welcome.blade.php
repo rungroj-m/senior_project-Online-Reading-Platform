@@ -4,7 +4,7 @@
 
 <body class="home-background">
 	<div>
-		<div class="container">
+		<div class="content">
 			<div class="col-md-5 col-md-offset-1 home-left">
 				<div class="title">
 					<span class="first-letter">R</span>EADI

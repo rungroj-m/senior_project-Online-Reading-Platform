@@ -34,7 +34,7 @@ class AuthController extends Controller {
         private $socialite;
 		protected $loginPath = '/login'; // path to the login URL
 		protected $registerPath = '/register';
-	 	protected $redirectPath = '/books'; // path to the route where you want users to be redirected once logged in
+	 	protected $redirectPath = '/index'; // path to the route where you want users to be redirected once logged in
 	 	protected $redirectTo = '/'; // path you're sent to once you've reset your password
 
     /**

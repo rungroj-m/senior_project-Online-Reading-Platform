@@ -64,5 +64,4 @@ Route::group(['middleware' => 'auth'], function () {
 	});
 });
 
-Route::get('home', 'WelcomeController@welcome');
-Route::any('/', 'WelcomeController@index');
+Route::get('/', 'WelcomeController@welcome');
