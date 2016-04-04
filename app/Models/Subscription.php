@@ -17,6 +17,6 @@ class Subscription extends Model {
 	}
 
 	public function book() {
-		return $this->belongTo('App\Models\Book');
+		return $this->belongsTo('App\Models\Book');
 	}
 }

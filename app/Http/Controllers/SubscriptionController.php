@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Book;
 use App\Http\Requests;
 use Auth;
 use DB;
@@ -40,10 +41,12 @@ class SubscriptionController extends Controller
             ->where('book_id', $id)
             ->update(['active' => true]);
         } else {
+          $user = User::findOrFail($user_id);
+          $book = Book::findOrFail($id);
           $sub = new Subscription;
           $sub->active = true;
-          $sub->user_id = $user_id;
-          $sub->book_id = $id;
+          $sub->book()->associate($book);
+          $sub->user()->associate($user);
           $sub->save();
           // DB::table('subscriptions')->insert(
           //     ['user_id' => $user_id, 'book_id' => $id, 'active' => true]

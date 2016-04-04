@@ -10,6 +10,7 @@ use Facebook\Facebook;
 use Auth;
 use App\Models\User;
 use App\Models\BookReport;
+use Log;
 // use Fenos\Notifynder\Notifynder;
 
 class ContentController extends Controller {
@@ -63,7 +64,8 @@ class ContentController extends Controller {
 	public function store($id,Request $request)
 	{
 		$validator = Validator::make($request->all(), [
-        'chapter' => 'integer'
+        'chapter' => 'required|integer|unique:contents',
+				'name' => 'required'
     ]);
 		if ($validator->fails()) {
     	 return redirect()->action('ContentController@create',  ['bookId' => $id])
@@ -86,14 +88,16 @@ class ContentController extends Controller {
 	}
 
 	protected function notify($book, $content) {
+		Log::info('NOTIFY!');
 		$bookname = $book->name;
 		$chapter = $content->chapter;
 		$chaptername = $content->name;
 		$subs = $book->subscribers();
-		
+		Log::info('ATTEMPT TO PRINT SUBS ');
 		foreach($subs as $sub) {
+			Log::info('subs loop');
 			if($sub->active) {
-				$user = User::findOrFail($sub->user_id);
+				$user = $sub->user();
 				Notifynder::category('book.updatechapter')
 						->from('App\Models\Book', $book->id)
 						->to('App\Models\User', $user->id)
