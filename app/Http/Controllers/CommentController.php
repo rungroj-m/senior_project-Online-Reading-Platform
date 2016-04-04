@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use Request;
 use App\Models\Book;
 use App\Models\Comment;
 use App\Models\CommentRating;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use App\Models\CommentReport;
 use Auth;
 
 class commentController extends Controller
@@ -18,14 +16,13 @@ class commentController extends Controller
      */
     public function postComment($bookId){
         $book = Book::findOrFail($bookId);
-
         $ownerId = Auth::id();
         $input = Request::all();
         $comment = Comment::create($input);
         $comment -> book_id = $book->getKey();
         $comment -> user_id = $ownerId;
         $comment -> save();
-        return $comment;
+        return redirect('books/'.$bookId);
     }
 
     public function getComment($bookId){
@@ -64,6 +61,22 @@ class commentController extends Controller
 //
 //        }
 //    }
+
+    public function report($commentId,$bookId){
+        $comment = Comment::findOrfail($commentId);
+        $ownerId = Auth::id();
+        $commentReport = CommentReport::create();
+        $commentReport -> type = 1;
+        $commentReport -> comment_id = $comment->getKey();
+        $commentReport -> user_id = $ownerId;
+        $commentReport -> save();
+        return redirect('books/'.$bookId);
+    }
+
+    public function showTotalReport($id){
+        return $totalReport = DB::table('comment_reports')->where('comment_id','=',$id)->distinct('user_id')->count('user_id');
+    }
+
 
     public function alreadyRate($commentKey){
         $userID = Auth::id();

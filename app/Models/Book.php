@@ -1,15 +1,18 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Fenos\Notifynder\Notifable;
 
 class Book extends Model {
+
+	use Notifable;
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $fillable = array('name','description','userRatingCount','userRating','criticRating','TAG','category','criticRatingCount','user_id');
+	protected $fillable = array('name','description','userRatingCount','userRating','criticRating','category','criticRatingCount','user_id');
 	protected $primaryKey = 'id';
 
 	public function user() {
@@ -22,5 +25,13 @@ class Book extends Model {
 
 	public function comments() {
 		return $this->hasMany('App\Models\Comment');
+	}
+
+	public function tags() {
+		return $this->hasMany('App\Models\Tag');
+	}
+
+	public function subscribers() {
+		return $this->hasMany('App\Models\Subscription');
 	}
 }

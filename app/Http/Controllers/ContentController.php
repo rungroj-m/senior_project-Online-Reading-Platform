@@ -1,12 +1,16 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Content;
 use DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Facebook\Facebook;
+use Auth;
+use App\Models\User;
+use App\Models\BookReport;
+// use Fenos\Notifynder\Notifynder;
 
 class ContentController extends Controller {
 
@@ -17,9 +21,27 @@ class ContentController extends Controller {
 	 */
 	public function index($id)
 	{
+		$user_id = Auth::id();
 		$contents = Book::findOrFail($id)->contents;
 		$book = Book::findOrFail($id);
-		return view('contents.index',compact('contents', 'book'))->with('id',$id);
+		$subscribe = DB::table('subscriptions')->select('id')->where('book_id', '=', $id)->where('user_id', '=', $user_id)->count() > 0;
+		return view('contents.index',compact('contents', 'book', 'subscribe'))->with('id',$id);
+	}
+
+	public function report($id){
+		$book = Book::findOrFail($id);
+		$ownerId = Auth::id();
+		$bookreport = BookReport::create();
+		$bookreport -> type = 1;
+		$bookreport -> book_id = $book->getKey();
+		$bookreport -> user_id = $ownerId;
+		$bookreport -> save();
+		return $this->showTotalReport($id);
+		return redirect('books/'.$id);
+	}
+
+	public function showTotalReport($id){
+		return $totalReport = DB::table('book_reports')->where('book_id','=',$id)->distinct('user_id')->count('user_id');
 	}
 
 	/**
@@ -57,23 +79,37 @@ class ContentController extends Controller {
 			// $content->content = str_replace("\r\n", "<br/>", $request->content);
 			$book->contents()->save($content);
 
+			$this->notify($book, $content);
+
 			return $this->index($id);
 		}
 	}
 
-	private function notify($book, $content) {
+	protected function notify($book, $content) {
 		$bookname = $book->name;
 		$chapter = $content->chapter;
 		$chaptername = $content->name;
+		$users = $book->subscribers();
 
-		$notifynder = $this->notifynder;
-
-		$notifynder['category'] = 'book.updatechapter';
-		$notifynder['to'] = 20;
-		$notifynder['from'] = $book->id;
-		$notifynder['extra'] = compact('bookname', 'chapter', 'chaptername');
-
-		$notifynder->send();
+		foreach($users as $user) {
+			if(DB::table('subscriptions')->select('id')->where('book_id', '=', $book->id)->where('user_id', '=', $user->id)->where('active', '=', '1')->count() > 0) {
+				Notifynder::category('book.updatechapter')
+						->from('App\Models\Book', $book->id)
+						->to('App\Models\User', $user->id)
+						->url(url('/books'.'/'.$book->id.'/content'.'/'.$content->chapter))
+						->extra(compact('bookname', 'chapter', 'chaptername'))
+						->send();
+			}
+		}
+		// $this->notifynder->loop($users, function(NotifynderBuilder $builder, $user) {
+		//
+    //    $builder->category('book.updatechapter')
+    //        ->from($book->id)
+    //        ->to($user->id)
+    //        ->url(url('/books'.'/'.$book->id.'/content'.'/'.$content->chapter))
+    //        ->extra(compact('bookname', 'chapter', 'chaptername'));
+		//
+		// 	})->send();
 	}
 
 

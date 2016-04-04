@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use DB;
 class AdminController extends Controller
 {
     /**
@@ -105,5 +105,11 @@ class AdminController extends Controller
     {
         User::destroy($id);
         return redirect('/admin')->with('status', 'Delete user no.'+$id+' succeed.');
+    }
+
+    public function bookReport(){
+        $bookreport = DB::table('book_reports')->select(array('book_id','name',DB::raw('Count(book_id) as count')))->join('books','books.id','=','book_reports.book_id')->distinct('user_id')->groupby('book_id')->get();
+        return view('admin.bookReport')->with('bookReport',$bookreport);
+//        return $bookreport->count;
     }
 }
