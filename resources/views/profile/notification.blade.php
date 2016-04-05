@@ -23,17 +23,18 @@
                 <tr>
                     <td>{{$noti->id}}</td>
                     <td>
-                      @if (true)
-                        {{$noti->extra->bookname}}
+                        @if ($noti->category->name == 'book.updatechapter')
+                        {{ $noti->extra->bookname }} updated!
                       @else
 
                       @endif
                     </td>
                     <td>
+                      {{ $noti->description }}
                     </td>
                     <td>
                       <a href="{{ $noti->url }}" class="btn btn-info pull-left" style="margin-right: 3px;">
-                        {{ $noti->url }}
+                        Chapter{{ $noti->extra->chapter }}: {{ $noti->extra->chaptername }}
                       </a>
                     </td>
                 </tr>
