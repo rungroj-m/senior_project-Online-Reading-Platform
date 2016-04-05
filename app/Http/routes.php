@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('index', 'WelcomeController@index');
 
 	// Books & Content Route
-	Route::get('books/search/', 'BookController@searchName');
+	Route::get('books/search/', 'BookController@search');
 	Route::resource('books','BookController');
 	Route::resource('books/{book}/content', 'ContentController');
 

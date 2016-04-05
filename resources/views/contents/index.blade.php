@@ -38,7 +38,7 @@
 					</li>
 					<li class="list-group-item">
 						<div data-toggle="collapse" href="#collapseTags" aria-controls="collapseTags">
-							<span class="glyphicon glyphicon-list"></span> Tags <span class="glyphicon glyphicon-arrow-down"></span>
+							<span class="glyphicon glyphicon-list"></span> Tags <span class="badge">5</span>
 						</div>
 						<div class="collapse" id="collapseTags">
 							<h5><span class="badge">Sci-Fi</span></h5>
