@@ -35,6 +35,12 @@
 						]) !!}
 						{!! Form::submit('Unsubscribe', ['class' => 'btn btn-warning form-control']) !!}
 						{!! Form::close() !!}
+						{!! Form::open([
+                            'method' => 'GET',
+                            'route' => ['report', $book->id]
+                        ]) !!}
+						{!! Form::submit('report', ['class' => 'btn btn-warning form-control']) !!}
+						{!! Form::close() !!}
 					</li>
 					<li class="list-group-item">
 						<div data-toggle="collapse" href="#collapseTags" aria-controls="collapseTags">
@@ -144,8 +150,9 @@
 							<div style="text-align: right">
 								<p>- {{$c->user->username}} | 
 									{{$c->rating}}
-									<a href="#" class="first-letter" href="">+</a>
-									<a href="#" class="first-letter">-</a>
+									<a href="/books/{{$id}}/content/comment/{{$c->id}}/up" class="first-letter" href="">+</a>
+									<a href="/books/{{$id}}/content/comment/{{$c->id}}/down" class="first-letter">-</a>
+									<a href="/books/{{$id}}/content/comment/{{$c->id}}/report" class="first-letter">report</a>
 								</p>
 							</div>
 						</div>

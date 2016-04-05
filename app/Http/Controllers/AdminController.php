@@ -112,4 +112,10 @@ class AdminController extends Controller
         return view('admin.bookReport')->with('bookReport',$bookreport);
 //        return $bookreport->count;
     }
+
+    public function commentReport(){
+        $commentreport = DB::table('comment_reports')->select(array('comment_reports.comment_id as id','comment',DB::raw('Count(comment_reports.comment_id) as count')))->join('comments','comments.id','=','comment_reports.comment_id')->distinct('user_id')->groupby('comment_reports.comment_id')->get();
+        return view('admin.commentReport')->with('commentReport',$commentreport);
+    }
+
 }

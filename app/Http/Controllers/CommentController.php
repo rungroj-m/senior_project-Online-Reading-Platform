@@ -8,6 +8,7 @@ use App\Models\Comment;
 use App\Models\CommentRating;
 use App\Models\CommentReport;
 use Auth;
+use DB;
 
 class commentController extends Controller
 {
@@ -39,7 +40,7 @@ class commentController extends Controller
     /**
      * replied comment
      */
-    public function repliedComment($commentKey,$bookId){
+    public function repliedComment($bookId,$commentKey){
         $book = Book::findOrFail($bookId);
 
         $ownerId = Auth::id();
@@ -62,7 +63,7 @@ class commentController extends Controller
 //        }
 //    }
 
-    public function report($commentId,$bookId){
+    public function report($bookId,$commentId){
         $comment = Comment::findOrfail($commentId);
         $ownerId = Auth::id();
         $commentReport = CommentReport::create();
@@ -73,14 +74,14 @@ class commentController extends Controller
         return redirect('books/'.$bookId);
     }
 
-    public function showTotalReport($id){
+    public function showTotalReport($bookId,$id){
         return $totalReport = DB::table('comment_reports')->where('comment_id','=',$id)->distinct('user_id')->count('user_id');
     }
 
 
     public function alreadyRate($commentKey){
         $userID = Auth::id();
-        $condition = ['user_id' => $userID , 'id' => $commentKey];
+        $condition = ['user_id' => $userID , 'comment_id' => $commentKey];
         $check = DB::table('commentRatings')->where($condition)->first();
         if($check == null)
             return false;
@@ -88,34 +89,35 @@ class commentController extends Controller
 
     }
 
-    public function voteUpComment($commentKey){
+    public function voteUpComment($bookId,$commentKey){
         if($this->alreadyRate($commentKey))
-            return 'already vote';
+            return redirect('/books/'.$bookId);
         $userID = Auth::id();
         $comment = Comment::findOrfail($commentKey);
         $comment -> rating ++;
         $comment -> save();
 
         $commentRating = new CommentRating();
-        $commentRating -> id = $commentKey;
+        $commentRating -> comment_id = $commentKey;
         $commentRating -> user_id = $userID;
         $commentRating -> save();
-        return 'voteup success';
+        return redirect('/books/'.$bookId);
+//        return 'voteup success';
     }
 
-    public function voteDownComment($commentKey){
+    public function voteDownComment($bookId,$commentKey){
         if($this->alreadyRate($commentKey))
-            return 'already vote';
+            return redirect('/books/'.$bookId);
         $userID = Auth::id();
         $comment = Comment::findOrfail($commentKey);
         $comment -> rating --;
         $comment -> save();
 
         $commentRating = new CommentRating();
-        $commentRating -> id = $commentKey;
+        $commentRating -> comment_id = $commentKey;
         $commentRating -> user_id = $userID;
         $commentRating -> save();
-        return 'votedown success';
+        return redirect('/books/'.$bookId);
     }
 
     public function deleteComment($commentKey){

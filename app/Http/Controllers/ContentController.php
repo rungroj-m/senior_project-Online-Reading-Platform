@@ -11,7 +11,7 @@ use Auth;
 use App\Models\User;
 use App\Models\BookReport;
 use Log;
-// use Fenos\Notifynder\Notifynder;
+use Notifynder;
 
 class ContentController extends Controller {
 
@@ -37,7 +37,6 @@ class ContentController extends Controller {
 		$bookreport -> book_id = $book->getKey();
 		$bookreport -> user_id = $ownerId;
 		$bookreport -> save();
-		return $this->showTotalReport($id);
 		return redirect('books/'.$id);
 	}
 
@@ -81,23 +80,24 @@ class ContentController extends Controller {
 			// $content->content = str_replace("\r\n", "<br/>", $request->content);
 			$book->contents()->save($content);
 
+			// notify subscribed user
 			$this->notify($book, $content);
 
 			return $this->index($id);
 		}
 	}
 
+	/**
+	 * Notify all user whom subscribe to specify book.
+	 */
 	protected function notify($book, $content) {
-		Log::info('NOTIFY!');
 		$bookname = $book->name;
 		$chapter = $content->chapter;
 		$chaptername = $content->name;
-		$subs = $book->subscribers();
-		Log::info('ATTEMPT TO PRINT SUBS ');
+		$subs = $book->subscribers;
 		foreach($subs as $sub) {
-			Log::info('subs loop');
 			if($sub->active) {
-				$user = $sub->user();
+				$user = $sub->user;
 				Notifynder::category('book.updatechapter')
 						->from('App\Models\Book', $book->id)
 						->to('App\Models\User', $user->id)
@@ -106,22 +106,12 @@ class ContentController extends Controller {
 						->send();
 			}
 		}
-		// $this->notifynder->loop($users, function(NotifynderBuilder $builder, $user) {
-		//
-    //    $builder->category('book.updatechapter')
-    //        ->from($book->id)
-    //        ->to($user->id)
-    //        ->url(url('/books'.'/'.$book->id.'/content'.'/'.$content->chapter))
-    //        ->extra(compact('bookname', 'chapter', 'chaptername'));
-		//
-		// 	})->send();
 	}
-
 
 	/**
 	 * Use this function to send notification to facebook user.
 	 */
-	public function facebookNotification(){
+	public function facebookNotification($user_id){
 
 		$app_id = '811596832280396';
 		$app_secret = '2f2e3fb44143bbf8543850d7cddc8c28';
@@ -135,8 +125,6 @@ class ContentController extends Controller {
 //		$access_token = '811596832280396|RqbSrEt8yah1feLwm4OGKQo-5as';
 
 		$access_token = $app_id.'|'.$app_secret;
-
-		$user_id = Auth::id();
 
 		$user = User::find($user_id);
 
