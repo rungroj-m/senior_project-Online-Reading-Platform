@@ -9,6 +9,7 @@ use App\Http\Requests;
 use Input;
 use App\Models\Image;
 use Carbon\Carbon;
+use Fenos\Notifynder\Models\Notification;
 
 class ProfileController extends Controller
 {
@@ -23,7 +24,8 @@ class ProfileController extends Controller
         return $this->showProfile($id);
     }
 
-    public function index($id){
+    public function index(){
+        $id = Auth::id();
         $user = User::findOrFail($id);
         return $user;
     }
@@ -113,6 +115,13 @@ class ProfileController extends Controller
         $user->image = $image -> filePath;
         $user->save();
         return 'Image Uploaded Successfully';
+    }
+
+    public function notification() {
+        $id = Auth::id();
+        $user = User::find($id);
+        $noti = $user->getNotifications($limit = null, $paginate = null, $order = 'desc');
+        return view('profile.notification')->with('notifications', $noti);
     }
 
 }
