@@ -9,6 +9,9 @@ use App\Http\Requests;
 use Input;
 use App\Models\Image;
 use Carbon\Carbon;
+use Fenos\Notifynder\Models\Notification;
+use Fenos\Notifynder\Models\NotificationCategory;
+
 
 class ProfileController extends Controller
 {
@@ -23,7 +26,8 @@ class ProfileController extends Controller
         return $this->showProfile($id);
     }
 
-    public function index($id){
+    public function index(){
+        $id = Auth::id();
         $user = User::findOrFail($id);
         return $user;
     }
@@ -115,4 +119,18 @@ class ProfileController extends Controller
         return 'Image Uploaded Successfully';
     }
 
+    public function notification() {
+        $id = Auth::id();
+        $user = User::find($id);
+        $noti = $user->getNotifications($limit = null, $paginate = null, $order = 'desc');
+        foreach($noti as $no) {
+            $no->category = NotificationCategory::find($no->category_id);
+            $temp = str_replace('{extra.bookname}', $no->extra->bookname, $no->category->text);
+            $temp = str_replace('{extra.chaptername}', $no->extra->chaptername, $temp);
+            $temp = str_replace('{extra.chapter}', $no->extra->chapter, $temp);
+
+            $no->description = $temp;
+        }
+        return view('profile.notification')->with('notifications', $noti);
+    }
 }
