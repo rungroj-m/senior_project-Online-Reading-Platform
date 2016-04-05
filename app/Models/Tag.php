@@ -13,6 +13,6 @@ class Tag extends Model {
 	protected $primaryKey = 'id';
 
 	public function book() {
-		return $this->belongsToMany('App\Models\Book');
+		return $this->belongsToMany('App\Models\Book', 'book_tags', 'tag_id', 'book_id');
 	}
 }

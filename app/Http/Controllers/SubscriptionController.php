@@ -21,7 +21,7 @@ class SubscriptionController extends Controller
     public function index()
     {
         $user_id = Auth::id();
-        $subscribes = DB::table('subscriptions')->where('user_id', $user_id);
+        $subscribes = User::findOrFail($user_id)->subscriptions;
         return view('profile.subscription')->with('subscribes', $subscribes);
     }
 

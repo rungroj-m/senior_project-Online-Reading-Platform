@@ -24,19 +24,24 @@ class BookController extends Controller {
 	 * @return Response
 	 */
 
-
 	public function index()
 	{
 		$books = Book::all();
 		return view('books.index',compact('books'));
 	}
 
-	public function searchName(){
+	public function search(){
 		$request = Request::get('request');
-		$books = Book::where(function ($query) use ($request){
-			$query	->where('name', '=', $request)
-					->orWhere('id', '=', $request);
-		})->get();
+		$test = "TEST";
+		if($request == "" || $request == null){
+			$books = Book::all();
+		}
+		else{
+			$books = Book::where(function ($query) use ($request, $test){
+				$query	->where('name', 'LIKE', '%'.$request.'%')
+						->orWhere('id', 'LIKE', '%'.$request.'%');
+			})->get();
+		}
 		return view('books.index', compact('books'));
 	}
 	

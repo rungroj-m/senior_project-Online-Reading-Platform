@@ -2,7 +2,6 @@
 
 @section('content')
 
-<div>
 	<div>
 		<div class="col-md-10 col-md-offset-1">
 			<div class="header">
@@ -31,11 +30,9 @@
 					<p>Short description about this book</p>
 					<textarea id="description" rows="6" class="form-control" name="description" ng-model="description"></textarea>
 				</div>
+				{!! Form::label('image', 'Choose an image') !!}
+				{!! Form::file('image') !!}
 
-				<div class="form-group">
-					{!! Form::label('image', 'Choose an image') !!}
-					{!! Form::file('image') !!}
-				</div>
 
 				<div class="form-group">
 					<br/>
@@ -48,5 +45,5 @@
 			</form>
 		</div>
 	</div>
-</div>
+
 @stop

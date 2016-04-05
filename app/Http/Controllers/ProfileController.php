@@ -12,7 +12,6 @@ use Carbon\Carbon;
 use Fenos\Notifynder\Models\Notification;
 use Fenos\Notifynder\Models\NotificationCategory;
 
-
 class ProfileController extends Controller
 {
     /**

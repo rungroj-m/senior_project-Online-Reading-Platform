@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('index', 'WelcomeController@index');
 
 	// Books & Content Route
-	Route::get('books/search/', 'BookController@searchName');
+	Route::get('books/search/', 'BookController@search');
 	Route::resource('books','BookController');
 	Route::resource('books/{book}/content', 'ContentController');
 	Route::get('books/{book}/report', [ 'as' => 'report', 'uses' => 'ContentController@report']);
@@ -44,7 +44,6 @@ Route::group(['middleware' => 'auth'], function () {
 	// Subscription Route
 	Route::get('books/{book}/subscribe', [ 'as' => 'subscribe', 'uses' => 'SubscriptionController@subscribe']);
 	Route::get('books/{book}/unsubscribe', [ 'as' => 'unsubscribe', 'uses' => 'SubscriptionController@unsubscribe']);
-
 
 	// Profile Routes
 	Route::get('user/{id}', 'ProfileController@showProfile');
@@ -69,8 +68,6 @@ Route::group(['middleware' => 'auth'], function () {
 	});
 });
 
-Route::get('/', 'WelcomeController@welcome');
-
 Route::get('images/{filename}', function($filename){
 
 	$path = storage_path().'/'.$filename;
@@ -82,3 +79,5 @@ Route::get('images/{filename}', function($filename){
 
 	return $response;
 });
+
+Route::get('/', 'WelcomeController@welcome');

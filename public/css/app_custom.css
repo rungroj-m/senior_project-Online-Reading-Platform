@@ -62,3 +62,7 @@ textarea{
 	color: #43ac6a;
 	font-weight: bold;
 }
+
+.main-container{
+	padding: 0 15px;
+}

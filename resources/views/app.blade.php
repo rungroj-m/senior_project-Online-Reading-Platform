@@ -1,6 +1,7 @@
 @extends('chrome')
 
-<body>
+@section('app')
+
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -19,9 +20,9 @@
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-left">
+					<li><a href="{{ url('/index') }}"><span class="first-navbar-letter">F</span>EED</a></li>
 					<li><a href="{{ url('/books') }}"><span class="first-navbar-letter">N</span>OVEL</a></li>
 					<li><a href="{{ url('/books') }}"><span class="first-navbar-letter">C</span>OMIC</a></li>
-					<li><a href="{{ url('/books') }}"><span class="first-navbar-letter">F</span>EED</a></li>
 				</ul>
 				<form class="navbar-form navbar-left" role="search" method="GET" action="/books/search">
 					<div class="input-group">
@@ -62,5 +63,5 @@
 	</nav>
 
 	@yield('content')
-	
-</body>
+
+@stop

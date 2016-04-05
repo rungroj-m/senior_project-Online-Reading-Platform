@@ -25,7 +25,11 @@ class ContentController extends Controller {
 		$user_id = Auth::id();
 		$contents = Book::findOrFail($id)->contents;
 		$book = Book::findOrFail($id);
-		$subscribe = DB::table('subscriptions')->select('id')->where('book_id', '=', $id)->where('user_id', '=', $user_id)->count() > 0;
+		$active = DB::table('subscriptions')->select('active')->where('book_id', '=', $id)->where('user_id', '=', $user_id)->get();
+		$subscribe = true;
+		if($active) {
+			$subscribe = $active;
+		}
 		return view('contents.index',compact('contents', 'book', 'subscribe'))->with('id',$id);
 	}
 
