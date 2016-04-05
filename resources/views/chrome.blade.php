@@ -38,4 +38,7 @@
 		});
 	</script>
 </head>
+<body>
+	@yield('app')
+</body>
 </html>

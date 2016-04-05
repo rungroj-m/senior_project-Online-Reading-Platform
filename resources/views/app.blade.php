@@ -1,6 +1,7 @@
 @extends('chrome')
 
-<body>
+@section('app')
+
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -62,5 +63,5 @@
 	</nav>
 
 	@yield('content')
-	
-</body>
+
+@stop

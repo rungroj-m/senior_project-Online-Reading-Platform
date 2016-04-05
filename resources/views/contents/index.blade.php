@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-<body>
+<div>
 	<div class="col-md-10 col-md-offset-1">
 		<div class="col-md-3">
 			<br/>
@@ -11,7 +11,7 @@
 			</div>
 		</div>
 		<div class="col-md-6">
-			<h1>{{$book->name}}</h1>
+			<div class="word-wrap"><h1>{{$book->name}}</h1></div>
 			<span class="glyphicon glyphicon-list"></span> <a href="/user/{{$book->user->id}}">{{$book->user->username}} </a><span class="glyphicon glyphicon-time"></span> {{$book->created_at}}</p>
 			<hr/>
 			{!! $book->description !!}
@@ -158,5 +158,5 @@
 			</div>
 		</div>
 	</div>
-</body>
+</div>
 @stop

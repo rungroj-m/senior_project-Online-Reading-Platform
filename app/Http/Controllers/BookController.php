@@ -29,13 +29,14 @@ class BookController extends Controller {
 
 	public function search(){
 		$request = Request::get('request');
+		$test = "TEST";
 		if($request == "" || $request == null){
 			$books = Book::all();
 		}
 		else{
-			$books = Book::where(function ($query) use ($request){
-			$query	->where('name', '=', $request)
-					->orWhere('id', '=', $request);
+			$books = Book::where(function ($query) use ($request, $test){
+				$query	->where('name', 'LIKE', '%'.$request.'%')
+						->orWhere('id', 'LIKE', '%'.$request.'%');
 			})->get();
 		}
 		return view('books.index', compact('books'));

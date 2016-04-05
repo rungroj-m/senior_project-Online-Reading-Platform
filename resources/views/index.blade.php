@@ -1,9 +1,9 @@
 @extends('app')
 
 @section('content')
-<body>
-	<div>
-		<div class="col-md-10 col-md-offset-1">
+<div>
+	<div class="main-container">
+		<div>
 			<div>
 				<div class="header">
 					<div class="pull-right">
@@ -74,5 +74,5 @@
 			</div>
 		</div>
 	</div>
-</body>
+</div>
 @stop
