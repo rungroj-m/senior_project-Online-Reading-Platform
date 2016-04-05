@@ -24,7 +24,7 @@ class ProfileController extends Controller
         return $this->showProfile($id);
     }
 
-    public function index($id){
+    public function index(){
         $id = Auth::id();
         $user = User::findOrFail($id);
         return $user;

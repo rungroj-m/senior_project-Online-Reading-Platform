@@ -47,13 +47,13 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 	// Profile Routes
-	Route::get('profile/{id}','ProfileController@index');
+	Route::get('profile','ProfileController@index');
 	Route::get('profile/image','ProfileController@imageUpload');
 	Route::post('profile/image/save',['as' => 'profile/image/save','uses' => 'ProfileController@imageSave']);
-	Route::Controller('profile','ProfileController');
 	Route::get('profile/edit','ProfileController@edit');
 	Route::put('profile',['as' => 'profile','uses' =>'ProfileController@update']);
 	Route::get('profile/subscription', 'SubscriptionController@index');
+	Route::get('profile/notification', 'ProfileController@notification');
 
 	// Admin Routes
 	Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function() {
