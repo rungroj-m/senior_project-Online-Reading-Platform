@@ -21,7 +21,6 @@ class BookController extends Controller {
 	 * @return Response
 	 */
 
-
 	public function index()
 	{
 		$books = Book::all();

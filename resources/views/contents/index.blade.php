@@ -15,6 +15,7 @@
 			<span class="glyphicon glyphicon-list"></span> <a href="/profile/{{$book->user->id}}">{{$book->user->username}} </a><span class="glyphicon glyphicon-time"></span> {{$book->created_at}}</p>
 			<hr/>
 			{!! $book->description !!}
+			{{$book->tags}}
 			<br/>
 		</div>
 		<div class="col-md-3">

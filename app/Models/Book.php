@@ -28,7 +28,7 @@ class Book extends Model {
 	}
 
 	public function tags() {
-		return $this->hasMany('App\Models\Tag');
+		return $this->belongsToMany('App\Models\Tag', 'book_tags', 'book_id', 'tag_id');
 	}
 
 	public function subscribers() {

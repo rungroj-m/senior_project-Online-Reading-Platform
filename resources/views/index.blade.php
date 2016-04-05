@@ -60,9 +60,6 @@
 					</table>
 				</div>
 				<div class="col-md-6">
-					<h1>TEST</h1>
-				</div>
-				<div class="col-md-6">
 					<div class="header">
 							<h2><span class="first-letter">E</span>XPLORE</h2>
 					</div><br/>
