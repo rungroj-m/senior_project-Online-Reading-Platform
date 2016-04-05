@@ -47,7 +47,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 	// Profile Routes
-	Route::get('profile/{id}','ProfileController@index');
 	Route::get('profile/image','ProfileController@imageUpload');
 	Route::post('profile/image/save',['as' => 'profile/image/save','uses' => 'ProfileController@imageSave']);
 	Route::Controller('profile','ProfileController');
@@ -69,3 +68,15 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('/', 'WelcomeController@welcome');
+
+Route::get('images/{filename}', function($filename){
+
+	$path = storage_path().'/'.$filename;
+	$file = File::get($path);
+	$type = File::mimeType($path);
+
+	$response = Response::make($file, 200);
+	$response->header("Content-Type", $type);
+
+	return $response;
+});

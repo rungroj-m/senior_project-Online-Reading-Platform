@@ -36,6 +36,7 @@ class CreateTagBookTable extends Migration
      */
     public function down()
     {
-        Schema::drop('book_tag');
+        Schema::dropIfExists('book_tags');
+        Schema::dropIfExists('tags');
     }
 }

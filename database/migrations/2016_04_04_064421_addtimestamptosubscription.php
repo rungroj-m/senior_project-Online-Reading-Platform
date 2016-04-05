@@ -25,8 +25,6 @@ class Addtimestamptosubscription extends Migration
      */
     public function down()
     {
-      Schema::table('subscriptions', function (Blueprint $table) {
-          $table->dropColumn(['update_at', 'create_at']);
-      });
+
     }
 }

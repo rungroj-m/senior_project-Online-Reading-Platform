@@ -6,12 +6,15 @@ use App\Models\Content;
 use App\Http\Requests;
 use App\Models\User;
 use App\Models\Rating;
-use App\Http\Controllers\Controller;
 use Validator;
 use Request;
 use DB;
 use Auth;
-use Illuminate\Database\Eloquent\Collection;
+use App\Models\Image;
+use Input;
+use Carbon\Carbon;
+use Illuminate\Http\Request as ill;
+use File;
 
 class BookController extends Controller {
 
@@ -58,8 +61,29 @@ class BookController extends Controller {
 		$book  = Book::create($input);
 		$book -> user_id = Auth::id();
 		$book->save();
+		$book -> image = $this->saveimage($input);
+		$book->save();
 		return redirect('books');
+	}
 
+	public function saveimage($req){
+		$request = new ill($req);
+		$image = new Image();
+		if(Input::file('image')) {
+			$file = Input::file('image');
+			//getting timestamp
+			$timestamp = str_replace([' ', ':'], '-', Carbon::now()->toDateTimeString());
+
+			$name = $timestamp. '-' .$file->getClientOriginalName();
+
+
+
+			$image->filePath = $name;
+
+			$file->move(public_path().'/images/', $name);
+		}
+		$image->save();
+		return $image -> filePath;
 	}
 
 	/**
@@ -74,10 +98,6 @@ class BookController extends Controller {
 		// if($book == null) {
 		// 	return;
 		// }
-
-
-//		return $this->userVote($id);
-
 //		return Book::find($id)->user;
 		return redirect('books/'.$id.'/content');
 		// return $book;

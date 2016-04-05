@@ -8,7 +8,7 @@
 			<div class="header">
 				<h1><span class="first-letter">C</span>REATE</h1>
 			</div>
-			<form method="POST" action="/books">
+			<form method="POST" action="/books" enctype="multipart/form-data">
 				<div class="col-md-8">
 					<div class="form-group">
 						<label class="h3" for="name">Title</label>
@@ -31,7 +31,11 @@
 					<p>Short description about this book</p>
 					<textarea id="description" rows="6" class="form-control" name="description" ng-model="description"></textarea>
 				</div>
-				
+
+				<div class="form-group">
+					{!! Form::label('image', 'Choose an image') !!}
+					{!! Form::file('image') !!}
+				</div>
 
 				<div class="form-group">
 					<br/>

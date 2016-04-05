@@ -56,13 +56,13 @@ class AuthController extends Controller {
     {
         if(!config("services.$provider")) abort('404'); //just to handle providers that doesn't exist
 
-        return Socialize::with($provider)->redirect();
+        return $this->socialite->with($provider)->redirect();
     }
 
 
     public function getSocialAuthCallback($provider=null)
     {
-        if($user = Socialize::with($provider)->user()){
+        if($user = $this->socialite->with($provider)->user()){
 
             $authUser = $this->findOrCreateUser($user);
 

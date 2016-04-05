@@ -6,7 +6,8 @@
 		<div class="col-md-3">
 			<br/>
 			<div class="thumbnail content">
-				<img src="asd.jpeg" style="height: 300px; width: 100%">
+				{{--<img src="asd.jpeg" style="height: 300px; width: 100%">--}}
+				<img src="/images/{{$book->image}}" style="height: 300px; width: 100%">
 				<h1>SAMPLE PICTURE</h1>
 			</div>
 		</div>
