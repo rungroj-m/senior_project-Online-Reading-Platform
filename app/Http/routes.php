@@ -45,8 +45,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('books/{book}/subscribe', [ 'as' => 'subscribe', 'uses' => 'SubscriptionController@subscribe']);
 	Route::get('books/{book}/unsubscribe', [ 'as' => 'unsubscribe', 'uses' => 'SubscriptionController@unsubscribe']);
 
-
 	// Profile Routes
+	Route::get('user/{id}', 'ProfileController@showProfile');
 	Route::get('profile','ProfileController@index');
 	Route::get('profile/image','ProfileController@imageUpload');
 	Route::post('profile/image/save',['as' => 'profile/image/save','uses' => 'ProfileController@imageSave']);

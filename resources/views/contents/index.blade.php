@@ -12,10 +12,9 @@
 		</div>
 		<div class="col-md-6">
 			<h1>{{$book->name}}</h1>
-			<span class="glyphicon glyphicon-list"></span> <a href="/profile/{{$book->user->id}}">{{$book->user->username}} </a><span class="glyphicon glyphicon-time"></span> {{$book->created_at}}</p>
+			<span class="glyphicon glyphicon-list"></span> <a href="/user/{{$book->user->id}}">{{$book->user->username}} </a><span class="glyphicon glyphicon-time"></span> {{$book->created_at}}</p>
 			<hr/>
 			{!! $book->description !!}
-			{{$book->tags}}
 			<br/>
 		</div>
 		<div class="col-md-3">
@@ -45,15 +44,12 @@
 					</li>
 					<li class="list-group-item">
 						<div data-toggle="collapse" href="#collapseTags" aria-controls="collapseTags">
-							<span class="glyphicon glyphicon-list"></span> Tags <span class="badge">5</span>
+							<span class="glyphicon glyphicon-list"></span> Tags <span class="badge">{{$book->tags->count()}}</span>
 						</div>
 						<div class="collapse" id="collapseTags">
-							<h5><span class="badge">Sci-Fi</span></h5>
-							<h5><span class="badge">Drama</span></h5>
-							<h5><span class="badge">Light Novel</span></h5>
-							<h5><span class="badge">Fantasy</span></h5>
-							<h5><span class="badge">Comedy</span></h5>
-							<h5><span class="badge">MMORPG</span></h5>
+							@foreach($book->tags as $tag)
+								<span class="badge">{{$tag->tag}}</span>
+							@endforeach
 						</div>
 					</li>
 					<li class="list-group-item">
