@@ -24,7 +24,7 @@ class Book extends Model {
 	}
 
 	public function comments() {
-		return $this->hasMany('App\Models\Comment');
+		return $this->hasMany('App\Models\Comment')->orderBy('rating','DESC');
 	}
 
 	public function tags() {

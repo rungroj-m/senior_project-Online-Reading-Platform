@@ -50,7 +50,7 @@ class commentController extends Controller
         $comment -> user_id = $ownerId;
         $comment -> comment_id = $commentKey;
         $comment -> save();
-        return $comment;
+        return redirect('books/'.$bookId);
 
     }
 

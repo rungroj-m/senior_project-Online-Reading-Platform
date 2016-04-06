@@ -28,7 +28,7 @@ class Comment extends Model {
 
 	public function parent()
 	{
-		return $this->belongsTo('App\Models\Comment');
+		return $this->belongsTo('App\Models\Comment','comment_id');
 	}
 
 	public function childs(){
