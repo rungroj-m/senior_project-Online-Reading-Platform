@@ -174,4 +174,23 @@
 		</div>
 	</div>
 </div>
+
+@if(Auth::user()->isCritic())
+	<form method="POST" action="/books/{{$id}}/content/review/">
+		<input class="form-control" type="text" name="review" ng-model="review"><br/>
+		<button type="submit" class="btn btn-success form-control">Add Review</button>
+		<input type="hidden" name="_token" value="{{ csrf_token() }}">
+	</form>
+@endif
+
+@foreach($book->reviews as $review)
+	<p>{{$review->review}}</p>
+	<div style="text-align: right">
+		<p>- {{$review->user->username}} |
+			{{$review->rating}}
+			<a href="/books/{{$id}}/content/review/{{$review->id}}/up" class="first-letter" href="">+</a>
+			<a href="/books/{{$id}}/content/review/{{$review->id}}/down" class="first-letter">-</a>
+		</p>
+	</div>
+@endforeach
 @stop

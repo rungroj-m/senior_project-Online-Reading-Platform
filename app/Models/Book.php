@@ -34,4 +34,9 @@ class Book extends Model {
 	public function subscribers() {
 		return $this->hasMany('App\Models\Subscription');
 	}
+
+	public function reviews() {
+		return $this->hasMany('App\Models\Review')->orderBy('rating','DESC');
+	}
+
 }

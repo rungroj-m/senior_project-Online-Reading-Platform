@@ -56,7 +56,14 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('profile/subscription', 'SubscriptionController@index');
 	Route::get('profile/notification', 'ProfileController@notification');
 
-	// Admin Routes
+	// Review Routes
+	Route::get('books/{book}/content/review/{review}/up', 'ReviewController@voteUpReview');
+	Route::get('books/{book}/content/review/{review}/down', 'ReviewController@voteDownReview');
+	Route::group(['middleware' => 'App\Http\Middleware\CriticMiddleware'], function() {
+		Route::post('books/{book}/content/review', 'ReviewController@postReview');
+	});
+
+		// Admin Routes
 	Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function() {
 		Route::get('admin/user/create', 'AdminController@create');
 		Route::post('admin/user/create', 'AdminController@store');

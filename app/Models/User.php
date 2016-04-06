@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Fenos\Notifynder\Notifable;
+use Illuminate\Support\Facades\Auth;
 
 
 class User extends Model implements AuthenticatableContract,  AuthorizableContract, CanResetPasswordContract {
@@ -46,5 +47,9 @@ class User extends Model implements AuthenticatableContract,  AuthorizableContra
 
 	public function subscriptions() {
 		return $this->hasMany('App\Models\Subscription');
+	}
+
+	public function isCritic(){
+		return Auth::check() && $this->userLevel == 1;
 	}
 }
