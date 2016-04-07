@@ -23,25 +23,31 @@
 				<ul style="width: 100%">
 					<li class="list-group-item">
 						<span class="glyphicon glyphicon-cloud"></span>
+
 						Subscription
-						{!! Form::open([
-							'method' => 'GET',
-							'route' => ['subscribe', $book->id]
-						]) !!}
-						{!! Form::submit('Subscribe', ['class' => 'btn btn-success form-control']) !!}
-						{!! Form::close() !!}
-						{!! Form::open([
-							'method' => 'GET',
-							'route' => ['unsubscribe', $book->id]
-						]) !!}
-						{!! Form::submit('Unsubscribe', ['class' => 'btn btn-warning form-control']) !!}
-						{!! Form::close() !!}
-						{!! Form::open([
-                            'method' => 'GET',
-                            'route' => ['report', $book->id]
-                        ]) !!}
-						{!! Form::submit('report', ['class' => 'btn btn-warning form-control']) !!}
-						{!! Form::close() !!}
+						@if($subscribe)
+							{!! Form::open([
+								'method' => 'GET',
+								'route' => ['unsubscribe', $book->id]
+							]) !!}
+							{!! Form::submit('Unsubscribe', ['class' => 'btn btn-warning form-control']) !!}
+							{!! Form::close() !!}
+						@else
+							{!! Form::open([
+								'method' => 'GET',
+								'route' => ['subscribe', $book->id]
+							]) !!}
+							{!! Form::submit('Subscribe', ['class' => 'btn btn-success form-control']) !!}
+							{!! Form::close() !!}
+						@endif
+							{!! Form::open([
+	                            'method' => 'GET',
+	                            'route' => ['report', $book->id]
+	                        ]) !!}
+
+							{!! Form::submit('report', ['class' => 'btn btn-warning form-control']) !!}
+							{!! Form::close() !!}
+
 					</li>
 					<li class="list-group-item">
 						<div data-toggle="collapse" href="#collapseTags" aria-controls="collapseTags">
@@ -55,7 +61,7 @@
 					</li>
 					<li class="list-group-item">
 						<span class="glyphicon glyphicon-thumbs-up"></span>
-						<span data-toggle="collapse" href="#collapseUserRating" aria-controls="collapseUserRating"> 
+						<span data-toggle="collapse" href="#collapseUserRating" aria-controls="collapseUserRating">
 							User Rating
 							<div>
 								<h2>{{$book->userRating}}</h2>
@@ -78,7 +84,7 @@
 						</div>
 					</li>
 					<li class="list-group-item">
-						<span class="glyphicon glyphicon-eye-open"></span> 
+						<span class="glyphicon glyphicon-eye-open"></span>
 						Total Views
 						<h3>1500</h3>
 						{{$book->updated_at}}
