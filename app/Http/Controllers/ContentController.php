@@ -111,7 +111,7 @@ class ContentController extends Controller {
 				// Mail::send('emails.notification', ['user' => $user, 'book' => $book, 'content' => $content, 'link' => url('/books'.'/'.$book->id.'/content'.'/'.$content->chapter)], function ($m) use ($user) {
 		    //     $m->from('readi.notification@gmail.com', 'Readi');
 				// 		$m->to('grief.d.lament@gmail.com', 'Atit Leelasuksan')->subject('Readi Notification');
-				});
+				// });
 			}
 		}
 	}
