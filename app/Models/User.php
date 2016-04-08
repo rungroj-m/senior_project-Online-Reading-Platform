@@ -59,4 +59,12 @@ class User extends Model implements AuthenticatableContract,  AuthorizableContra
 		return Auth::check() && $this->userLevel == 2;
 	}
 
+	public function donations() {
+		return $this->hasMany('App\Models\Donation');
+	}
+
+	public function pleadings() {
+		return $this->hasMany('App\Models\Pleading');
+	}
+
 }
