@@ -21,4 +21,8 @@ class Donation extends Model
     public function book() {
       return $this->belongsTo('App\Models\Book');
     }
+
+    public function plead() {
+      return $this->hasMany('App\Models\Pleading');
+    }
 }

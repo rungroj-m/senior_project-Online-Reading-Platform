@@ -44,4 +44,8 @@ class Book extends Model {
 		return $this->user_id & Auth::user()->getKey();
 	}
 
+	public function donations() {
+		return $this->hasMany('App\Models\Donation');
+	}
+
 }
