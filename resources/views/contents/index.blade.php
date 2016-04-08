@@ -5,16 +5,18 @@
 	<div class="col-md-3">
 		<br/>
 		<div class="thumbnail content">
-			<img class="cover-image" src="/images/{{$book->image}}">
-		</div>
-		<div class="thumbnail">
+			@if($book->image == null)
+				<h1 class="cover-image">NO IMAGE</h1>
+			@else
+				<img class="cover-image" src="/images/{{$book->image}}">
+			@endif
 			<div>
 				<span class="glyphicon glyphicon-list"></span> Tags <span class="badge">{{$book->tags->count()}}</span>
 			</div>
 			<div>
-			@foreach($book->tags as $tag)
-				<span class="badge">{{$tag->tag}}</span>
-			@endforeach
+				@foreach($book->tags as $tag)
+					<span class="badge">{{$tag->tag}}</span>
+				@endforeach
 			</div>
 		</div>
 	</div>
@@ -52,11 +54,9 @@
                             'route' => ['report', $book->id]
                         ]) !!}
 
-						{!! Form::submit('report', ['class' => 'btn btn-warning form-control']) !!}
+						{!! Form::submit('Report', ['class' => 'btn btn-warning form-control']) !!}
 						{!! Form::close() !!}
 
-				</li>
-				<li class="list-group-item">
 				</li>
 				<li class="list-group-item">
 					<span class="glyphicon glyphicon-thumbs-up"></span>
@@ -92,7 +92,7 @@
 		</div>
 	</div>
 </div>
-<div class="col-md-10 content-table">
+<div class="row">
 	<div>
 		<div class="col-md-8">
 			<div class="pull-right" style="padding-top: 10px">
@@ -146,35 +146,11 @@
 					</div>
 				</div>
 			</div>
-			{{--@foreach($book->comments as $c)--}}
-				{{--<div class="thumbnail">--}}
-					{{--<div class="caption">--}}
-						{{--<p>{{$c->comment}}</p>--}}
-						{{--<div style="text-align: right">--}}
-							{{--<p>- {{$c->user->username}} |--}}
-								{{--{{$c->rating}}--}}
-								{{--<a href="/books/{{$id}}/content/comment/{{$c->id}}/up" class="first-letter" href="">+</a>--}}
-								{{--<a href="/books/{{$id}}/content/comment/{{$c->id}}/down" class="first-letter">-</a>--}}
-								{{--<a href="/books/{{$id}}/content/comment/{{$c->id}}/report" class="first-letter">report</a>--}}
-								{{--<form method="POST" action="/books/{{$id}}/content/comment/{{$c->id}}">--}}
-									{{--<input class="form-control" type="text" name="comment" ng-model="comment"><br/>--}}
-									{{--<button type="submit" class="btn btn-success form-control">Add Comment</button>--}}
-									{{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
-								{{--</form>--}}
-							{{--</p>--}}
-						{{--</div>--}}
-					{{--</div>--}}
-				{{--</div>--}}
-			{{--@endforeach--}}
-
 		@foreach($book->comments as $comment)
 				@if(!$comment->parent)
 					@include('comments.show', ['c' => $comment,'book' => $book])
 				@endif
-
-			@endforeach
-
-
+		@endforeach
 		</div>
 	</div>
 </div>

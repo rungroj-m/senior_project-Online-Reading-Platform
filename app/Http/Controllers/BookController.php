@@ -40,13 +40,17 @@ class BookController extends Controller {
 		else{
 			$books = Book::where(function ($query) use ($request){
 				$query	->where('name', 'LIKE', '%'.$request.'%');
-						// ->orWhere('id', 'LIKE', '%'.$request.'%');
 			})->get();
-			
-			return $books;
-			$books = $books->union($tags);
+			// $tags = Tag::where('tag', 'LIKE', '%'.$request.'%')->get();
+			// $tagIds = array();
+			// $i = 0;
+			// foreach($tags as $tag){
+			// 	array_push($tagIds, $tag->id);
+			// 	$i++;
+			// }
+			// return $tagIds;
 		}
-		return view('books.index', compact('book'));
+		return view('books.index', compact('books'));
 	}
 
 	/**
