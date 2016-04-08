@@ -3,6 +3,7 @@
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
@@ -20,8 +21,9 @@ class User extends Model implements AuthenticatableContract,  AuthorizableContra
 	 *
 	 * @var string
 	 */
-
 	protected $primaryKey = 'id';
+
+	use SoftDeletes;
 
 	/**
 	 * The attributes that are mass assignable.
@@ -52,4 +54,9 @@ class User extends Model implements AuthenticatableContract,  AuthorizableContra
 	public function isCritic(){
 		return Auth::check() && $this->userLevel == 1;
 	}
+
+	public function isAdmin(){
+		return Auth::check() && $this->userLevel == 2;
+	}
+
 }

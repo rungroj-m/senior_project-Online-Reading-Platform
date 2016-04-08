@@ -164,7 +164,7 @@
 
 			@foreach($book->comments as $comment)
 					@if(!$comment->parent)
-						@include('comments.show', ['c' => $comment])
+						@include('comments.show', ['c' => $comment,'book' => $book])
 					@endif
 
 				@endforeach

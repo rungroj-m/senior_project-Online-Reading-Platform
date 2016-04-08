@@ -1,15 +1,17 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Auth;
 class Comment extends Model {
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-
 	protected $primaryKey = 'id';
+
+	use SoftDeletes;
 
 	/**
 	 * The attributes that are mass assignable.
@@ -33,6 +35,10 @@ class Comment extends Model {
 
 	public function childs(){
 		return $this->hasMany('App\Models\Comment');
+	}
+
+	public function isOwner(){
+		return $this->user_id & Auth::user()->getKey();
 	}
 
 }

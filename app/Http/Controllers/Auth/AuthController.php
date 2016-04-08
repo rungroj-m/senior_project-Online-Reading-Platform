@@ -90,12 +90,16 @@ class AuthController extends Controller {
             return $authUser;
         }
 
-        return User::create([
-            'username' => $facebookUser->getName(),
-            'email' => $facebookUser->getEmail(),
-            'facebook_id' => $facebookUser -> getId(),
-            'facebook_token' => $facebookUser -> token,
-        ]);
+        else{
+            $user = User::create([
+                'username' => $facebookUser->getName(),
+                'email' => $facebookUser->getEmail(),
+            ]);
+            $user -> facebook_id = $facebookUser -> getId();
+            $user -> facebook_token = $facebookUser -> token;
+            $user->save();
+            return $user;
+        }
     }
 
     /**

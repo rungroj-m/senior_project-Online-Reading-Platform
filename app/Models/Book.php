@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Fenos\Notifynder\Notifable;
+use Auth;
 
 class Book extends Model {
 
@@ -37,6 +38,10 @@ class Book extends Model {
 
 	public function reviews() {
 		return $this->hasMany('App\Models\Review')->orderBy('rating','DESC');
+	}
+
+	public function isOwner(){
+		return $this->user_id & Auth::user()->getKey();
 	}
 
 }

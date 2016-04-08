@@ -200,8 +200,11 @@ class ContentController extends Controller {
 	 */
 	public function destroy($id,$chapter)
 	{
-		$content = $this->findContent($id,$chapter);
-		$content->delete();
+		$book = Book::find($id);
+		if($book->isOwner() || Auth::user()->isAdmin()) {
+			$content = $this->findContent($id, $chapter);
+			$content->delete();
+		}
 		return Redirect::action('ContentController@index',array($id));
 	}
 

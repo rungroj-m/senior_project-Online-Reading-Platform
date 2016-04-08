@@ -120,14 +120,15 @@ class commentController extends Controller
         return redirect('/books/'.$bookId);
     }
 
-    public function deleteComment($commentKey){
+    public function deleteComment($bookId,$commentKey){
+//        return $bookId.'delete comment'.$commentKey;
         $comment = Comment::findOrfail($commentKey);
         $userID = Auth::id();
-        if( $comment->user_id == $userID ) {
-            // delete
+        $book = Book::find($bookId);
+        if( $comment->isOwner() || Auth::user()->isadmin() || $book->isOwner()) {
             $comment -> delete();
-            return 'can delete';
         }
-        return 'wrong user can not delete';
+        return redirect('/books/'.$bookId);
     }
+
 }
