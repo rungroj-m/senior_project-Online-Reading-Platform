@@ -24,6 +24,7 @@ Route::get('/login/callback/{provider?}',[
 Route::get('register', 'Auth\AuthController@getRegister');
 Route::post('register', 'Auth\AuthController@postRegister');
 
+
 Route::group(['middleware' => 'auth'], function () {
 
 	// Index
