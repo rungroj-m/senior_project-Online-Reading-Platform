@@ -11,6 +11,6 @@ class BookTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        
     }
 }

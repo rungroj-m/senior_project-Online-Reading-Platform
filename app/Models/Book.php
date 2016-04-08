@@ -43,9 +43,11 @@ class Book extends Model {
 	public function isOwner(){
 		return $this->user_id & Auth::user()->getKey();
 	}
-
 	public function isComic(){
 		return $this->category == 'Comic';
+	}
+	public function donations() {
+		return $this->hasMany('App\Models\Donation');
 	}
 
 }
