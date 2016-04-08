@@ -6,6 +6,7 @@ use App\Models\Content;
 use App\Http\Requests;
 use App\Models\User;
 use App\Models\Rating;
+use App\Models\Tag;
 use Validator;
 use Request;
 use DB;
@@ -32,19 +33,22 @@ class BookController extends Controller {
 
 	public function search(){
 		$request = Request::get('request');
-		$test = "TEST";
+		
 		if($request == "" || $request == null){
 			$books = Book::all();
 		}
 		else{
-			$books = Book::where(function ($query) use ($request, $test){
-				$query	->where('name', 'LIKE', '%'.$request.'%')
-						->orWhere('id', 'LIKE', '%'.$request.'%');
+			$books = Book::where(function ($query) use ($request){
+				$query	->where('name', 'LIKE', '%'.$request.'%');
+						// ->orWhere('id', 'LIKE', '%'.$request.'%');
 			})->get();
+			
+			return $books;
+			$books = $books->union($tags);
 		}
-		return view('books.index', compact('books'));
+		return view('books.index', compact('book'));
 	}
-	
+
 	/**
 	 * Show the form for creating a new resource.
 	 *

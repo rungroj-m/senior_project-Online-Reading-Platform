@@ -62,7 +62,10 @@ textarea{
 	color: #43ac6a;
 	font-weight: bold;
 }
-
 .main-container{
-	padding: 0 15px;
+	padding: 0 20px;
+}
+.cover-image{
+	height: 300px;
+	width: 220px;
 }
