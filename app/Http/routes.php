@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('books/{book}/content/comment/{comment}/down', 'CommentController@voteDownComment');
 	Route::get('books/{book}/content/comment/{comment}/report', [ 'as' => 'commentreport', 'uses' => 'CommentController@report']);
 	Route::post('books/{book}/content/comment/{comment}/', 'CommentController@repliedComment');
+	Route::delete('books/{book}/content/comment/{comment}/', [ 'as' => 'deletecomment', 'uses' =>'CommentController@deleteComment']);
 
 	// Subscription Route
 	Route::get('books/{book}/subscribe', [ 'as' => 'subscribe', 'uses' => 'SubscriptionController@subscribe']);

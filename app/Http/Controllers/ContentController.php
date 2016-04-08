@@ -10,7 +10,7 @@ use Facebook\Facebook;
 use Auth;
 use App\Models\User;
 use App\Models\BookReport;
-use Log;
+use Mail;
 use Notifynder;
 
 class ContentController extends Controller {
@@ -26,9 +26,9 @@ class ContentController extends Controller {
 		$contents = Book::findOrFail($id)->contents;
 		$book = Book::findOrFail($id);
 		$active = DB::table('subscriptions')->select('active')->where('book_id', '=', $id)->where('user_id', '=', $user_id)->get();
-		$subscribe = true;
-		if($active) {
-			$subscribe = $active;
+		$subscribe = 0;
+		if(count($active) > 0) {
+			$subscribe = $active[0]->active;
 		}
 		return view('contents.index',compact('contents', 'book', 'subscribe'))->with('id',$id);
 	}
@@ -108,6 +108,10 @@ class ContentController extends Controller {
 						->url(url('/books'.'/'.$book->id.'/content'.'/'.$content->chapter))
 						->extra(compact('bookname', 'chapter', 'chaptername'))
 						->send();
+				// Mail::send('emails.notification', ['user' => $user, 'book' => $book, 'content' => $content, 'link' => url('/books'.'/'.$book->id.'/content'.'/'.$content->chapter)], function ($m) use ($user) {
+		    //     $m->from('readi.notification@gmail.com', 'Readi');
+				// 		$m->to('grief.d.lament@gmail.com', 'Atit Leelasuksan')->subject('Readi Notification');
+				// });
 			}
 		}
 	}
@@ -200,8 +204,11 @@ class ContentController extends Controller {
 	 */
 	public function destroy($id,$chapter)
 	{
-		$content = $this->findContent($id,$chapter);
-		$content->delete();
+		$book = Book::find($id);
+		if($book->isOwner() || Auth::user()->isAdmin()) {
+			$content = $this->findContent($id, $chapter);
+			$content->delete();
+		}
 		return Redirect::action('ContentController@index',array($id));
 	}
 

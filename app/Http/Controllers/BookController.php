@@ -149,10 +149,12 @@ class BookController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		$this->deleteContent($id);
 		$book = Book::findOrFail($id);
-		$book->contents()->detach();
-		$book->delete();
+		if($book->isOwner() || Auth::user()->isAdmin()) {
+			$this->deleteContent($id);
+			$book->contents()->detach();
+			$book->delete();
+		}
 		return redirect('books');
 	}
 
@@ -189,7 +191,7 @@ class BookController extends Controller {
 		// else
 
 		if($this->alreadyRate($id)){
-			return 'already vote';
+			return redirect('books/'.$id);
 		}
 
 		$userID = Auth::id();
@@ -222,7 +224,7 @@ class BookController extends Controller {
 		$rating -> userKey = $userID;
 		$rating -> save();
 
-		return 'save complete';
+		return redirect('books/'.$id);
 
 	}
 
