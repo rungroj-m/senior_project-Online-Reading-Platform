@@ -34,7 +34,7 @@ class Comment extends Model {
 	}
 
 	public function childs(){
-		return $this->hasMany('App\Models\Comment');
+		return $this->hasMany('App\Models\Comment')->orderBy('rating','DESC');
 	}
 
 	public function isOwner(){

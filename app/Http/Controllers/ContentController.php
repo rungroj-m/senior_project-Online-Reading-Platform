@@ -19,8 +19,18 @@ use Illuminate\Support\Facades\Validator;
 use Facebook\Facebook;
 use Auth;
 use Session;
+use Route;
 
 class ContentController extends Controller {
+
+	public function getURI($id){
+		$book = Book::findOrfail($id);
+		if($book->isComic())
+			return 'comics';
+		else
+			return 'books';
+	}
+
 
 	/**
 	 * Display a listing of the resource.
@@ -48,7 +58,7 @@ class ContentController extends Controller {
 		$bookreport -> book_id = $book->getKey();
 		$bookreport -> user_id = $ownerId;
 		$bookreport -> save();
-		return redirect('books/'.$id);
+		return redirect($this->getURI($id).'/'.$id);
 	}
 
 	public function showTotalReport($id){
@@ -65,7 +75,6 @@ class ContentController extends Controller {
 		$book = Book::findOrFail($id);
 		if($book->isComic())
 			return view('contents.comicCreate')->with("bookName", $book->name)->with("bookId", $id);
-
 		return view('contents.create')->with("bookName", $book->name)->with("bookId", $id);
 	}
 
@@ -236,7 +245,8 @@ class ContentController extends Controller {
 		$content->content = $request->content;
 		$content->chapter = $request->chapter;
 		$content->save();
-		return Redirect::action('ContentController@index',array($id));
+		return redirect($this->getURI($id).'/'.$id);
+//		return Redirect::action('ContentController@index',array($id));
 	}
 
 	/**
@@ -252,7 +262,8 @@ class ContentController extends Controller {
 			$content = $this->findContent($id, $chapter);
 			$content->delete();
 		}
-		return Redirect::action('ContentController@index',array($id));
+		return redirect($this->getURI($id).'/'.$id);
+//		return Redirect::action('ContentController@index',array($id));
 	}
 
 	public function findContent($bookId,$chapter){

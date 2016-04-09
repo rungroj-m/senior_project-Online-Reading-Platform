@@ -96,23 +96,29 @@
 	<div>
 		<div class="col-md-8">
 			<div class="pull-right" style="padding-top: 10px">
-				{!! Form::open(['method' => 'GET','route' => ['books.{book}.content.create', $id]]) !!}
+				@if($book->isComic())
+					{!! Form::open(['method' => 'GET','route' => ['comics.{book}.content.create', $id]]) !!}
+				@else
+					{!! Form::open(['method' => 'GET','route' => ['books.{book}.content.create', $id]]) !!}
+				@endif
 				{!! Form::submit('New Chapter', ['class' => 'btn btn-success']) !!}
 				{!! Form::close() !!}
 			</div>
 			<div class="pull-right" style="padding-top: 10px">
-				{!! Form::open([
-					'method' => 'GET',
-					'route' => ['books.edit', $book->id]
-				]) !!}
+				@if($book->isComic())
+					{!! Form::open(['method' => 'GET','route' => ['comics.edit', $book->id]]) !!}
+				@else
+					{!! Form::open(['method' => 'GET','route' => ['books.edit', $book->id]]) !!}
+				@endif
 				{!! Form::submit('Edit This Book', ['class' => 'btn btn-default']) !!}
 				{!! Form::close() !!}
 			</div>
 			<div class="pull-right" style="padding-top: 10px">
-				{!! Form::open([
-					'method' => 'DELETE',
-					'route' => ['books.destroy', $book->id]
-				]) !!}
+				@if($book->isComic())
+					{!! Form::open(['method' => 'DELETE','route' => ['comics.destroy', $book->id]]) !!}
+				@else
+					{!! Form::open(['method' => 'DELETE','route' => ['books.destroy', $book->id]]) !!}
+				@endif
 				{!! Form::submit('Delete This Book', ['class' => 'btn btn-default']) !!}
 				{!! Form::close() !!}
 				{{--<a href="{{ route('books.create') }}" class="btn btn-primary">Create new Book</a>--}}
@@ -123,7 +129,11 @@
 					@foreach($contents as $c)
 						<tr>
 							<td><h5>{{$c->chapter}}</h5></td>
-							<td><h4><a href="/books/{{$id}}/content/{{$c->chapter}}">{{$c->name}}</a></h4>
+							@if($book->isComic())
+								<td><h4><a href="/comics/{{$id}}/content/{{$c->chapter}}">{{$c->name}}</a></h4>
+							@else
+								<td><h4><a href="/books/{{$id}}/content/{{$c->chapter}}">{{$c->name}}</a></h4>
+							@endif
 							Last Updated: {{$c->updated_at}}</td>
 						</tr>
 					@endforeach

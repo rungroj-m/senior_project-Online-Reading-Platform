@@ -14,7 +14,7 @@
 			@foreach($content_images as $content)
 				<img src="/images/{{$content}}" style="height: 300px; width: 100%">
 				{{$i}}<?php $i++ ?>
-				@endforeach
+			@endforeach
 		</p>
 	</div>
 

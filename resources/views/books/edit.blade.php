@@ -7,7 +7,11 @@
 	<h1 class="inline"><span class="first-letter">E</span>DIT</h1>
 	<h4 class="inline">{{$book->name}}</h4>
 	<hr/>
-	{!! Form::open(['method' => 'PUT','route' => ['books.update', $book->id]]) !!}
+	@if($book->isComic())
+		{!! Form::open(['method' => 'PUT','route' => ['comics.update', $book->id]]) !!}
+	@else
+		{!! Form::open(['method' => 'PUT','route' => ['books.update', $book->id]]) !!}
+	@endif
 	{{--{!! Form::open(array('action' => array('BookController@update', $book->bookKey,'_method' => 'PUT'))) !!}--}}
 	{{--{!! Form::open(['method' => 'PATCH','route' => ['books.update',$book->contentKey]])!!}--}}
 	<div class="form-group">

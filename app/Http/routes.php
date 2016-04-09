@@ -30,6 +30,33 @@ Route::group(['middleware' => 'auth'], function () {
 	// Index
 	Route::get('index', 'WelcomeController@index');
 
+	Route::group(['middleware' => 'App\Http\Middleware\ImageMiddleware'], function() {
+		// Books & Content Route
+		Route::get('comics/search/', 'BookController@search');
+		Route::resource('comics', 'BookController');
+		Route::resource('comics/{book}/content', 'ContentController');
+		Route::get('comics/{book}/report', ['as' => 'report', 'uses' => 'ContentController@report']);
+
+		// Comment Routes
+		Route::post('comics/{book}/content/comment', 'CommentController@postComment');
+		Route::get('comics/{book}/content/comment/{comment}/up', 'CommentController@voteUpComment');
+		Route::get('comics/{book}/content/comment/{comment}/down', 'CommentController@voteDownComment');
+		Route::get('comics/{book}/content/comment/{comment}/report', ['as' => 'commentreport', 'uses' => 'CommentController@report']);
+		Route::post('comics/{book}/content/comment/{comment}/', 'CommentController@repliedComment');
+		Route::delete('comics/{book}/content/comment/{comment}/', ['as' => 'deletecomment', 'uses' => 'CommentController@deleteComment']);
+
+		// Subscription Route
+		Route::get('comics/{book}/subscribe', ['as' => 'subscribe', 'uses' => 'SubscriptionController@subscribe']);
+		Route::get('comics/{book}/unsubscribe', ['as' => 'unsubscribe', 'uses' => 'SubscriptionController@unsubscribe']);
+
+		// Review Routes
+		Route::get('comics/{book}/content/review/{review}/up', 'ReviewController@voteUpReview');
+		Route::get('comics/{book}/content/review/{review}/down', 'ReviewController@voteDownReview');
+		Route::group(['middleware' => 'App\Http\Middleware\CriticMiddleware'], function () {
+			Route::post('comics/{book}/content/review', 'ReviewController@postReview');
+		});
+	});
+
 	// Books & Content Route
 	Route::get('books/search/', 'BookController@search');
 	Route::resource('books','BookController');
@@ -65,7 +92,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::post('books/{book}/content/review', 'ReviewController@postReview');
 	});
 
-		// Admin Routes
+	// Admin Routes
 	Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function() {
 		Route::get('admin/user/create', 'AdminController@create');
 		Route::post('admin/user/create', 'AdminController@store');
