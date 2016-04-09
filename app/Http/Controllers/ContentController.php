@@ -39,6 +39,14 @@ class ContentController extends Controller {
 	 */
 	public function index($id)
 	{
+		$route = Route::getCurrentRoute()->getPrefix();
+		if($route == '/books/{book}')
+			$checkURI = 'books';
+		else if($route == '/comics/{book}')
+			$checkURI = 'comics';
+		if($this->getURI($id) != $checkURI)
+			return redirect('index');
+
 		$book = Book::findOrFail($id);
 		$user_id = Auth::id();
 		$contents = Book::findOrFail($id)->contents;
@@ -73,9 +81,7 @@ class ContentController extends Controller {
 	public function create($id)
 	{
 		$book = Book::findOrFail($id);
-		if($book->isComic())
-			return view('contents.comicCreate')->with("bookName", $book->name)->with("bookId", $id);
-		return view('contents.create')->with("bookName", $book->name)->with("bookId", $id);
+		return view('contents.create',compact('book'));
 	}
 
 	/**
@@ -109,7 +115,7 @@ class ContentController extends Controller {
 			$book->contents()->save($content);
 			// notify subscribed user
 			$this->notify($book, $content);
-			return $this->index($id);
+			return redirect($this->getURI($id).'/'.$id);
 		}
 	}
 
@@ -213,7 +219,7 @@ class ContentController extends Controller {
 			->where('contents.chapter', $chapter)->first();
 		$book = Book::findOrFail($id);
 		if($book->isComic())
-			return view('contents.comicShow',compact('content_chap', 'book'))->with('id',$id)->with('content_images',json_decode($content_chap->content));
+			return view('contents.show',compact('content_chap', 'book'))->with('id',$id)->with('content_images',json_decode($content_chap->content));
 		return view('contents.show',compact('content_chap', 'book'))->with('id',$id);
 	}
 

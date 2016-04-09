@@ -21,7 +21,7 @@ class Book extends Model {
 	}
 
 	public function contents() {
-		return $this->belongsToMany('App\Models\Content','books_contents', 'book_id', 'content_id');
+		return $this->belongsToMany('App\Models\Content','books_contents', 'book_id', 'content_id')->orderBy('chapter');
 	}
 
 	public function comments() {
