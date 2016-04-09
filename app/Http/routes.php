@@ -103,6 +103,15 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('admin/bookreport', 'AdminController@bookReport');
 		Route::get('admin/commentreport', 'AdminController@commentReport');
 	});
+
+	Route::get('donation', 'DonationController@index');
+	Route::get('donation/create', 'DonationController@create_donation');
+	Route::get('donation/plead/create', 'DonationController@create_pleading');
+	Route::post('donation/create', 'DonationController@store_donation');
+	Route::post('donation/plead/create', 'DonationController@store_pleading');
+	Route::get('donation/{id}', 'DonationController@show');
+	Route::get('donation/{id}/edit', 'DonationController@edit');
+	Route::put('donation/{id}/edit', 'DonationController@update');
 });
 
 Route::get('images/{filename}', function($filename){

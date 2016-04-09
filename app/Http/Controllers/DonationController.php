@@ -10,14 +10,17 @@ use App\Http\Controllers\Controller;
 class DonationController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the donation and pleading.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
       $user_id = Auth::id();
-      $donation = User::findOrFail($user_id)->donations;
+      $user = User::findOrFail($user_id);
+      $donations = $user->donations;
+      $pleadings = $user->pleadings;
+      return view('donation.index', compact('donations', 'pleadings'));
     }
 
     /**
@@ -25,9 +28,19 @@ class DonationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create_donation()
     {
-        //
+        $user_id = Auth::id();
+        $user = User::findOrFail($user_id);
+        $books = $user->books;
+        return view('donation.create_donation', compact('user', 'books'));
+    }
+
+    public function create_pleading() {
+        $user_id = Auth::id();
+        $user = User::findOrFail($user_id);
+        $donations = Donation::all();
+        return view('donation.create_pleading', compact('user', 'donations'));
     }
 
     /**
@@ -36,9 +49,55 @@ class DonationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store_donation(Request $request)
     {
+      $validator = Validator::make($request->all(), [
+          'goal_amount' => 'required|numeric'
+      ]);
+      if ($validator->fails()) {
+         return redirect()->action('DonationController@create_donation')
+                          ->withErrors($validator)
+                          ->withInput();
+      }
+      else {
+        // $book = Book::findOrFail($id);
+        // $content = new Content;
+        // $content->name = $request->name;
+        // $content->chapter = $request->chapter;
+        // $content->content = $request->content;
+        // // $content->content = str_replace("\r\n", "<br/>", $request->content);
+        // $book->contents()->save($content);
         //
+        // // notify subscribed user
+        // $this->notify($book, $content);
+        //
+        // return $this->index($id);
+      }
+    }
+
+    public function store_pleading() {
+      $validator = Validator::make($request->all(), [
+          'amount' => 'required|numeric'
+      ]);
+      if ($validator->fails()) {
+         return redirect()->action('DonationController@create_pleading')
+                          ->withErrors($validator)
+                          ->withInput();
+      }
+      else {
+        // $book = Book::findOrFail($id);
+        // $content = new Content;
+        // $content->name = $request->name;
+        // $content->chapter = $request->chapter;
+        // $content->content = $request->content;
+        // // $content->content = str_replace("\r\n", "<br/>", $request->content);
+        // $book->contents()->save($content);
+        //
+        // // notify subscribed user
+        // $this->notify($book, $content);
+        //
+        // return $this->index($id);
+      }
     }
 
     /**
@@ -49,7 +108,9 @@ class DonationController extends Controller
      */
     public function show($id)
     {
-        //
+        $donation = Donation::findOrFail($id);
+        $pleaders = $donation->plead;
+        return view('donation.pleader', compact('donation', 'pleaders'));
     }
 
     /**
@@ -60,7 +121,9 @@ class DonationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $donation = Donation::findOrFail($id);
+        $pleaders = $donation->plead;
+        return view('donation.edit', compact('donation', 'pleaders'));
     }
 
     /**
