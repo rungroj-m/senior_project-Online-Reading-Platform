@@ -33,7 +33,7 @@ class DonationController extends Controller
         $user_id = Auth::id();
         $user = User::findOrFail($user_id);
         $books = $user->books;
-        return view('donation.create_donation', compact('user', 'books'));
+        return view('donation.create', compact('user', 'books'));
     }
 
     public function create_pleading() {
@@ -52,7 +52,9 @@ class DonationController extends Controller
     public function store_donation(Request $request)
     {
       $validator = Validator::make($request->all(), [
-          'goal_amount' => 'required|numeric'
+          'amount' => 'required|numeric',
+          'book' => 'required',
+          'description' => 'required'
       ]);
       if ($validator->fails()) {
          return redirect()->action('DonationController@create_donation')
@@ -77,7 +79,8 @@ class DonationController extends Controller
 
     public function store_pleading() {
       $validator = Validator::make($request->all(), [
-          'amount' => 'required|numeric'
+          'amount' => 'required|numeric',
+          'donation' => 'required'
       ]);
       if ($validator->fails()) {
          return redirect()->action('DonationController@create_pleading')
