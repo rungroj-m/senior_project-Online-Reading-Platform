@@ -38,17 +38,19 @@ class BookController extends Controller {
 			$books = Book::all();
 		}
 		else{
+			//Get Books Search Result
 			$books = Book::where(function ($query) use ($request){
 				$query	->where('name', 'LIKE', '%'.$request.'%');
 			})->get();
-			// $tags = Tag::where('tag', 'LIKE', '%'.$request.'%')->get();
-			// $tagIds = array();
-			// $i = 0;
-			// foreach($tags as $tag){
-			// 	array_push($tagIds, $tag->id);
-			// 	$i++;
-			// }
-			// return $tagIds;
+
+			//Get Tags Search Result
+			$book_tags_temp = DB::table('book_tags')->join('tags', 'tags.id','=', 'book_tags.tag_id')->get();
+			$book_tags = collect($book_tags_temp);
+			$tags = Tag::where('tag', 'LIKE', '%'.$request.'%')->get();
+
+			foreach($tags as $tag){
+
+			}
 		}
 		return view('books.index', compact('books'));
 	}
