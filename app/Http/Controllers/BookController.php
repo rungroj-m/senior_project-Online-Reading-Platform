@@ -16,18 +16,39 @@ use Input;
 use Carbon\Carbon;
 use Illuminate\Http\Request as ill;
 use File;
-
+use Route;
 class BookController extends Controller {
+
+	public function getURI($id = null){
+		if($id) {
+			$book = Book::findOrfail($id);
+			if ($book->isComic())
+				return 'comics';
+			else
+				return 'books';
+		}
+		else {
+			$uri = Route::getCurrentRoute()->getPath();
+			if ($uri == 'comics')
+				return 'comics';
+			else
+				return 'books';
+		}
+	}
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-
 	public function index()
 	{
-		$books = Book::all();
+		$uri = Route::getCurrentRoute()->getPath();
+		if($uri == 'comics')
+			$books = Book::where('category','Comic')->get();
+		else if($uri == 'books')
+			$books = Book::where('category','Novel')->get();
+//		$books = Book::all();
 		return view('books.index',compact('books'));
 	}
 
@@ -78,7 +99,7 @@ class BookController extends Controller {
 		$book->save();
 		$book -> image = $this->saveimage($input);
 		$book->save();
-		return redirect('books');
+		return redirect($this->getURI($book->id));
 	}
 
 	public function saveimage($req){
@@ -114,7 +135,7 @@ class BookController extends Controller {
 		// 	return;
 		// }
 //		return Book::find($id)->user;
-		return redirect('books/'.$id.'/content');
+		return redirect($this->getURI($id).'/'.$id.'/content');
 		// return $book;
 	}
 
@@ -144,7 +165,7 @@ class BookController extends Controller {
 		$book->name = $input['name'];
 		$book->description = $input['description'];
 		$book->save();
-		return redirect('books/'.$id.'/content');
+		return redirect($this->getURI($id).'/'.$id.'/content');
 	}
 
 	/**
@@ -161,7 +182,7 @@ class BookController extends Controller {
 			$book->contents()->detach();
 			$book->delete();
 		}
-		return redirect('books');
+		return redirect($this->getURI($id));
 	}
 
 	public function deleteContent($bookId){
@@ -230,7 +251,7 @@ class BookController extends Controller {
 		$rating -> userKey = $userID;
 		$rating -> save();
 
-		return redirect('books/'.$id);
+		return redirect($this->getURI().'/'.$id);
 
 	}
 

@@ -1,6 +1,16 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\BookReport;
+use Mail;
+use Notifynder;
+use App\Models\ContentInfo;
+use App\Models\Image;
+use Input;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Http\Request as ill;
+use File;
 use App\Models\Book;
 use App\Models\Content;
 use DB;
@@ -8,12 +18,19 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Facebook\Facebook;
 use Auth;
-use App\Models\User;
-use App\Models\BookReport;
-use Mail;
-use Notifynder;
+use Session;
+use Route;
 
 class ContentController extends Controller {
+
+	public function getURI($id){
+		$book = Book::findOrfail($id);
+		if($book->isComic())
+			return 'comics';
+		else
+			return 'books';
+	}
+
 
 	/**
 	 * Display a listing of the resource.
@@ -22,9 +39,17 @@ class ContentController extends Controller {
 	 */
 	public function index($id)
 	{
+		$route = Route::getCurrentRoute()->getPrefix();
+		if($route == '/books/{book}')
+			$checkURI = 'books';
+		else if($route == '/comics/{book}')
+			$checkURI = 'comics';
+		if($this->getURI($id) != $checkURI)
+			return redirect('index');
+
+		$book = Book::findOrFail($id);
 		$user_id = Auth::id();
 		$contents = Book::findOrFail($id)->contents;
-		$book = Book::findOrFail($id);
 		$active = DB::table('subscriptions')->select('active')->where('book_id', '=', $id)->where('user_id', '=', $user_id)->get();
 		$subscribe = 0;
 		if(count($active) > 0) {
@@ -41,7 +66,7 @@ class ContentController extends Controller {
 		$bookreport -> book_id = $book->getKey();
 		$bookreport -> user_id = $ownerId;
 		$bookreport -> save();
-		return redirect('books/'.$id);
+		return redirect($this->getURI($id).'/'.$id);
 	}
 
 	public function showTotalReport($id){
@@ -56,7 +81,7 @@ class ContentController extends Controller {
 	public function create($id)
 	{
 		$book = Book::findOrFail($id);
-		return view('contents.create')->with("bookName", $book->name)->with("bookId", $id);
+		return view('contents.create',compact('book'));
 	}
 
 	/**
@@ -64,7 +89,7 @@ class ContentController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store($id,Request $request)
+	public function store($id,ill $request)
 	{
 		$validator = Validator::make($request->all(), [
         'chapter' => 'required|integer|unique:contents',
@@ -80,16 +105,47 @@ class ContentController extends Controller {
 			$content = new Content;
 			$content->name = $request->name;
 			$content->chapter = $request->chapter;
-			$content->content = $request->content;
+			if($book->isComic()) {
+				$content->content = json_encode( $this->multiple_upload($request));
+//				return $request;
+			}
+			else
+				$content->content = $request->content;
 			// $content->content = str_replace("\r\n", "<br/>", $request->content);
 			$book->contents()->save($content);
-
 			// notify subscribed user
 			$this->notify($book, $content);
-
-			return $this->index($id);
+			return redirect($this->getURI($id).'/'.$id);
 		}
 	}
+
+	public function multiple_upload(Request $request) {
+		// getting all of the post data
+
+		$files = Input::file('images');
+		// Making counting of uploaded images
+		$file_count = count($files);
+		// start count how many uploaded
+		$uploadcount = 0;
+		$locations = [];
+		foreach($files as $file) {
+			$image = new Image();
+			$rules = array('file' => 'required'); //'required|mimes:png,gif,jpeg,txt,pdf,doc'
+			$validator = Validator::make(array('file'=> $file), $rules);
+			if($validator->passes()){
+				$timestamp = str_replace([' ', ':'], '-', Carbon::now()->toDateTimeString());
+				$name = $timestamp. '-' .$file->getClientOriginalName();
+				$image->filePath = $name;
+				$upload_success = $file->move(public_path().'/images/', $name);
+				$image->save();
+				$locations[$uploadcount] = $image->filePath;
+				$uploadcount ++;
+			}
+		}
+		Session::flash('success', 'Upload successfully');
+		return $locations;
+	}
+
 
 	/**
 	 * Notify all user whom subscribe to specify book.
@@ -162,6 +218,8 @@ class ContentController extends Controller {
 			->join('contents', 'books_contents.content_id', '=', 'contents.id')
 			->where('contents.chapter', $chapter)->first();
 		$book = Book::findOrFail($id);
+		if($book->isComic())
+			return view('contents.show',compact('content_chap', 'book'))->with('id',$id)->with('content_images',json_decode($content_chap->content));
 		return view('contents.show',compact('content_chap', 'book'))->with('id',$id);
 	}
 
@@ -193,7 +251,8 @@ class ContentController extends Controller {
 		$content->content = $request->content;
 		$content->chapter = $request->chapter;
 		$content->save();
-		return Redirect::action('ContentController@index',array($id));
+		return redirect($this->getURI($id).'/'.$id);
+//		return Redirect::action('ContentController@index',array($id));
 	}
 
 	/**
@@ -209,7 +268,8 @@ class ContentController extends Controller {
 			$content = $this->findContent($id, $chapter);
 			$content->delete();
 		}
-		return Redirect::action('ContentController@index',array($id));
+		return redirect($this->getURI($id).'/'.$id);
+//		return Redirect::action('ContentController@index',array($id));
 	}
 
 	public function findContent($bookId,$chapter){

@@ -21,7 +21,7 @@ class Book extends Model {
 	}
 
 	public function contents() {
-		return $this->belongsToMany('App\Models\Content','books_contents', 'book_id', 'content_id');
+		return $this->belongsToMany('App\Models\Content','books_contents', 'book_id', 'content_id')->orderBy('chapter');
 	}
 
 	public function comments() {
@@ -43,7 +43,9 @@ class Book extends Model {
 	public function isOwner(){
 		return $this->user_id & Auth::user()->getKey();
 	}
-
+	public function isComic(){
+		return $this->category == 'Comic';
+	}
 	public function donations() {
 		return $this->hasMany('App\Models\Donation');
 	}

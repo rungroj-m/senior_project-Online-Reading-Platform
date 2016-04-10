@@ -9,7 +9,19 @@
 		<h3 align="center">Chapter {{ $content_chap->chapter }}</h3><br/>
 		<h4 align="center">{{ $content_chap->name }}</h1>
 		<hr>
-		<p class="content-text">{!! $content_chap->content !!}</p>
+
+			@if($book->isComic())
+				<p class="content-text">
+					<?php $i = 1 ?>
+					@foreach($content_images as $content)
+						<img src="/images/{{$content}}" style="height: 300px; width: 100%">
+						{{$i}}<?php $i++ ?>
+					@endforeach
+				</p>
+			@else
+				<p class="content-text">{!! $content_chap->content !!}</p>
+			@endif
+
 	</div>
 
 	<div class="col-md-2">

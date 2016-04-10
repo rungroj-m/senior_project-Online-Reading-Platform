@@ -49,7 +49,11 @@
 						<tbody>
 							@foreach($books as $b)
 								<tr>
-									<td><h4><a href="/books/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
+									@if($b->isComic())
+										<td><h4><a href="/comics/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
+									@else($b->category == 'Comic')
+										<td><h4><a href="/books/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
+									@endif
 									Last updated: {{$b->updated_at}}
 									in {{$b->category}}</td>
 									<td><h5>+ {{$b->userRating}}</h5><h6>+ {{$b->criticRating}}</h6></td>
