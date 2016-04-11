@@ -78,3 +78,10 @@ textarea{
 	height: 160px;
 	width: 200px;
 }
+.book-thumbnail{
+	max-height: 480px; 
+	min-height: 150px; 
+	max-width: 220px; 
+	min-width: 110px; 
+	margin: 15px
+}

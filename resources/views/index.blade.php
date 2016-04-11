@@ -14,27 +14,35 @@
 			</div>
 		</div>
 		<div class="col-md-12">
-			<div class="content">
-				<h2>EDITOR'S pick</h2>
-			</div>
 			<div class="row">
-				<div class="thumbnail carousel-thumbnail col-md-2">
-					<h1>TEST 1</h1>
-				</div>
-				<div class="thumbnail carousel-thumbnail col-md-2">
-					<h1>TEST 2</h1>
-				</div>
-				<div class="thumbnail carousel-thumbnail col-md-2">
-					<h1>TEST 3</h1>
-				</div>
-				<div class="thumbnail carousel-thumbnail col-md-2">
-					<h1>TEST 4</h1>
-				</div>
+				@for($i = 0; $i < 4; $i++)
+					<?php $b = $books[$i] ?>
+					<div class="thumbnail col-md-3" style="max-height: 480px; min-height: 150px; max-width: 220px; min-width: 110px; margin: 15px">
+						@if($b->isComic())
+							<a href="/comics/{{$b->id}}/content"><h4>{{$b->name}}</h4></a>
+						@else
+							<a href="/books/{{$b->id}}/content"><h4>{{$b->name}}</h4></a>
+						@endif
+
+						@if($b->image == null)
+							<div class="thumbnail cover-image-thumbnail content">
+								<h5>NO IMAGE</h5>
+							</div>
+						@else
+							<img class="thumbnail cover-image-thumbnail content" src="/images/{{$b->image}}">
+						@endif
+
+						<div class="word-wrap"><span class="glyphicon glyphicon-user"></span> {{$b->user->username}}</div>
+						@foreach($b->tags as $t)
+							<span class="badge"> {{$t->tag}}</span>
+						@endforeach
+					</div>
+				@endfor
 			</div>
 		</div>
 		<div class="col-md-5">
 			<div class="header">
-				<h2><span class="first-letter">R</span>ECENT</h2><br/>
+				<h3><span class="first-letter">R</span>ECENT</h3><br/>
 			</div>
 			<table class="table" align="center">
 				<tbody>
@@ -56,14 +64,10 @@
 		</div>
 		<div class="col-md-7">
 			<div class="header">
-					<h2><span class="first-letter">E</span>XPLORE</h2>
+					<h3><span class="first-letter">E</span>XPLORE</h3>
 			</div><br/>
-			<div>
-				<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus quam ut orci dignissim interdum. Curabitur ipsum mi, facilisis id nisl mollis, consequat egestas felis. Cras id lacus faucibus, vehicula nibh tincidunt, porta sem. Sed ornare scelerisque vehicula. Duis tempor maximus purus. Curabitur gravida, magna sit amet semper viverra, lorem lorem lacinia justo, a feugiat quam lectus quis purus. Pellentesque pretium neque vitae accumsan tincidunt.
+			<div class="row">
 
-				Donec id pellentesque mauris. Donec at arcu lorem. Aenean fringilla metus eu consequat suscipit. Fusce id dignissim erat. Suspendisse dignissim urna ut dolor sagittis sollicitudin. Cras ornare leo odio, vel egestas metus ornare ut. Curabitur sagittis neque vel sem tempor convallis. Praesent a diam cursus, feugiat neque et, ornare leo. Morbi mattis ultricies ullamcorper. Phasellus vehicula, mi eget gravida placerat, tellus felis congue quam, facilisis vestibulum ligula elit vitae tellus. Aenean non euismod neque, non sagittis orci. Vestibulum convallis mollis tellus et maximus.
-				</p>
 			</div>
 		</div>
 	</div>
