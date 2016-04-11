@@ -53,7 +53,17 @@
 					</form>
 				</div>
 			</div>
+			<ul id="connect-buttons">
+				<img id="connect-link-fb" class="button" tabindex="4" src="/images/signin_fb.png" onclick="myFunction()">
+			</ul>
 		</div>
 	</div>
 </div>
+
+
+<script>
+	function myFunction() {
+		window.location = "/login/facebook";
+	}
+</script>
 @endsection
