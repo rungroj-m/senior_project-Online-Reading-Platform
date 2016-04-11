@@ -6,7 +6,7 @@
 		<div class="col-md-6">
 		<h1>Edit {{$user->username}}</h1>
 		<hr/>
-		{!! Form::open(['method' => 'PUT','route' => ['admin-edit-user', $user->userKey]]) !!}
+		{!! Form::open(['method' => 'PUT','route' => ['admin-edit-user', $user->id]]) !!}
 			<div class="form-group">
 				{!! Form::label('Firstname','Firstname:') !!}
 				{!! Form::text('firstName',$user->firstName,['class'=>'form-control']) !!}

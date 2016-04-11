@@ -92,7 +92,7 @@ class ContentController extends Controller {
 	public function store($id,ill $request)
 	{
 		$validator = Validator::make($request->all(), [
-        'chapter' => 'required|integer|unique:contents',
+        'chapter' => 'required|integer',
 				'name' => 'required'
     ]);
 		if ($validator->fails()) {

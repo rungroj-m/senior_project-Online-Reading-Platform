@@ -62,18 +62,17 @@ class DonationController extends Controller
                           ->withInput();
       }
       else {
-        // $book = Book::findOrFail($id);
-        // $content = new Content;
-        // $content->name = $request->name;
-        // $content->chapter = $request->chapter;
-        // $content->content = $request->content;
-        // // $content->content = str_replace("\r\n", "<br/>", $request->content);
-        // $book->contents()->save($content);
-        //
-        // // notify subscribed user
-        // $this->notify($book, $content);
-        //
-        // return $this->index($id);
+        $book = Book::findOrFail($request->book);
+        $user = User::findOrFail($request->owner);
+        $donation = new Donation;
+        $donation->user_id = $user->id;
+        $donation->book_id = $book->id;
+        $donation->description = $request->description;
+        $donation->amount = $request->amount;
+        $donation->user()->associate($user);
+        $donation->book()->associate($book);
+        $donation->save();
+        return $this->show($id);
       }
     }
 
@@ -88,18 +87,16 @@ class DonationController extends Controller
                           ->withInput();
       }
       else {
-        // $book = Book::findOrFail($id);
-        // $content = new Content;
-        // $content->name = $request->name;
-        // $content->chapter = $request->chapter;
-        // $content->content = $request->content;
-        // // $content->content = str_replace("\r\n", "<br/>", $request->content);
-        // $book->contents()->save($content);
-        //
-        // // notify subscribed user
-        // $this->notify($book, $content);
-        //
-        // return $this->index($id);
+        $donation = Donation::findOrFail($request->donation);
+        $user = User::findOrFail($request->pleader);
+        $pleading = new Pleading;
+        $pleading->user_id = $user->id;
+        $pleading->donation_id = $donation->id;
+        $pleading->amount = $request->amount;
+        $pleading->user()->associate($user);
+        $pleading->donation()->associate($donation);
+        $pleading->save();
+        return $this->show($request->donation);
       }
     }
 

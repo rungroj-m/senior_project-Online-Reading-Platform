@@ -111,7 +111,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('donation/plead/create', 'DonationController@store_pleading');
 	Route::get('donation/{id}', 'DonationController@show');
 	Route::get('donation/{id}/edit', 'DonationController@edit');
-	Route::put('donation/{id}/edit', 'DonationController@update');
+	Route::put('donation/{id}/edit', ['as' => 'donation-edit', 'uses' => 'DonationController@update']);
 });
 
 Route::get('images/{filename}', function($filename){
