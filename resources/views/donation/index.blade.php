@@ -19,6 +19,7 @@
                     <th>Active</th>
                     <th>Description</th>
                     <th>Date/Time Added</th>
+                    <th>Edit</th>
                 </tr>
             </thead>
 
@@ -31,6 +32,9 @@
                     <td>{{ $donation->active }}</td>
                     <td>{{ $donation->description }}</td>
                     <td>{{ $donation->created_at->format('F d, Y h:ia') }}</td>
+                    <td>
+                      <a href="/donation/{{ $user->id }}/edit" class="btn btn-info pull-left" style="margin-right: 3px;">Edit</a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

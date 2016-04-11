@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,7 +14,7 @@ class Donation extends Model
     protected $fillable = array('user_id', 'book_id', 'goal_amount', 'active', 'description');
     protected $primaryKey = 'id';
 
-    public function owner() {
+    public function user() {
       return $this->belongsTo('App\Models\User');
     }
 

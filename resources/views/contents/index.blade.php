@@ -13,6 +13,7 @@
 				@else
 					<img class="cover-image" src="/images/{{$book->image}}">
 				@endif
+				<br/>
 				<div>
 					<span class="glyphicon glyphicon-list"></span> Tags <span class="badge">{{$book->tags->count()}}</span>
 				</div>
@@ -27,7 +28,7 @@
 			<div class="word-wrap"><h1>{{$book->name}}</h1></div>
 			<span class="glyphicon glyphicon-list"></span> <a href="/user/{{$book->user->id}}">{{$book->user->username}} </a><span class="glyphicon glyphicon-time"></span> {{$book->created_at}}</p>
 			<hr/>
-			{!! $book->description !!}
+			<p>{!! $book->description !!}</p>
 			<br/>
 		</div>
 		<div class="col-md-3">
@@ -155,7 +156,7 @@
 						<div class="caption">
 							<form method="POST" action="/books/{{$id}}/content/comment">
 								<input class="form-control" type="text" name="comment" ng-model="comment"><br/>
-								<button type="submit" class="btn btn-success form-control">Add Comment</button>
+								<button type="submit" class="btn btn-success">Add Comment</button>
 								<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							</form>
 						</div>
