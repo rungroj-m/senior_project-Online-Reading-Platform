@@ -14,7 +14,8 @@
 	<!-- Custom Fonts -->
  	<link href='https://fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
-
+</head>
+<footer>
 	<script src="{{ asset('js/app.js') }}"></script>
 	<script src="{{ asset('js/templates.js') }}"></script>
 
@@ -37,7 +38,7 @@
 			}
 		});
 	</script>
-</head>
+</footer>
 <body>
 	@yield('app')
 </body>
