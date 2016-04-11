@@ -53,26 +53,54 @@ class BookController extends Controller {
 	}
 
 	public function search(){
-		$request = Request::get('request');
-		
-		if($request == "" || $request == null){
+		$requests = Request::get('request');
+
+		if($requests == "" || $requests == null){
 			$books = Book::all();
 		}
-		else{
-			//Get Books Search Result
+
+		$ret = collect();
+
+		foreach(explode(" ",$requests) as $request){
+
+//			$request = str_replace(" ","",$request);
+
+			$collection = collect();
+
 			$books = Book::where(function ($query) use ($request){
 				$query	->where('name', 'LIKE', '%'.$request.'%');
 			})->get();
 
-			//Get Tags Search Result
-			$book_tags_temp = DB::table('book_tags')->join('tags', 'tags.id','=', 'book_tags.tag_id')->get();
-			$book_tags = collect($book_tags_temp);
-			$tags = Tag::where('tag', 'LIKE', '%'.$request.'%')->get();
+			$collection = $collection->merge($books);
 
-			foreach($tags as $tag){
+//			return $collection;
 
+			$tags = Tag::where('tag',$request)->get(array('id'));
+
+			$book_tags = [];
+
+			foreach ($tags as $tag){
+				$book_tags =  DB::table('book_tags')->where('tag_id',$tag->id)->get(array('book_id'));
 			}
+
+//			return $book_tags;
+
+			if($book_tags) {
+				foreach ($book_tags as $tag) {
+					$collection = $collection->push(Book::find($tag->book_id));
+				}
+			}
+			if($ret->isEmpty()){
+				$ret = $collection;
+			}
+			else{
+				$ret = $ret->intersect($collection);
+			}
+
 		}
+
+		$books = $ret;
+
 		return view('books.index', compact('books'));
 	}
 
