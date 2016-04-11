@@ -6,9 +6,9 @@
 
 <div class="col-lg-10 col-lg-offset-1">
 
-    <h1><i class="fa fa-users"></i>Pleader of Donation No. {{!! $donation->id !!}}</h1>
-    <h4>Goal Amount: {{!! $donation->goal_amount !!}}</h4>
-    <p>{{!! $donation->description !!}}</p>
+    <h1><i class="fa fa-users"></i>Pleader of Donation No. {!! $donation->id !!}</h1>
+    <h4>Goal Amount: {!! $donation->goal_amount !!}</h4>
+    <p>{!! $donation->description !!}</p>
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped">

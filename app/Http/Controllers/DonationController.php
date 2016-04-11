@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Auth;
+use App\Models\User;
+use App\Models\Book;
+use App\Models\Donation;
+use App\Models\Pleading;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class DonationController extends Controller
 {
@@ -65,18 +72,16 @@ class DonationController extends Controller
         $book = Book::findOrFail($request->book);
         $user = User::findOrFail($request->owner);
         $donation = new Donation;
-        $donation->user_id = $user->id;
-        $donation->book_id = $book->id;
         $donation->description = $request->description;
-        $donation->amount = $request->amount;
+        $donation->goal_amount = $request->amount;
         $donation->user()->associate($user);
         $donation->book()->associate($book);
         $donation->save();
-        return $this->show($id);
+        return redirect(url('donation/'.$donation->id));
       }
     }
 
-    public function store_pleading() {
+    public function store_pleading(Request $request) {
       $validator = Validator::make($request->all(), [
           'amount' => 'required|numeric',
           'donation' => 'required'
@@ -90,13 +95,11 @@ class DonationController extends Controller
         $donation = Donation::findOrFail($request->donation);
         $user = User::findOrFail($request->pleader);
         $pleading = new Pleading;
-        $pleading->user_id = $user->id;
-        $pleading->donation_id = $donation->id;
         $pleading->amount = $request->amount;
         $pleading->user()->associate($user);
         $pleading->donation()->associate($donation);
         $pleading->save();
-        return $this->show($request->donation);
+        return redirect(url('donation/'.$donation->id));
       }
     }
 
@@ -135,7 +138,11 @@ class DonationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $donation = Donation::find($id);
+      $donation->description =  $request->description;
+      $donation->goal_amount = $request->amount;
+      $content->save();
+      return redirect(url('donation/'.$donation->id));
     }
 
     /**
@@ -146,6 +153,6 @@ class DonationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }
