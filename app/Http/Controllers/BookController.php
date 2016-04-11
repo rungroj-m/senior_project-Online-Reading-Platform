@@ -59,6 +59,8 @@ class BookController extends Controller {
 			$books = Book::all();
 		}
 
+		$dd = '';
+
 		$ret = collect();
 
 		foreach(explode(" ",$requests) as $request){
@@ -90,6 +92,16 @@ class BookController extends Controller {
 					$collection = $collection->push(Book::find($tag->book_id));
 				}
 			}
+
+			$authors = User::where('username',$request)->get();
+
+			foreach ($authors as $author){
+				foreach ($author->books()->get() as $b){
+					$collection = $collection->push($b);
+				}
+			}
+
+
 			if($ret->isEmpty()){
 				$ret = $collection;
 			}
@@ -99,8 +111,8 @@ class BookController extends Controller {
 
 		}
 
-		$books = $ret;
-
+//		return $ret;
+		$books = $ret->values();
 		return view('books.index', compact('books'));
 	}
 
@@ -210,7 +222,7 @@ class BookController extends Controller {
 			$book->contents()->detach();
 			$book->delete();
 		}
-		return redirect($this->getURI($id));
+		return redirect('index');
 	}
 
 	public function deleteContent($bookId){
