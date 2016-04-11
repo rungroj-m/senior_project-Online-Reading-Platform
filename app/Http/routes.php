@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
 	// Index
 	Route::get('index', 'WelcomeController@index');
 
-	Route::group(['middleware' => 'App\Http\Middleware\ImageMiddleware'], function() {
+	// Route::group(['middleware' => 'App\Http\Middleware\ImageMiddleware'], function() {
 		// Books & Content Route
 		Route::get('comics/search/', 'BookController@search');
 		Route::resource('comics', 'BookController');
@@ -55,7 +55,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::group(['middleware' => 'App\Http\Middleware\CriticMiddleware'], function () {
 			Route::post('comics/{book}/content/review', 'ReviewController@postReview');
 		});
-	});
+	// });
 
 	// Books & Content Route
 	Route::get('books/search/', 'BookController@search');
