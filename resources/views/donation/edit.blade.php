@@ -10,15 +10,15 @@
 		<hr/>
 		{!! Form::open(['method' => 'PUT','route' => ['donation-edit', $donation->id]]) !!}
 			<div class="form-group">
-				{!! Form::label('Amount','Amount:') !!}
+				{!! Form::label('Amount','Amount: ') !!}
 				{!! Form::text('amount', $donation->amount, ['class'=>'form-control']) !!}
 			</div>
 
 			<div class="form-group">
-				{!! Form::label('Description','Description:') !!}
+				{!! Form::label('Description','Description: ') !!}
 				{!! Form::text('description', $donation->description, ['class'=>'form-control']) !!}
 			</div>
-      
+
 		<div class="form-group">
 			{!! Form::submit('Edit',['class' => 'btn btn-default']) !!}
 		</div>

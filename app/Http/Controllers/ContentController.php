@@ -49,13 +49,14 @@ class ContentController extends Controller {
 
 		$book = Book::findOrFail($id);
 		$user_id = Auth::id();
+		$owness = $book->isOwner();
 		$contents = Book::findOrFail($id)->contents;
 		$active = DB::table('subscriptions')->select('active')->where('book_id', '=', $id)->where('user_id', '=', $user_id)->get();
 		$subscribe = 0;
 		if(count($active) > 0) {
 			$subscribe = $active[0]->active;
 		}
-		return view('contents.index',compact('contents', 'book', 'subscribe'))->with('id',$id);
+		return view('contents.index',compact('contents', 'book', 'subscribe', 'owness'))->with('id',$id);
 	}
 
 	public function report($id){

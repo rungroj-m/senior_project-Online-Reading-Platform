@@ -98,6 +98,7 @@
 	<div class="row">
 		<div>
 			<div class="col-md-8">
+				@if($owness)
 				<div class="pull-right" style="padding-top: 10px">
 					@if($book->isComic())
 						{!! Form::open(['method' => 'GET','route' => ['comics.{book}.content.create', $id]]) !!}
@@ -126,6 +127,7 @@
 					{!! Form::close() !!}
 					{{--<a href="{{ route('books.create') }}" class="btn btn-primary">Create new Book</a>--}}
 				</div>
+				@endif
 				<h2 class="pull-left"><span class="first-letter">C</span>HAPTERS</h2><br/>
 				<table class="table" style="width:100%">
 					<tbody>
