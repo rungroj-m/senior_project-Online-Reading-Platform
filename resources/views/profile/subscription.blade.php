@@ -5,16 +5,13 @@
 <div class="col-lg-10 col-lg-offset-1">
 
     <h1><i class="fa fa-users"></i> Subscription </h1>
-
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
-
             <thead>
                 <tr>
                     <th>Book ID</th>
                 </tr>
             </thead>
-
             <tbody>
                 @foreach ($subscribes as $subscribe)
                 <tr>
@@ -26,7 +23,6 @@
                 </tr>
                 @endforeach
             </tbody>
-
         </table>
     </div>
 </div>

@@ -22,6 +22,7 @@ class SubscriptionController extends Controller
     {
         $user_id = Auth::id();
         $subscribes = User::findOrFail($user_id)->subscriptions;
+        // return $subscribes;
         return view('profile.subscription')->with('subscribes', $subscribes);
     }
 

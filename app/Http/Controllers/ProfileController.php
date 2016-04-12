@@ -28,7 +28,10 @@ class ProfileController extends Controller
     public function index(){
         $id = Auth::id();
         $user = User::findOrFail($id);
-        return view('profile.index', compact('user'));
+
+        $subscriptions = User::findOrFail($id)->subscriptions;
+        $notifications = $this->notification();
+        return view('profile.index', compact('user', 'notifications', 'subscriptions'));
     }
 
     /**
@@ -130,6 +133,7 @@ class ProfileController extends Controller
 
             $no->description = $temp;
         }
-        return view('profile.notification')->with('notifications', $noti);
+        return $noti;
+        // return view('profile.notification')->with('notifications', $noti);
     }
 }
