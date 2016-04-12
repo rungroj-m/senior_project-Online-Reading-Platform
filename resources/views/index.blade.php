@@ -18,7 +18,7 @@
 				<h3><span class="first-letter">E</span>DITOR'S CHOICE</h3>
 			</div>
 			<div class="row">
-				@for($i = 0; $i < $books->count(); $i++)
+				@for($i = 0; $i < 4; $i++)
 					<?php $b = $books[$i] ?>
 					<div class="thumbnail col-md-3 book-thumbnail content">
 						@if($b->isComic())
@@ -43,18 +43,27 @@
 				@endfor
 			</div>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-10">
 			<div class="header">
-				<h3><span class="first-letter">R</span>ECENT</h3><br/>
+				<h3><span class="first-letter">M</span>OST <span class="first-letter">R</span>ECENT</h3><br/>
 			</div>
-			<table class="table" align="center">
+			<div class="table-responsive">
+			<table class="table table-bordered" align="center">
 				<tbody>
 					@foreach($books as $b)
 						<tr>
+							@if($b->image == null)
+								<td align="center">
+									<div>No</div> 
+									<div>Image</div>
+								</td>
+							@else
+								<td align="center"><img class="small-cover-image-thumbnail" src="/images/{{$b->image}}"></td>
+							@endif
 							@if($b->isComic())
-								<td><h5><a href="/comics/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h5>
+								<td><h4><a href="/comics/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
 							@else($b->category == 'Comic')
-								<td><h5><a href="/books/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h5>
+								<td><h4><a href="/books/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
 							@endif
 							Last updated: {{$b->updated_at}}
 							in {{$b->category}}</td>
@@ -64,14 +73,9 @@
 					@endforeach
 				</tbody>
 			</table>
+			</div>
 		</div>
 		<div class="col-md-6">
-			<div class="header">
-					<h3><span class="first-letter">E</span>XPLORE</h3>
-			</div><br/>
-			<div class="row">
-
-			</div>
 		</div>
 	</div>
 </div>

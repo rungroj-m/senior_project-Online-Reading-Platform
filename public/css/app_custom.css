@@ -78,6 +78,10 @@ textarea{
 	height: 270px;
 	width: 200px;
 }
+.small-cover-image-thumbnail{
+	height: 60px;
+	width: 40px;
+}
 .book-thumbnail{
 	height: 420px;
 	width: 220px;
