@@ -236,7 +236,8 @@ class ContentController extends Controller {
 			->where('book_id', $id)
 			->join('contents', 'books_contents.content_id', '=', 'contents.id')
 			->where('contents.chapter', $chapter)->first();
-		return view('contents.edit',compact('content'));
+		$book = Book::findOrfail($id);
+		return view('contents.edit',compact('content','book'));
 	}
 
 	/**
@@ -245,14 +246,20 @@ class ContentController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, $chapter,Request $request)
+	public function update($id, $chapter,ill $request)
 	{
 		$content = $this->findContent($id,$chapter);
 		$content->name =  $request->name;
-		$content->content = $request->content;
+		$book = Book::findOrfail($id);
+		if($book->isComic()) {
+			$content->content = json_encode( $this->multiple_upload($request));
+		}
+		else{
+			$content->content = $request->content;
+		}
 		$content->chapter = $request->chapter;
 		$content->save();
-		return redirect($this->getURI($id).'/'.$id);
+		return redirect($this->getURI($id).'/'.$id.'/content/'.$chapter);
 //		return Redirect::action('ContentController@index',array($id));
 	}
 

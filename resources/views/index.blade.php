@@ -18,7 +18,10 @@
 				<h3><span class="first-letter">E</span>DITOR'S CHOICE</h3>
 			</div>
 			<div class="row">
-				@for($i = 0; $i < 4; $i++)
+				<?php $max = $books->count();
+					if($max>4) $max = 4;
+				?>
+				@for($i = 0; $i < $max; $i++)
 					<?php $b = $books[$i] ?>
 					<div class="thumbnail col-md-3 book-thumbnail content">
 						@if($b->isComic())

@@ -99,9 +99,9 @@
 				@if($owness)
 				<div class="pull-right" style="padding-top: 10px">
 					@if($book->isComic())
-						{!! Form::open(['method' => 'GET','route' => ['comics.{book}.content.create', $id]]) !!}
+						{!! Form::open(['method' => 'GET','route' => ['comics.{book}.content.create', $book->id]]) !!}
 					@else
-						{!! Form::open(['method' => 'GET','route' => ['books.{book}.content.create', $id]]) !!}
+						{!! Form::open(['method' => 'GET','route' => ['books.{book}.content.create', $book->id]]) !!}
 					@endif
 					{!! Form::submit('New Chapter', ['class' => 'btn btn-success']) !!}
 					{!! Form::close() !!}
@@ -133,9 +133,9 @@
 							<tr>
 								<td><h5>{{$c->chapter}}</h5></td>
 								@if($book->isComic())
-									<td><h4><a href="/comics/{{$id}}/content/{{$c->chapter}}">{{$c->name}}</a></h4>
+									<td><h4><a href="/comics/{{$book->id}}/content/{{$c->chapter}}">{{$c->name}}</a></h4>
 								@else
-									<td><h4><a href="/books/{{$id}}/content/{{$c->chapter}}">{{$c->name}}</a></h4>
+									<td><h4><a href="/books/{{$book->id}}/content/{{$c->chapter}}">{{$c->name}}</a></h4>
 								@endif
 								Last Updated: {{$c->updated_at}}</td>
 							</tr>
@@ -151,7 +151,7 @@
 				<div class="collapse" id="collapseComment">
 					<div class="thumbnail">
 						<div class="caption">
-							<form method="POST" action="/books/{{$id}}/content/comment">
+							<form method="POST" action="/books/{{$book->id}}/content/comment">
 								<input class="form-control" type="text" name="comment" ng-model="comment"><br/>
 								<button type="submit" class="btn btn-success">Add Comment</button>
 								<input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -170,7 +170,7 @@
 </div>
 
 @if(Auth::user()->isCritic())
-	<form method="POST" action="/books/{{$id}}/content/review/">
+	<form method="POST" action="/books/{{$book->id}}/content/review/">
 		<input class="form-control" type="text" name="review" ng-model="review"><br/>
 		<button type="submit" class="btn btn-success form-control">Add Review</button>
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -182,8 +182,8 @@
 	<div style="text-align: right">
 		<p>- {{$review->user->username}} |
 			{{$review->rating}}
-			<a href="/books/{{$id}}/content/review/{{$review->id}}/up" class="first-letter" href="">+</a>
-			<a href="/books/{{$id}}/content/review/{{$review->id}}/down" class="first-letter">-</a>
+			<a href="/books/{{$book->id}}/content/review/{{$review->id}}/up" class="first-letter" href="">+</a>
+			<a href="/books/{{$book->id}}/content/review/{{$review->id}}/down" class="first-letter">-</a>
 		</p>
 	</div>
 @endforeach
