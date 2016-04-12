@@ -22,9 +22,9 @@
 					<?php $b = $books[$i] ?>
 					<div class="thumbnail col-md-3 book-thumbnail content">
 						@if($b->isComic())
-							<a href="/comics/{{$b->id}}/content"><h4>{{str_limit($b->name, $limit = 100, $end = '...')}}</h4>
+							<a href="/comics/{{$b->id}}/"><h4>{{str_limit($b->name, $limit = 100, $end = '...')}}</h4>
 						@else
-							<a href="/books/{{$b->id}}/content"><h4>{{str_limit($b->name, $limit = 100, $end = '...')}}</h4>
+							<a href="/books/{{$b->id}}/"><h4>{{str_limit($b->name, $limit = 100, $end = '...')}}</h4>
 						@endif
 
 						@if($b->image == null)
