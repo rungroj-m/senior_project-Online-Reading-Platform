@@ -129,6 +129,12 @@ class DonationController extends Controller
         return view('donation.edit', compact('donation', 'pleaders'));
     }
 
+    public function edit_plead($id) {
+      $plead = Pleading::findOrFail($id);
+      $donation = $plead->donation;
+      return view('donation.edit_pleading', compact('plead', 'donation'));
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -145,6 +151,15 @@ class DonationController extends Controller
       return redirect(url('donation/'.$donation->id));
     }
 
+    public function update_plead(Request $request, $id) {
+      $plead = Pleading::findOrFail($id);
+      $plead->confirmed = $request->confirmed;
+      $plead->amount = $request->amount;
+      $plead->save();
+      $donation = $plead->donation;
+      return redirect(url('donation/'.$donation->id));
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -153,6 +168,12 @@ class DonationController extends Controller
      */
     public function destroy($id)
     {
-        
+      Donation::destroy($id);
+      return redirect(url('donation'))->with('status', 'Delete donation no.'+$id+' succeed.';
+    }
+
+    public function destroy_plead($id) {
+      Pleading::destroy($id);
+      return redirect(url('donation'))->with('status', 'Delete plead no.'+$id+' succeed.';
     }
 }
