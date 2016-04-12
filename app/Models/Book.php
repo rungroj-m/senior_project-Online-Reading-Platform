@@ -41,7 +41,7 @@ class Book extends Model {
 	}
 
 	public function isOwner(){
-		return $this->user_id & Auth::user()->getKey();
+		return $this->user_id == Auth::user()->getKey();
 	}
 	public function isComic(){
 		return $this->category == 'Comic';

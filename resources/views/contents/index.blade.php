@@ -56,10 +56,9 @@
 	                    	'method' => 'GET',
 	                        'route' => ['report', $book->id]
 	                    ]) !!}
-	                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Report with Modal</button>
-
-						{!! Form::submit('Report', ['class' => 'btn btn-warning form-control']) !!}
-						{!! Form::close() !!}
+	                    <button type="button" class="btn btn-warning form-control" data-toggle="modal" data-target="#myModal">Report</button>
+						<!-- {!! Form::submit('Report', ['class' => 'btn btn-warning form-control']) !!}
+						{!! Form::close() !!} -->
 					</li>
 					<li class="list-group-item">
 						<span class="glyphicon glyphicon-thumbs-up"></span>
@@ -193,20 +192,20 @@
 <!-- MODAL -->
 <div id="myModal" class="modal fade" role="dialog">
 	<div class="modal-dialog">
-	<!-- Modal content-->
+		<!-- Modal content-->
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<h4 class="modal-title">Submit Report</h4>
 			</div>
-		<div class="modal-body">
-			<p>Briefly explain why this content should be flagged</p>
-			<input type="textarea" class="form-control">
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-default inline" data-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-success inline">Submit</button>
+			<div class="modal-body">
+				<p>Briefly explain why this content should be flagged</p>
+				<input type="textarea" class="form-control">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default inline" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-success inline">Submit</button>
+			</div>
 		</div>
 	</div>
-</div>
 </div>
