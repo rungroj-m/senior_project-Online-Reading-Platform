@@ -57,7 +57,7 @@
 	                        'route' => ['report', $book->id]
 	                    ]) !!}
 	                    <button type="button" class="btn btn-warning form-control" data-toggle="modal" data-target="#myModal">Report</button>
-	                    {{!! Form::close() !!}}
+	                    {!! Form::close() !!}
 						<!-- {!! Form::submit('Report', ['class' => 'btn btn-warning form-control']) !!}
 						{!! Form::close() !!} -->
 					</li>
