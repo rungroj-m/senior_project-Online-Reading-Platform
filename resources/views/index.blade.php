@@ -12,26 +12,29 @@
 				<h1 class="inline"><span class="first-letter">C</span>REATORS</h1>
 				<h4 class="inline">feed</h4>
 			</div>
-		</div>
+		</div><br/>
 		<div class="col-md-12">
+			<div class="header">
+				<h3><span class="first-letter">E</span>DITOR'S CHOICE</h3>
+			</div>
 			<div class="row">
-				@for($i = 0; $i < 4; $i++)
+				@for($i = 0; $i < 5; $i++)
 					<?php $b = $books[$i] ?>
-					<div class="thumbnail col-md-3" style="max-height: 480px; min-height: 150px; max-width: 220px; min-width: 110px; margin: 15px">
+					<div class="thumbnail col-md-3 book-thumbnail content">
 						@if($b->isComic())
-							<a href="/comics/{{$b->id}}/content"><h4>{{$b->name}}</h4></a>
+							<a href="/comics/{{$b->id}}/content"><h4>{{str_limit($b->name, $limit = 100, $end = '...')}}</h4>
 						@else
-							<a href="/books/{{$b->id}}/content"><h4>{{$b->name}}</h4></a>
+							<a href="/books/{{$b->id}}/content"><h4>{{str_limit($b->name, $limit = 100, $end = '...')}}</h4>
 						@endif
 
 						@if($b->image == null)
-							<div class="thumbnail cover-image-thumbnail content">
-								<h5>NO IMAGE</h5>
+							<div class="img-thumbnail cover-image-thumbnail">
+								<h1>NO IMAGE</h1>
 							</div>
 						@else
-							<img class="thumbnail cover-image-thumbnail content" src="/images/{{$b->image}}">
+							<img class="img-thumbnail cover-image-thumbnail" src="/images/{{$b->image}}">
 						@endif
-
+						</a>
 						<div class="word-wrap"><span class="glyphicon glyphicon-user"></span> {{$b->user->username}}</div>
 						@foreach($b->tags as $t)
 							<span class="badge"> {{$t->tag}}</span>
@@ -40,7 +43,7 @@
 				@endfor
 			</div>
 		</div>
-		<div class="col-md-5">
+		<div class="col-md-6">
 			<div class="header">
 				<h3><span class="first-letter">R</span>ECENT</h3><br/>
 			</div>
@@ -49,20 +52,20 @@
 					@foreach($books as $b)
 						<tr>
 							@if($b->isComic())
-								<td><h4><a href="/comics/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
+								<td><h5><a href="/comics/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h5>
 							@else($b->category == 'Comic')
-								<td><h4><a href="/books/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
+								<td><h5><a href="/books/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h5>
 							@endif
 							Last updated: {{$b->updated_at}}
 							in {{$b->category}}</td>
-							<td><h5>+ {{$b->userRating}}</h5><h6>+ {{$b->criticRating}}</h6></td>
-							<td><h5><span class="glyphicon glyphicon-list-alt"></span> {{$b->user->username}}</h5></td>
+							<td><p>+ {{$b->userRating}}</p><p>+ {{$b->criticRating}}</p></td>
+							<td><p><span class="glyphicon glyphicon-user"></span> {{$b->user->username}}</p></td>
 						</tr>
 					@endforeach
 				</tbody>
 			</table>
 		</div>
-		<div class="col-md-7">
+		<div class="col-md-6">
 			<div class="header">
 					<h3><span class="first-letter">E</span>XPLORE</h3>
 			</div><br/>
