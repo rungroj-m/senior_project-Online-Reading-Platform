@@ -44,7 +44,9 @@ class CreateDonationTable extends Migration
      */
     public function down()
     {
-        Schema::drop('donation');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        Schema::dropIfExists('donations');
         Schema::drop('pleadings');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

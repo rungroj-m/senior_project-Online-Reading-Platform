@@ -165,10 +165,10 @@ class ContentController extends Controller {
 						->url(url('/books'.'/'.$book->id.'/content'.'/'.$content->chapter))
 						->extra(compact('bookname', 'chapter', 'chaptername'))
 						->send();
-				// Mail::send('emails.notification', ['user' => $user, 'book' => $book, 'content' => $content, 'link' => url('/books'.'/'.$book->id.'/content'.'/'.$content->chapter)], function ($m) use ($user) {
-		    //     $m->from('readi.notification@gmail.com', 'Readi');
-				// 		$m->to('grief.d.lament@gmail.com', 'Atit Leelasuksan')->subject('Readi Notification');
-				// });
+				Mail::send('emails.notification', ['user' => $user, 'book' => $book, 'content' => $content, 'link' => url('/books'.'/'.$book->id.'/content'.'/'.$content->chapter)], function ($m) use ($user) {
+		        $m->from('readi.notification@gmail.com', 'Readi');
+						$m->to($user->email, $user->username)->subject('Readi Notification');
+				});
 			}
 		}
 	}

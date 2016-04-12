@@ -12,7 +12,7 @@ class Tag extends Model {
 	protected $fillable = array('tag');
 	protected $primaryKey = 'id';
 
-	public function book() {
+	public function books() {
 		return $this->belongsToMany('App\Models\Book', 'book_tags', 'tag_id', 'book_id');
 	}
 }
