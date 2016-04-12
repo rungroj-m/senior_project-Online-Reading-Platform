@@ -75,13 +75,22 @@ textarea{
 	width: 220px;
 }
 .cover-image-thumbnail{
-	height: 160px;
+	height: 270px;
 	width: 200px;
 }
 .book-thumbnail{
-	max-height: 480px; 
+	height: 420px;
+	width: 220px;
+	/*max-height: 480px; 
 	min-height: 150px; 
 	max-width: 220px; 
-	min-width: 110px; 
-	margin: 15px
+	min-width: 110px; */
+	margin: 10px
+}
+.user-image{
+	height: 150px;
+	width: 150px;
+}
+.user-profile{
+	padding: 10px 5px;
 }

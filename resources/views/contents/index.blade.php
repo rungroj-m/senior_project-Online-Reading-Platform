@@ -8,7 +8,7 @@
 			<div class="thumbnail content">
 				@if($book->image == null)
 					<div class="cover-image">
-						<h1>NO IMAGE</h1>
+						<h1 class="word-wrap">NO IMAGE FOR THIS BOOK</h1>
 					</div>
 				@else
 					<img class="cover-image" src="/images/{{$book->image}}">
@@ -36,7 +36,6 @@
 				<ul style="width: 100%">
 					<li class="list-group-item">
 						<span class="glyphicon glyphicon-cloud"></span>
-
 						Subscription
 						@if($subscribe)
 							{!! Form::open([
@@ -53,21 +52,21 @@
 							{!! Form::submit('Subscribe', ['class' => 'btn btn-success form-control']) !!}
 							{!! Form::close() !!}
 						@endif
-							{!! Form::open([
-	                            'method' => 'GET',
-	                            'route' => ['report', $book->id]
-	                        ]) !!}
+						{!! Form::open([
+	                    	'method' => 'GET',
+	                        'route' => ['report', $book->id]
+	                    ]) !!}
+	                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Report with Modal</button>
 
-							{!! Form::submit('Report', ['class' => 'btn btn-warning form-control']) !!}
-							{!! Form::close() !!}
-
+						{!! Form::submit('Report', ['class' => 'btn btn-warning form-control']) !!}
+						{!! Form::close() !!}
 					</li>
 					<li class="list-group-item">
 						<span class="glyphicon glyphicon-thumbs-up"></span>
 						<span data-toggle="collapse" href="#collapseUserRating" aria-controls="collapseUserRating">
 							User Rating
 							<div>
-								<h2>{{$book->userRating}}</h2>
+								<h4>{{$book->userRating}}</h4>
 							</div>
 						</span>
 						<div class="collapse" id="collapseUserRating">
@@ -79,7 +78,7 @@
 						<span class="glyphicon glyphicon-hand-right"></span>
 						<span data-toggle="collapse" href="#collapseCriticRating" aria-controls="collapseCriticRating">
 							Critic Rating
-							<h2>{{$book->criticRating}}</h2>
+							<h4>{{$book->criticRating}}</h4>
 						</span>
 						<div class="collapse" id="collapseCriticRating">
 							RATING FORM ALSO HERE
@@ -89,8 +88,7 @@
 					<li class="list-group-item">
 						<span class="glyphicon glyphicon-eye-open"></span>
 						Total Views
-						<h3>1500</h3>
-						{{$book->updated_at}}
+						<h4>1500</h4>
 					</li>
 				</ul>
 			</div>
@@ -191,3 +189,24 @@
 	</div>
 @endforeach
 @stop
+
+<!-- MODAL -->
+<div id="myModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+	<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Submit Report</h4>
+			</div>
+		<div class="modal-body">
+			<p>Briefly explain why this content should be flagged</p>
+			<input type="textarea" class="form-control">
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default inline" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-success inline">Submit</button>
+		</div>
+	</div>
+</div>
+</div>

@@ -14,7 +14,7 @@
 				<p class="content-text">
 					<?php $i = 1 ?>
 					@foreach($content_images as $content)
-						<img src="/images/{{$content}}" style="height: 300px; width: 100%">
+						<img src="/images/{{$content}}" style="height: 100%; width: 100%">
 						{{$i}}<?php $i++ ?>
 					@endforeach
 				</p>
