@@ -38,9 +38,13 @@
                       @if(!$pleader->confirmed)
                         {!! Form::open(['method' => 'PUT','route' => ['plead-confirm', $donation->id]]) !!}
                         {!! Form::submit('Confirm',['class' => 'btn btn-default']) !!}
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        {!! Form::close() !!}
                       @else
                         {!! Form::open(['method' => 'PUT','route' => ['plead-unconfirm', $donation->id]]) !!}
                         {!! Form::submit('Unconfirm',['class' => 'btn btn-default']) !!}
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        {!! Form::close() !!}
                       @endif
                     </td>
                 </tr>
