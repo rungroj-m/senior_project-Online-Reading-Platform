@@ -33,7 +33,7 @@
                     <td>{{ $donation->description }}</td>
                     <td>{{ $donation->created_at->format('F d, Y h:ia') }}</td>
                     <td>
-                      <a href="/donation/{{ $user->id }}/edit" class="btn btn-info pull-left" style="margin-right: 3px;">Edit</a>
+                      <a href="/donation/{{ $donation->id }}/edit" class="btn btn-info pull-left" style="margin-right: 3px;">Edit</a>
                     </td>
                 </tr>
                 @endforeach

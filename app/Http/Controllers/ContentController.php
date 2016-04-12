@@ -56,7 +56,7 @@ class ContentController extends Controller {
 		if(count($active) > 0) {
 			$subscribe = $active[0]->active;
 		}
-		return view('contents.index',compact('contents', 'book', 'subscribe', 'owness'))->with('id',$id);
+		return view('contents.index',compact('contents', 'book', 'subscribe', 'owness', 'id'));
 	}
 
 	public function report($id){
