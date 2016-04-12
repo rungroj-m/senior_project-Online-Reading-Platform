@@ -116,6 +116,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('plead/{id}/edit', ['as' => 'plead-edit', 'uses' => 'DonationController@update_plead']);
 	Route::delete('donation/{id}', 'DonationController@destroy');
 	Route::delete('plead/{id}', 'DonationController@destroy_plead');
+	Route::put('plead/{id}/confirm', ['as' => 'plead-confirm', 'uses' => 'DonationController@confirm_plead']);
+	Route::put('plead/{id}/unconfirm', ['as' => 'plead-unconfirm', 'uses' => 'DonationController@unconfirm_plead']);
 });
 
 Route::get('images/{filename}', function($filename){

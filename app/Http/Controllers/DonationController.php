@@ -27,7 +27,7 @@ class DonationController extends Controller
       $user = User::findOrFail($user_id);
       $donations = $user->donations;
       $pleadings = $user->pleadings;
-      return view('donation.index', compact('donations', 'pleadings'));
+      return view('donation.index', compact('donations', 'pleadings', 'user'));
     }
 
     /**
@@ -147,7 +147,7 @@ class DonationController extends Controller
       $donation = Donation::find($id);
       $donation->description =  $request->description;
       $donation->goal_amount = $request->amount;
-      $content->save();
+      $donation->save();
       return redirect(url('donation/'.$donation->id));
     }
 
@@ -169,11 +169,35 @@ class DonationController extends Controller
     public function destroy($id)
     {
       Donation::destroy($id);
-      return redirect(url('donation'))->with('status', 'Delete donation no.'+$id+' succeed.';
+      return redirect(url('donation'))->with('status', 'Delete donation no.'+$id+' succeed.');
     }
 
     public function destroy_plead($id) {
       Pleading::destroy($id);
-      return redirect(url('donation'))->with('status', 'Delete plead no.'+$id+' succeed.';
+      return redirect(url('donation'))->with('status', 'Delete plead no.'+$id+' succeed.');
+    }
+
+    public function confirm_plead($id) {
+      $plead = Pleading::findOrFail($id);
+      $donation = $plead->donation;
+      if($donation->user->id == Auth::id()) {
+        $plead->confirmed = 1;
+        $plead->save();
+      } else {
+        return redirect(url('donation/'.$donation->id))->with('status', 'You are not allow to confirm plead for this donation');
+      }
+      return redirect(url('donation/'.$donation->id));
+    }
+
+    public function unconfirm_plead($id) {
+      $plead = Pleading::findOrFail($id);
+      $donation = $plead->donation;
+      if($donation->user->id == Auth::id()) {
+        $plead->confirmed = 0;
+        $plead->save();
+      } else {
+        return redirect(url('donation/'.$donation->id))->with('status', 'You are not allow to unconfirm plead for this donation');
+      }
+      return redirect(url('donation/'.$donation->id));
     }
 }

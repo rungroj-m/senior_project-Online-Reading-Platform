@@ -5,13 +5,13 @@
 	<div class="row">
 		<div class="col-md-6">
 		<h1>Edit Donation No. {{$donation->id}}</h1>
-    <h4>Owner: {{!! $donation->user->username !!}}</h4>
-    <h4>Book: {{!! $donation->book->name !!}}</h4>
+    <h4>Owner: {!! $donation->user->username !!}</h4>
+    <h4>Book: {!! $donation->book->name !!}</h4>
 		<hr/>
 		{!! Form::open(['method' => 'PUT','route' => ['donation-edit', $donation->id]]) !!}
 			<div class="form-group">
 				{!! Form::label('Amount','Amount: ') !!}
-				{!! Form::text('amount', $donation->amount, ['class'=>'form-control']) !!}
+				{!! Form::text('amount', $donation->goal_amount, ['class'=>'form-control']) !!}
 			</div>
 
 			<div class="form-group">
