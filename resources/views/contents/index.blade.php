@@ -57,6 +57,7 @@
 	                        'route' => ['report', $book->id]
 	                    ]) !!}
 	                    <button type="button" class="btn btn-warning form-control" data-toggle="modal" data-target="#myModal">Report</button>
+	                    {{!! Form::close() !!}}
 						<!-- {!! Form::submit('Report', ['class' => 'btn btn-warning form-control']) !!}
 						{!! Form::close() !!} -->
 					</li>
@@ -87,7 +88,7 @@
 					<li class="list-group-item">
 						<span class="glyphicon glyphicon-eye-open"></span>
 						Total Views
-						<h4>1500</h4>
+						<h4>{{$book->view_count}}</h4>
 					</li>
 				</ul>
 			</div>

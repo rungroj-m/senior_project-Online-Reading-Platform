@@ -33,9 +33,9 @@ Route::group(['middleware' => 'auth'], function () {
 	// Route::group(['middleware' => 'App\Http\Middleware\ImageMiddleware'], function() {
 		// Books & Content Route
 		Route::get('comics/search/', 'BookController@search');
+		Route::get('comics/{book}/report', ['as' => 'report', 'uses' => 'ContentController@report']);
 		Route::resource('comics', 'BookController');
 		Route::resource('comics/{book}/content', 'ContentController');
-		Route::get('comics/{book}/report', ['as' => 'report', 'uses' => 'ContentController@report']);
 
 		// Comment Routes
 		Route::post('comics/{book}/content/comment', 'CommentController@postComment');

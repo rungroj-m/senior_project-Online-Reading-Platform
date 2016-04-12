@@ -103,7 +103,7 @@
 				                @foreach ($subscriptions as $subscribe)
 				                <tr>
 				                    <td>
-				                      <a href="/book/{{ $subscribe->book_id }}" class="btn btn-info pull-left" style="margin-right: 3px;">
+				                      <a href="/books/{{ $subscribe->book_id }}/content" class="btn btn-info pull-left" style="margin-right: 3px;">
 				                        {{ $subscribe->book_id }}
 				                      </a>
 				                    </td>
