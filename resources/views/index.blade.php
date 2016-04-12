@@ -25,9 +25,9 @@
 					<?php $b = $books[$i] ?>
 					<div class="thumbnail col-md-3 book-thumbnail content">
 						@if($b->isComic())
-							<a href="/comics/{{$b->id}}/content"><h4>{{str_limit($b->name, $limit = 100, $end = '...')}}</h4>
+							<a href="/comics/{{$b->id}}/content"><h4>{{str_limit($b->name, $limit = 20, $end = '...')}}</h4>
 						@else
-							<a href="/books/{{$b->id}}/content"><h4>{{str_limit($b->name, $limit = 100, $end = '...')}}</h4>
+							<a href="/books/{{$b->id}}/content"><h4>{{str_limit($b->name, $limit = 20, $end = '...')}}</h4>
 						@endif
 
 						@if($b->image == null)
@@ -38,10 +38,12 @@
 							<img class="img-thumbnail cover-image-thumbnail" src="/images/{{$b->image}}">
 						@endif
 						</a>
-						<div class="word-wrap"><span class="glyphicon glyphicon-user"></span> {{$b->user->username}}</div>
-						@foreach($b->tags as $t)
+						by {{$b->user->username}} in {{$b->category}}
+						<div><h4>User Rating</h4></div>
+						<div><h4>{{$b->userRating}}</div>
+						<!-- @foreach($b->tags as $t)
 							<span class="badge"> {{$t->tag}}</span>
-						@endforeach
+						@endforeach -->
 					</div>
 				@endfor
 			</div>
@@ -51,31 +53,31 @@
 				<h3><span class="first-letter">M</span>OST <span class="first-letter">R</span>ECENT</h3><br/>
 			</div>
 			<div class="table-responsive">
-			<table class="table table-bordered" align="center">
-				<tbody>
-					@foreach($books as $b)
-						<tr>
-							@if($b->image == null)
-								<td align="center">
-									<div>No</div>
-									<div>Image</div>
-								</td>
-							@else
-								<td align="center"><img class="small-cover-image-thumbnail" src="/images/{{$b->image}}"></td>
-							@endif
-							@if($b->isComic())
-								<td><h4><a href="/comics/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
-							@else($b->category == 'Comic')
-								<td><h4><a href="/books/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
-							@endif
-							Last updated: {{$b->updated_at}}
-							in {{$b->category}}</td>
-							<td><p>+ {{$b->userRating}}</p><p>+ {{$b->criticRating}}</p></td>
-							<td><p><span class="glyphicon glyphicon-user"></span> {{$b->user->username}}</p></td>
-						</tr>
-					@endforeach
-				</tbody>
-			</table>
+				<table class="table table-bordered" align="center">
+					<tbody>
+						@foreach($books as $b)
+							<tr>
+								@if($b->image == null)
+									<td align="center">
+										<div>No</div> 
+										<div>Image</div>
+									</td>
+								@else
+									<td align="center"><img class="small-cover-image-thumbnail" src="/images/{{$b->image}}"></td>
+								@endif
+								@if($b->isComic())
+									<td><h4><a href="/comics/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
+								@else($b->category == 'Comic')
+									<td><h4><a href="/books/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
+								@endif
+								Last updated: {{$b->updated_at}}
+								in {{$b->category}}</td>
+								<td><p>+ {{$b->userRating}}</p><p>+ {{$b->criticRating}}</p></td>
+								<td><p><span class="glyphicon glyphicon-user"></span> {{$b->user->username}}</p></td>
+							</tr>
+						@endforeach
+					</tbody>
+				</table>
 			</div>
 		</div>
 		<div class="col-md-6">

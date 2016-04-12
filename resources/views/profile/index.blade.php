@@ -43,7 +43,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-10">
+		<div class="col-md-12">
 			<ul class="nav nav-tabs">
 				<li class="active">
 					<a data-toggle="tab" href="#notification"><h4><span class="first-letter">N</span>OTIFICATIONS</h4></a>
@@ -55,12 +55,63 @@
 			<!-- Tab Content -->
 			<div class="tab-content">
 				<div id="notification" class="tab-pane fade in active">
-					<h3>HOME</h3>
-					<p>Some content.</p>
+					<!-- NOTIFICATIONS TABLE -->
+					<div class="table-responsive">
+				        <table class="table table-bordered">
+				            <thead>
+				                <tr>
+				                    <th>Notification ID</th>
+				                    <th>Category</th>
+				                    <th>Description</th>
+				                    <th>URL</th>
+				                </tr>
+				            </thead>
+				            <tbody>
+				                @foreach ($notifications as $noti)
+				                <tr>
+				                    <td>{{$noti->id}}</td>
+				                    <td>
+				                    	@if ($noti->category->name == 'book.updatechapter')
+				                        {{ $noti->extra->bookname }} updated!
+				                    	@else
+				                    	@endif
+				                    </td>
+				                    <td>
+				                      {{ $noti->description }}
+				                    </td>
+				                    <td>
+				                      <a href="{{ $noti->url }}" class="btn btn-info pull-left" style="margin-right: 3px;">
+				                        Chapter{{ $noti->extra->chapter }}: {{ $noti->extra->chaptername }}
+				                      </a>
+				                    </td>
+				                </tr>
+				                @endforeach
+				            </tbody>
+				        </table>
+				    </div>
 				</div>
 				<div id="subscription" class="tab-pane fade">
-					<h3>Menu 1</h3>
-					<p>Some content in menu 1.</p>
+					<!-- SUBSCRIPTIONS TABLE -->
+					<div class="table-responsive">
+				        <table class="table table-bordered">
+				            <thead>
+				                <tr>
+				                    <th>Book ID</th>
+				                </tr>
+				            </thead>
+				            <tbody>
+				                @foreach ($subscriptions as $subscribe)
+				                <tr>
+				                    <td>
+				                      <a href="/book/{{ $subscribe->book_id }}" class="btn btn-info pull-left" style="margin-right: 3px;">
+				                        {{ $subscribe->book_id }}
+				                      </a>
+				                    </td>
+				                </tr>
+				                @endforeach
+				            </tbody>
+				        </table>
+				    </div>
 				</div>
 			</div>
 		</div>

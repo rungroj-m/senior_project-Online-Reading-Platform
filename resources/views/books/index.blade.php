@@ -22,11 +22,10 @@
 			<?php $b = $books[$i] ?>
 			<div class="thumbnail col-md-3 book-thumbnail content">
 				@if($b->isComic())
-					<a href="/comics/{{$b->id}}/content"><h4>{{str_limit($b->name, $limit = 20, $end = '...')}}</h4></a>
+					<a href="/comics/{{$b->id}}/content"><h4>{{str_limit($b->name, $limit = 20, $end = '...')}}</h4>
 				@else
-					<a href="/books/{{$b->id}}/content"><h4>{{str_limit($b->name, $limit = 20, $end = '...')}}</h4></a>
+					<a href="/books/{{$b->id}}/content"><h4>{{str_limit($b->name, $limit = 20, $end = '...')}}</h4>
 				@endif
-
 				@if($b->image == null)
 					<div class="img-thumbnail cover-image-thumbnail">
 						<h1>NO IMAGE FOR THIS BOOK</h1>
@@ -34,7 +33,7 @@
 				@else
 					<img class="img-thumbnail cover-image-thumbnail" src="/images/{{$b->image}}">
 				@endif
-
+				</a>
 				<div class="word-wrap"><span class="glyphicon glyphicon-user"></span> {{$b->user->username}}</div>
 				@foreach($b->tags as $t)
 					<span class="badge"> {{$t->tag}}</span>

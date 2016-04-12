@@ -5,10 +5,8 @@
 <div class="col-lg-10 col-lg-offset-1">
 
     <h1><i class="fa fa-users"></i> Notification </h1>
-
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
-
             <thead>
                 <tr>
                     <th>Notification ID</th>
@@ -17,7 +15,6 @@
                     <th>URL</th>
                 </tr>
             </thead>
-
             <tbody>
                 @foreach ($notifications as $noti)
                 <tr>
@@ -40,7 +37,6 @@
                 </tr>
                 @endforeach
             </tbody>
-
         </table>
     </div>
 </div>

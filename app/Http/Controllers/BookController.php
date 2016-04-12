@@ -224,11 +224,15 @@ class BookController extends Controller {
 	 */
 	public function show($id)
 	{
-		// $book = Book::find($id);
+		$book = Book::findOrfail($id);
+		$book->view_count++;
+		$book->save();
 		// if($book == null) {
 		// 	return;
 		// }
 //		return Book::find($id)->user;
+
+
 		return redirect($this->getURI($id).'/'.$id.'/content');
 		// return $book;
 	}
