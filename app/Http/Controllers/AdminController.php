@@ -104,7 +104,7 @@ class AdminController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
-        return redirect('/admin')->with('status', 'Delete user no.'+$id+' succeed.');
+        return redirect('/admin')->with('status', 'Delete user no.'.$id.' succeed.');
     }
 
     public function bookReport(){
