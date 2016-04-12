@@ -59,20 +59,7 @@ class ContentController extends Controller {
 		return view('contents.index',compact('contents', 'book', 'subscribe', 'owness', 'id'));
 	}
 
-	public function report($id){
-		$book = Book::findOrFail($id);
-		$ownerId = Auth::id();
-		$bookreport = BookReport::create();
-		$bookreport -> type = 1;
-		$bookreport -> book_id = $book->getKey();
-		$bookreport -> user_id = $ownerId;
-		$bookreport -> save();
-		return redirect($this->getURI($id).'/'.$id);
-	}
-
-	public function showTotalReport($id){
-		return $totalReport = DB::table('book_reports')->where('book_id','=',$id)->distinct('user_id')->count('user_id');
-	}
+	
 
 	/**
 	 * Show the form for creating a new resource.

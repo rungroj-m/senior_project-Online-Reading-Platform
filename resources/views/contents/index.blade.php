@@ -199,14 +199,18 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<h4 class="modal-title">Submit Report</h4>
 			</div>
+			{!! Form::open(['method' => 'POST','route' => ['report', $book->id]]) !!}
 			<div class="modal-body">
-				<p>Briefly explain why this content should be flagged</p>
-				<input type="textarea" class="form-control">
+				<select name="report" class="form-control">
+					<option value="1">Inappropriate content</option>
+					<option value="2">Piracy content</option>
+				</select>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default inline" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-success inline">Submit</button>
+				<button type="submit" class="btn btn-success inline">Submit</button>
 			</div>
+			{!! Form::close() !!}
 		</div>
 	</div>
 </div>
