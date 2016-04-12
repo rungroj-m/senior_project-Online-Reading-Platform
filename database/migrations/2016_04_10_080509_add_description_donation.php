@@ -25,7 +25,7 @@ class AddDescriptionDonation extends Migration
     public function down()
     {
       Schema::table('donations', function (Blueprint $table) {
-          $table->dropColumn('description');
+//          $table->dropColumn('description');
       });
     }
 }

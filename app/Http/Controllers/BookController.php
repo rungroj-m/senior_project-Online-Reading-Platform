@@ -134,7 +134,12 @@ class BookController extends Controller {
 	public function store()
 	{
 		$input = Request::all();
+//		return $input;
+//		return $this->findOrCreateTag($input,null);
 		$book  = Book::create($input);
+//		$book = '';
+		$this->findOrCreateTag($input,$book);
+		$book->save();
 		$book -> user_id = Auth::id();
 		$book->save();
 		$book -> image = $this->saveimage($input);
@@ -142,9 +147,58 @@ class BookController extends Controller {
 		return redirect($this->getURI($book->id));
 	}
 
+	public function findOrCreateTag($input,$book){
+
+//		return '1';
+//		return Tag::where('tag', 'fantasy')->get();
+
+		if(Input::has('checkbox'))
+			for($i = 0;$i<count($input['checkbox']);$i++){
+				$checkbox = strtolower($input['checkbox'][$i]);
+				if($checkbox){
+					if(!Tag::where('tag',$checkbox)->get()->isEmpty()){
+						// save it to book
+						foreach (Tag::where('tag',$checkbox)->get() as $tb){
+							$tb->books()->attach($book);
+							$tb->save();
+						}
+					}else{
+						// create new tag
+						$tag = Tag::create();
+						$tag->tag = $checkbox;
+						$tag->save();
+						$book->tags()->attach($tag);
+						$book->save();
+					}
+				}
+			}
+		if(Input::has('tags')) {
+			foreach (explode(" ", $input['tags']) as $t) {
+				$t = strtolower($t);
+				if (!Tag::where('tag', $t)->get()->isEmpty()) {
+					// save it to book
+					foreach (Tag::where('tag',$t)->get() as $tb){
+						$tb->books()->attach($book);
+						$tb->save();
+					}
+				} else {
+					// create new tag
+					$tag = Tag::create();
+					$tag->tag = $t;
+					$tag->save();
+					$book->tags()->attach($tag);
+					$book->save();
+				}
+			}
+		}
+	}
+
+
+
 	public function saveimage($req){
 		$request = new ill($req);
 		$image = new Image();
+
 		if(Input::file('image')) {
 			$file = Input::file('image');
 			//getting timestamp
