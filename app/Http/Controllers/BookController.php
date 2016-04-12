@@ -112,7 +112,7 @@ class BookController extends Controller {
 		}
 
 //		return $ret;
-		$books = $ret->values();
+		$books = $ret->unique()->values();
 		return view('books.index', compact('books'));
 	}
 
@@ -192,24 +192,16 @@ class BookController extends Controller {
 			}
 		}
 	}
-
-
-
+	
 	public function saveimage($req){
 		$request = new ill($req);
 		$image = new Image();
 
 		if(Input::file('image')) {
 			$file = Input::file('image');
-			//getting timestamp
 			$timestamp = str_replace([' ', ':'], '-', Carbon::now()->toDateTimeString());
-
 			$name = $timestamp. '-' .$file->getClientOriginalName();
-
-
-
 			$image->filePath = $name;
-
 			$file->move(public_path().'/images/', $name);
 		}
 		$image->save();
