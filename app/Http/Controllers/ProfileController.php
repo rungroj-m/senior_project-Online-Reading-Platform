@@ -34,6 +34,12 @@ class ProfileController extends Controller
         return view('profile.index', compact('user', 'notifications', 'subscriptions'));
     }
 
+    public function showProfile($id){
+        $user = User::findOrFail($id);
+
+        return view('profile.user', compact('user'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -76,12 +82,6 @@ class ProfileController extends Controller
     {
         //
     }
-
-    public function showProfile($id){
-        $user = User::findOrFail($id);
-        return $user;
-    }
-
 
     public function resetPassword($id,$password){
 

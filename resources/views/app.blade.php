@@ -50,8 +50,7 @@
 							<li><a href="{{ url('/login') }}">Login</a></li>
 							<li><a href="{{ url('/register') }}">Register</a></li>
 						@else
-							<li><a href="#">Dashboard</a></li>
-							<li><a href="/profile">Profile</a></li>
+							<li><a href="/profile">Profile Dashboard</a></li>
 							<li role="separator" class="divider"></li>
 							<li><a href="{{ url('/logout') }}">Logout</a></li>
 						@endif

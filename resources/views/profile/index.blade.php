@@ -46,10 +46,10 @@
 		<div class="col-md-12">
 			<ul class="nav nav-tabs">
 				<li class="active">
-					<a data-toggle="tab" href="#notification"><h4><span class="first-letter">N</span>OTIFICATIONS</h4></a>
+					<a data-toggle="tab" href="#notification"><h4><span class="first-letter">N</span>otifications</h4></a>
 				</li>
 				<li>
-					<a data-toggle="tab" href="#subscription"><h4><span class="first-letter">S</span>UBSCRIPTIONS</h4></a>
+					<a data-toggle="tab" href="#subscription"><h4><span class="first-letter">S</span>ubscriptions</h4></a>
 				</li>
 			</ul>
 			<!-- Tab Content -->
