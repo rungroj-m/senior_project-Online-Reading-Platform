@@ -153,6 +153,7 @@ return [
 		Intervention\Image\ImageServiceProvider::class,
 		'Laravel\Socialite\SocialiteServiceProvider',
 		'Fenos\Notifynder\NotifynderServiceProvider',
+		'Roumen\Feed\FeedServiceProvider',
 	],
 
 	/*
@@ -207,6 +208,7 @@ return [
 		'Socialize' => 'Laravel\Socialite\Facades\Socialite',
 		'Image' 		=> Intervention\Image\Facades\Image::class,
 		'Notifynder'    => 'Fenos\Notifynder\Facades\Notifynder',
+		'Feed' => 'Roumen\Feed\Feed',
 ),
 
 ];

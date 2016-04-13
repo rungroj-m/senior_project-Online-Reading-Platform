@@ -23,7 +23,7 @@ Route::get('/login/callback/{provider?}',[
 // Registration routes...
 Route::get('register', 'Auth\AuthController@getRegister');
 Route::post('register', 'Auth\AuthController@postRegister');
-
+Route::get('feed', 'FeedController@index');
 
 Route::group(['middleware' => 'auth'], function () {
 
