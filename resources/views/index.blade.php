@@ -12,7 +12,7 @@
 				<h1 class="inline"><span class="first-letter">C</span>REATORS</h1>
 				<h4 class="inline">feed</h4>
 			</div>
-		</div><br/>
+		</div><hr/>
 		<div class="col-md-12">
 			<div class="header">
 				<h3><span class="first-letter">E</span>DITOR'S CHOICE</h3>
