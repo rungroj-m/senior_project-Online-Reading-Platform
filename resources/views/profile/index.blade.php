@@ -115,6 +115,38 @@
 				</div>
 			</div>
 		</div>
+		<div class="col-md-12">
+			<header>
+				<h3><span class="first-letter">P</span>UBLISHED BOOKS</h3>
+			</header>
+			<div class="table-responsive">
+				<table class="table table-bordered" align="center">
+					<tbody>
+						@foreach($user->books as $b)
+							<tr>
+								@if($b->image == null)
+									<td align="center">
+										<div>No</div> 
+										<div>Image</div>
+									</td>
+								@else
+									<td align="center"><img class="small-cover-image-thumbnail" src="/images/{{$b->image}}"></td>
+								@endif
+								@if($b->isComic())
+									<td><h4><a href="/comics/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
+								@else($b->category == 'Comic')
+									<td><h4><a href="/books/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
+								@endif
+								Last updated: {{$b->updated_at}}
+								in {{$b->category}}</td>
+								<td><p>+ {{$b->userRating}}</p><p>+ {{$b->criticRating}}</p></td>
+								<td><p><span class="glyphicon glyphicon-user"></span> {{$b->user->username}}</p></td>
+							</tr>
+						@endforeach
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 </div>
 @stop

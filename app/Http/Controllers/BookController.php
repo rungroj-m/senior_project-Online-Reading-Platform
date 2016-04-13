@@ -112,7 +112,7 @@ class BookController extends Controller {
 		}
 
 //		return $ret;
-		$books = $ret->values();
+		$books = $ret->unique()->values();
 		return view('books.index', compact('books'));
 	}
 
