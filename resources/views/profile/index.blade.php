@@ -15,7 +15,7 @@
 				</div>
 				@else
 				<div class="thumbnail content user-image">
-					<img src="{{$user->image}}">
+					<img src="images/{{$user->image}}">
 				</div>
 				@endif
 				<div class="content">
@@ -155,6 +155,7 @@
 <div id="myModal" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
+			{!! Form::open(array('url' => 'profile/image/', 'files' => true)) !!}
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<h4 class="modal-title">Upload Avatar</h4>
@@ -165,8 +166,9 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default inline" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-success inline">Upload</button>
+				<button type="submit" class="btn btn-success inline">Upload</button>
 			</div>
+			{!! Form::close() !!}
 		</div>
 	</div>
 </div>

@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
 	// Route::group(['middleware' => 'App\Http\Middleware\ImageMiddleware'], function() {
 		// Books & Content Route
 		Route::get('comics/search/', 'BookController@search');
-		Route::get('comics/{book}/report', ['as' => 'report', 'uses' => 'ContentController@report']);
+		Route::post('comics/{book}/report', ['as' => 'report', 'uses' => 'BookController@report']);
 		Route::resource('comics', 'BookController');
 		Route::resource('comics/{book}/content', 'ContentController');
 
@@ -61,7 +61,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('books/search/', 'BookController@search');
 	Route::resource('books','BookController');
 	Route::resource('books/{book}/content', 'ContentController');
-	Route::get('books/{book}/report', [ 'as' => 'report', 'uses' => 'ContentController@report']);
+	Route::post('books/{book}/report', [ 'as' => 'report', 'uses' => 'BookController@report']);
 
 	// Comment Routes
 	Route::post('books/{book}/content/comment', 'CommentController@postComment');
@@ -78,8 +78,7 @@ Route::group(['middleware' => 'auth'], function () {
 	// Profile Routes
 	Route::get('user/{id}', 'ProfileController@showProfile');
 	Route::get('profile','ProfileController@index');
-	Route::get('profile/image','ProfileController@imageUpload');
-	Route::post('profile/image/save',['as' => 'profile/image/save','uses' => 'ProfileController@imageSave']);
+	Route::post('profile/image/',['as' => 'profile/image/','uses' => 'ProfileController@imageSave']);
 	Route::get('profile/edit','ProfileController@edit');
 	Route::put('profile',['as' => 'profile','uses' =>'ProfileController@update']);
 	Route::get('profile/subscription', 'SubscriptionController@index');

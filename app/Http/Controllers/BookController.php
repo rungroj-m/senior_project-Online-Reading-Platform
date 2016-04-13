@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Models\User;
 use App\Models\Rating;
 use App\Models\Tag;
+use App\Models\BookReport;
 use Validator;
 use Request;
 use DB;
@@ -193,23 +194,15 @@ class BookController extends Controller {
 		}
 	}
 
-
-
 	public function saveimage($req){
 		$request = new ill($req);
 		$image = new Image();
 
 		if(Input::file('image')) {
 			$file = Input::file('image');
-			//getting timestamp
 			$timestamp = str_replace([' ', ':'], '-', Carbon::now()->toDateTimeString());
-
 			$name = $timestamp. '-' .$file->getClientOriginalName();
-
-
-
 			$image->filePath = $name;
-
 			$file->move(public_path().'/images/', $name);
 		}
 		$image->save();
@@ -351,6 +344,22 @@ class BookController extends Controller {
 
 		return redirect($this->getURI().'/'.$id);
 
+	}
+
+	public function report($id){
+		$report = Request::get('report');
+		$book = Book::findOrFail($id);
+		$ownerId = Auth::id();
+		$bookreport = BookReport::create();
+		$bookreport -> type = $report;
+		$bookreport -> book_id = $book->getKey();
+		$bookreport -> user_id = $ownerId;
+		$bookreport -> save();
+		return redirect($this->getURI($id).'/'.$id);
+	}
+
+	public function showTotalReport($id){
+		return $totalReport = DB::table('book_reports')->where('book_id','=',$id)->distinct('user_id')->count('user_id');
 	}
 
 }
