@@ -9,6 +9,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Book;
 use Feed;
 use Carbon;
+use App;
+use App\Models\Content;
+use DB;
 
 class FeedController extends Controller
 {
@@ -19,12 +22,11 @@ class FeedController extends Controller
      */
     public function index()
     {
-        $feed = App::make("Recent Update");
+        $feed = App::make("feed");
         $feed->setCache(60, 'recent-update');
         if (!$feed->isCached()) {
            // creating rss feed with our most recent 20 posts
-           $contents = \DB::table('contents')->orderBy('created_at', 'desc')->take(20)->get();
-
+           $contents = Content::orderBy('created_at', 'desc')->take(20)->get();
            // set your feed's title, description, link, pubdate and language
            $feed->title = 'Recent update contents';
            $feed->description = 'Feed for 20 recent updated contents.';
@@ -36,10 +38,12 @@ class FeedController extends Controller
            $feed->setShortening(true); // true or false
            $feed->setTextLimit(100); // maximum length of description text
 
-           foreach ($contents as $content)
-           {
-               // set item's title, author, url, pubdate, description, content, enclosure (optional)*
-               $feed->add($content->book->name, $content->book->user->username, url('books/'.$content->book->id.'/content/'.$content->chapter), $content->created_at, $content->chapter.' has been updated.', $content->content);
+           foreach ($contents as $content) {
+             $book = Book::find(DB::table('books_contents')->select('book_id')->where('content_id', $content->id)->first()->book_id);
+             $user = $book->user;
+            //  $user = $book->user;
+             // set item's title, author, url, pubdate, description, content, enclosure (optional)*
+             $feed->add($book->name, $user->username, url('books/'.$book->id.'/content/'.$content->chapter), $content->created_at, $content->chapter.' has been updated.', $content->content);
            }
         }
 
