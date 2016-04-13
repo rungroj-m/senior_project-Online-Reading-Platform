@@ -65,7 +65,7 @@
 						<span data-toggle="collapse" href="#collapseUserRating" aria-controls="collapseUserRating">
 							User Rating
 							<div>
-								<h4>{{$book->userRating}}</h4>
+								<h4>{{$book->getUserRatingAverage()}}</h4>
 							</div>
 						</span>
 						<div class="collapse" id="collapseUserRating">
@@ -92,7 +92,7 @@
 						<span class="glyphicon glyphicon-hand-right"></span>
 						<span data-toggle="collapse" href="#collapseCriticRating" aria-controls="collapseCriticRating">
 							Critic Rating
-							<h4>{{$book->criticRating}}</h4>
+							<h4>{{$book->getCriticRatingAverage()}}</h4>
 						</span>
 						<div class="collapse" id="collapseCriticRating">
 							RATING FORM ALSO HERE

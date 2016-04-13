@@ -60,4 +60,17 @@ class Book extends Model {
 		return true;
 	}
 
+	public function getUserRatingAverage(){
+		if($this->userRatingCount > 0)
+			return $this->userRating / $this->userRatingCount;
+		else
+			return 0;
+	}
+
+	public function getCriticRatingAverage(){
+		if($this->criticRatingCount > 0)
+			return $this->criticRating / $this->criticRatingCount;
+		else
+			return 0;
+	}
 }
