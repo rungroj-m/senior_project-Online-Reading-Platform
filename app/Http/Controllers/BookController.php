@@ -293,8 +293,8 @@ class BookController extends Controller {
 
 		$userID = Auth::id();
 		$book = Book::findOrFail($id);
-		$bookKey = $book->getKey();
-		$condition = ['user_id' => $userID , 'book_id' => $bookKey];
+		$book_id = $book->getKey();
+		$condition = ['user_id' => $userID , 'book_id' => $book_id];
 		$check = DB::table('ratings')->where($condition)->first();
 
 		if($check == null)
@@ -326,20 +326,20 @@ class BookController extends Controller {
 		// assume it pass data user vote
 
 		if($user -> userLevel == '0' || $user -> userLevel == '2') {
-			$book->userRating += $input['userVote'];
+			$book->userRating += $input['rating'];
 //			$book->userRating += 4;
 			$book->userRatingCount += 1;
 			$book->save();
 		}
 		else{
-			$book->criticRating += $input['userVote'];
+			$book->criticRating += $input['rating'];
 			$book->criticRatingCount += 1;
 			$book->save();
 		}
 
 		$rating = new Rating();
-		$rating -> bookKey = $book->getKey();
-		$rating -> userKey = $userID;
+		$rating -> book_id = $book->getKey();
+		$rating -> user_id = $userID;
 		$rating -> save();
 
 		return redirect($this->getURI().'/'.$id);

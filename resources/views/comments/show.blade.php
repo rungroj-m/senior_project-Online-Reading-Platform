@@ -25,9 +25,9 @@
 			</div>
 			</p>
 		</div>
+		@foreach($c->childs as $comment)
+			@include('comments.show', ['c' => $comment])
+		@endforeach
 	</div>
 </div>
 
-@foreach($c->childs as $comment)
-	@include('comments.show', ['c' => $comment])
-@endforeach
