@@ -156,9 +156,8 @@ class ContentController extends Controller {
 		        $m->from('readi.notification@gmail.com', 'Readi');
 						$m->to($user->email, $user->username)->subject('Readi Notification');
 				});
-
 				if($user->facebook_id)
-					$this->facebookNotification($user->facebook_id);
+					$this->facebookNotification($user);
 			}
 		}
 	}
@@ -166,7 +165,7 @@ class ContentController extends Controller {
 	/**
 	 * Use this function to send notification to facebook user.
 	 */
-	public function facebookNotification($user_id){
+	public function facebookNotification($user){
 
 		$app_id = '811596832280396';
 		$app_secret = '2f2e3fb44143bbf8543850d7cddc8c28';
@@ -181,7 +180,6 @@ class ContentController extends Controller {
 
 		$access_token = $app_id.'|'.$app_secret;
 
-		$user = User::find($user_id);
 
 		try{
 			$response = $fb->post('/'.$user->facebook_id.'/notifications', ['template' => 'You have people waiting to play with you, play now!'], $access_token);
