@@ -12,7 +12,7 @@
 				<h1 class="inline"><span class="first-letter">C</span>REATORS</h1>
 				<h4 class="inline">feed</h4>
 			</div>
-		</div><br/>
+		</div><hr/>
 		<div class="col-md-12">
 			<div class="header">
 				<h3><span class="first-letter">E</span>DITOR'S CHOICE</h3>
@@ -40,7 +40,7 @@
 						</a>
 						by {{$b->user->username}} in {{$b->category}}
 						<div><h4>User Rating</h4></div>
-						<div><h4>{{$b->userRating}}</div>
+						<div><h4>{{ $b->getUserRatingAverage() }}</div>
 						<!-- @foreach($b->tags as $t)
 							<span class="badge"> {{$t->tag}}</span>
 						@endforeach -->
@@ -72,7 +72,7 @@
 								@endif
 								Last updated: {{$b->updated_at}}
 								in {{$b->category}}</td>
-								<td><p>+ {{$b->userRating}}</p><p>+ {{$b->criticRating}}</p></td>
+								<td><p>+ {{$b->getUserRatingAverage()}}</p><p>+ {{$b->getCriticRatingAverage()}}</p></td>
 								<td><p><span class="glyphicon glyphicon-user"></span> {{$b->user->username}}</p></td>
 							</tr>
 						@endforeach

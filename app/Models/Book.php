@@ -3,6 +3,7 @@
 use Illuminate\Database\Eloquent\Model;
 use Fenos\Notifynder\Notifable;
 use Auth;
+use DB;
 
 class Book extends Model {
 
@@ -50,4 +51,26 @@ class Book extends Model {
 		return $this->hasMany('App\Models\Donation');
 	}
 
+	public function alreadyVote(){
+		$userID = Auth::id();
+		$condition = ['user_id' => $userID , 'book_id' => $this->id];
+		$check = DB::table('ratings')->where($condition)->first();
+		if($check == null)
+			return false;
+		return true;
+	}
+
+	public function getUserRatingAverage(){
+		if($this->userRatingCount > 0)
+			return $this->userRating / $this->userRatingCount;
+		else
+			return 0;
+	}
+
+	public function getCriticRatingAverage(){
+		if($this->criticRatingCount > 0)
+			return $this->criticRating / $this->criticRatingCount;
+		else
+			return 0;
+	}
 }
