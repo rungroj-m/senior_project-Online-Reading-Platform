@@ -98,6 +98,10 @@ class AuthController extends Controller {
             $user -> facebook_id = $facebookUser -> getId();
             $user -> facebook_token = $facebookUser -> token;
             $user->save();
+						DB::table('preferences')->insert([
+    						['user_id' => $user->id, 'email_noti' => 0, 'facebook_noti' => 0]
+						]);
+
             return $user;
         }
     }
