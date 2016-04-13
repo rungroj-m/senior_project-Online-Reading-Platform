@@ -156,6 +156,9 @@ class ContentController extends Controller {
 		        $m->from('readi.notification@gmail.com', 'Readi');
 						$m->to($user->email, $user->username)->subject('Readi Notification');
 				});
+
+				if($user->facebook_id)
+					$this->facebookNotification($user->facebook_id);
 			}
 		}
 	}
