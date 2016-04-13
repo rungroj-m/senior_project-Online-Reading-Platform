@@ -11,7 +11,7 @@
 		@if($book->isComic())
 			<form method="POST" action="/books/{{$book->id}}/content" enctype="multipart/form-data">
 		@else
-			{!! Form::open(['url' => URL::to("/books/$book->id/content")]) !!}
+			{!! Form::open(['url' => URL::to("/books/$book->id/content"),'files' => true]) !!}
 		@endif
 		<div class="error"><font color="red">{{ $errors->first() }}</font></div>
 		<div class="form-group col-md-8">
@@ -32,6 +32,9 @@
 				{!! Form::label('content','Content:',['class'=>'h3']) !!}
 				<p>Content of your chapter</p>
 				{!! Form::textarea('content',null,['class'=>'form-control']) !!}
+
+				{!! Form::label('upload', 'Upload Docx file') !!}
+				{!! Form::file('upload') !!}
 			@endif
 		</div>
 		<div class="form-group" align="right">
