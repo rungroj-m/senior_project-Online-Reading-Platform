@@ -9,7 +9,7 @@
 					<a href="/books/{{$book->id}}/content/review/{{$r->id}}/up" class="first-letter" href="">+</a>
 					<a href="/books/{{$book->id}}/content/review/{{$r->id}}/down" class="first-letter">-</a>
 				@if(Auth::user()->isAdmin() || $book->isOwner() || $r->isOwner())
-					<a href="#" class="first-letter" data-toggle="modal" data-target="#myModal{{$r->id}}">Delete</a>
+					<a href="#" class="first-letter" data-toggle="modal" data-target="#myModal{{$r->id}}">delete</a>
 				@endif
 				</p>
 			</div>
