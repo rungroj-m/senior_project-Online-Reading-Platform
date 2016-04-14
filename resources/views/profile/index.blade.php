@@ -23,7 +23,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-9">
+		<div class="col-md-4">
 			<div>
 				<div class="user-profile">
 					<span class="glyphicon glyphicon-user"></span>
@@ -43,6 +43,32 @@
 				</div>
 			</div>
 		</div>
+		<div class="col-md-5">
+			<header>
+				<h4><span class="first-letter">N</span>otification</h4>
+			</header>
+			<div class="table" style="overflow: auto; height:200px">
+		        <table class="table">
+		            <tbody>
+		                @foreach ($notifications as $noti)
+		                <tr>
+		                    <td>
+		                    	@if ($noti->category->name == 'book.updatechapter')
+		                        	<h5><b>{{ $noti->extra->bookname }}</b></h5> has updated!
+		                    	@else
+		                    	@endif
+		                    </td>
+		                    <td>
+		                    	<a href="{{ $noti->url }}" class="btn btn-success" style="margin-right: 3px;">
+		                    		New! Chapter {{ $noti->extra->chapter }}
+		                    	</a>
+		                    </td>
+		                </tr>
+		                @endforeach
+		            </tbody>
+		        </table>
+			</div>
+		</div>
 		<div class="col-md-12">
 			<ul class="nav nav-tabs">
 				<li class="active">
@@ -51,100 +77,174 @@
 				<li>
 					<a data-toggle="tab" href="#subscription"><h4><span class="first-letter">S</span>ubscriptions</h4></a>
 				</li>
+				<li>
+					<a data-toggle="tab" href="#books"><h4><span class="first-letter">P</span>ublished Works</h4></a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#donations"><h4><span class="first-letter">D</span>onations</h4></a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#pleads"><h4><span class="first-letter">P</span>leads</h4></a>
+				</li>
 			</ul>
 			<!-- Tab Content -->
 			<div class="tab-content">
+				<!-- NOTIFICATIONS TABLE -->
 				<div id="notification" class="tab-pane fade in active">
-					<!-- NOTIFICATIONS TABLE -->
-					<div>
-				        <table class="table table-bordered">
-				            <thead>
-				                <tr>
-				                    <th>Notification ID</th>
-				                    <th>Category</th>
-				                    <th>Description</th>
-				                    <th>URL</th>
-				                </tr>
-				            </thead>
-				            <tbody>
-				                @foreach ($notifications as $noti)
-				                <tr>
-				                    <td>{{$noti->id}}</td>
-				                    <td>
-				                    	@if ($noti->category->name == 'book.updatechapter')
-				                        {{ $noti->extra->bookname }} updated!
-				                    	@else
-				                    	@endif
-				                    </td>
-				                    <td>
-				                      {{ $noti->description }}
-				                    </td>
-				                    <td>
-				                      <a href="{{ $noti->url }}" class="btn btn-info pull-left" style="margin-right: 3px;">
-				                        Chapter{{ $noti->extra->chapter }}: {{ $noti->extra->chaptername }}
-				                      </a>
-				                    </td>
-				                </tr>
-				                @endforeach
-				            </tbody>
-				        </table>
-				    </div>
+			        <table class="table table-bordered">
+			            <thead>
+			                <tr>
+			                    <th>Notification ID</th>
+			                    <th>Category</th>
+			                    <th>Description</th>
+			                    <th>URL</th>
+			                </tr>
+			            </thead>
+			            <tbody>
+			                @foreach ($notifications as $noti)
+			                <tr>
+			                    <td>{{$noti->id}}</td>
+			                    <td>
+			                    	@if ($noti->category->name == 'book.updatechapter')
+			                        {{ $noti->extra->bookname }} updated!
+			                    	@else
+			                    	@endif
+			                    </td>
+			                    <td>
+			                      {{ $noti->description }}
+			                    </td>
+			                    <td>
+			                      <a href="{{ $noti->url }}" class="btn btn-success pull-left" style="margin-right: 3px;">
+			                        Chapter {{ $noti->extra->chapter }}: {{ $noti->extra->chaptername }}
+			                      </a>
+			                    </td>
+			                </tr>
+			                @endforeach
+			            </tbody>
+			        </table>
 				</div>
+				<!-- SUBSCRIPTIONS TABLE -->
 				<div id="subscription" class="tab-pane fade">
-					<!-- SUBSCRIPTIONS TABLE -->
 					<div>
 				        <table class="table table-bordered">
-				            <thead>
-				                <tr>
-				                    <th>Book ID</th>
-				                </tr>
-				            </thead>
 				            <tbody>
 				                @foreach ($subscriptions as $subscribe)
 				                <tr>
-				                    <td>
+				                	<td>
 				                      <a href="/books/{{ $subscribe->book_id }}/content" class="btn btn-info pull-left" style="margin-right: 3px;">
-				                        {{ $subscribe->book_id }}r
+				                        {{ $subscribe->book_id }}
 				                      </a>
 				                    </td>
+				                	@if($subscribe->book->image == null)
+										<td align="center">
+											<div>No</div> 
+											<div>Image</div>
+										</td>
+									@else
+										<td align="center"><img class="small-cover-image-thumbnail" src="/images/{{$subscribe->book->image}}"></td>
+									@endif
+									@if($subscribe->book->isComic())
+										<td><h4><a href="/comics/{{$subscribe->book->id}}"> {{str_limit($subscribe->book->name, $limit = 100, $end = '...')}} </a></h4>
+									@else($subscribe->book->category == 'Comic')
+										<td><h4><a href="/books/{{$subscribe->book->id}}"> {{str_limit($subscribe->book->name, $limit = 100, $end = '...')}} </a></h4>
+									@endif
+									Subscribed since: {{$subscribe->updated_at}}
+									in {{$subscribe->book->category}}</td>
 				                </tr>
 				                @endforeach
 				            </tbody>
 				        </table>
 				    </div>
 				</div>
-			</div>
-		</div>
-		<div class="col-md-12">
-			<header>
-				<h3><span class="first-letter">P</span>UBLISHED BOOKS</h3>
-			</header>
-			<div>
-				<table class="table table-bordered" align="center">
-					<tbody>
-						@foreach($user->books as $b)
-							<tr>
-								@if($b->image == null)
-									<td align="center">
-										<div>No</div> 
-										<div>Image</div>
-									</td>
-								@else
-									<td align="center"><img class="small-cover-image-thumbnail" src="/images/{{$b->image}}"></td>
-								@endif
-								@if($b->isComic())
-									<td><h4><a href="/comics/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
-								@else($b->category == 'Comic')
-									<td><h4><a href="/books/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
-								@endif
-								Last updated: {{$b->updated_at}}
-								in {{$b->category}}</td>
-								<td><p>+ {{$b->userRating}}</p><p>+ {{$b->criticRating}}</p></td>
-								<td><p><span class="glyphicon glyphicon-user"></span> {{$b->user->username}}</p></td>
-							</tr>
-						@endforeach
-					</tbody>
-				</table>
+				<!-- BOOKS TABLE -->
+				<div id="books" class="tab-pane fade">
+					<table class="table table-bordered" align="center">
+						<tbody>
+							@foreach($user->books as $b)
+								<tr>
+									@if($b->image == null)
+										<td align="center">
+											<div>No</div> 
+											<div>Image</div>
+										</td>
+									@else
+										<td align="center"><img class="small-cover-image-thumbnail" src="/images/{{$b->image}}"></td>
+									@endif
+									@if($b->isComic())
+										<td><h4><a href="/comics/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
+									@else($b->category == 'Comic')
+										<td><h4><a href="/books/{{$b -> id}}"> {{str_limit($b->name, $limit = 100, $end = '...')}} </a></h4>
+									@endif
+									Total Chapters: {{$b->contents->count()}}
+									Last updated: {{$b->updated_at}}
+									in {{$b->category}}</td>
+									<td><p>+ {{$b->userRating}}</p><p>+ {{$b->criticRating}}</p></td>
+									<td><p><span class="glyphicon glyphicon-user"></span> {{$b->user->username}}</p></td>
+								</tr>
+							@endforeach
+						</tbody>
+					</table>
+				</div>
+
+				<!-- DONATIONS TABLE -->
+				<div id="donations" class="tab-pane fade">
+					<table class="table table-bordered">
+			            <thead>
+			                <tr>
+			                    <th>No.</th>
+			                    <th>Related Book</th>
+			                    <th>Goal Amount</th>
+			                    <th>Active</th>
+			                    <th>Description</th>
+			                    <th>Date/Time Added</th>
+			                    <th>Edit</th>
+			                </tr>
+			            </thead>
+			            <tbody>
+			                @foreach ($user->donations as $donation)
+			                <tr>
+			                    <td>{{ $donation->id }}</td>
+			                    <td>{{ $donation->book->name }}</td>
+			                    <td>{{ $donation->goal_amount }}</td>
+			                    <td>{{ $donation->active }}</td>
+			                    <td>{{ $donation->description }}</td>
+			                    <td>{{ $donation->created_at->format('F d, Y h:ia') }}</td>
+			                    <td>
+			                      <a href="/donation/{{ $donation->id }}/edit" class="btn btn-info pull-left" style="margin-right: 3px;">Edit</a>
+			                    </td>
+			                </tr>
+			                @endforeach
+			            </tbody>
+			        </table>
+			    </div>
+
+			    <!-- PLEADS TABLE -->
+			    <div id="pleads" class="tab-pane fade">
+			        <table class="table table-bordered">
+			            <thead>
+			                <tr>
+			                    <th>No.</th>
+			                    <th>Book</th>
+			                    <th>Description</th>
+			                    <th>Amount</th>
+			                    <th>Confirmed</th>
+			                    <th>Date/Time Added</th>
+			                </tr>
+			            </thead>
+			            <tbody>
+			                @foreach ($user->pleadings as $pleader)
+			                <tr>
+			                    <td>{{ $pleader->id }}</td>
+			                    <td>{{ $pleader->donation->book->name}}</td>
+			                    <td>{{ $pleader->donation->description}}</td>
+			                    <td>{{ $pleader->amount }}</td>
+			                    <td>{{ $pleader->confirmed }}</td>
+			                    <td>{{ $pleader->created_at->format('F d, Y h:ia') }}</td>
+			                </tr>
+			                @endforeach
+			            </tbody>
+			        </table>
+			    </div>
 			</div>
 		</div>
 	</div>

@@ -33,7 +33,7 @@
                     <td>{{ $pleader->user->username }}</td>
                     <td>{{ $pleader->amount }}</td>
                     <td>{{ $pleader->confirmed }}</td>
-                    <td>{{ $donation->created_at->format('F d, Y h:ia') }}</td>
+                    <td>{{ $pleader->created_at->format('F d, Y h:ia') }}</td>
                     <td>
                       @if(!$pleader->confirmed)
                         {!! Form::open(['method' => 'PUT','route' => ['plead-confirm', $donation->id]]) !!}

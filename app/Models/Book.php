@@ -4,10 +4,12 @@ use Illuminate\Database\Eloquent\Model;
 use Fenos\Notifynder\Notifable;
 use Auth;
 use DB;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Book extends Model {
 
 	use Notifable;
+	use SoftDeletes;
 
 	/**
 	 * The database table used by the model.

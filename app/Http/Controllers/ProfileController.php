@@ -54,8 +54,7 @@ class ProfileController extends Controller
     {
         $id = Auth::id();
         $user = User::findOrFail($id);
-        $preference = DB::table('preferences')->where('user_id', $id)->first();
-        return view('profile.edit',compact('user', 'preference'));
+        return view('profile.edit',compact('user'));
     }
 
     /**
@@ -72,8 +71,9 @@ class ProfileController extends Controller
         $user -> firstName = $request -> firstName;
         $user -> lastName = $request -> lastName;
         $user -> email = $request -> email;
+        $user->email_noti = $request->email_noti;
+        $user->facebook_noti = $request->facebook_noti;
         $user -> save();
-        DB::table('preferences')->where('user_id', $id)->update(['email_noti' => $request->email_noti, 'facebook_noti' => $request->facebook_noti]);
         return redirect('profile');
     }
 
@@ -139,13 +139,16 @@ class ProfileController extends Controller
 
     public function preference() {
       $id = Auth::id();
-      $preference = DB::table('preferences')->where('user_id', $id)->first();
-      return view('profile.preference', compact('preference'));
+      $user = User::find($id);
+      return view('profile.preference', compact('user'));
     }
 
     public function update_preference(Request $request) {
       $id = Auth::id();
-      DB::table('preferences')->where('user_id', $id)->update(['email_noti' => $request->email_noti, 'facebook_noti' => $request->facebook_noti]);
+      $user = User::find($id);
+      $user->email_noti = $request->email_noti;
+      $user->facebook_noti = $request->facebook_noti;
+      $user->save();
       return redirect(url('profile/preference'));
     }
 }

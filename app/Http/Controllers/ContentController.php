@@ -113,7 +113,7 @@ class ContentController extends Controller {
 			// $content->content = str_replace("\r\n", "<br/>", $request->content);
 			$book->contents()->save($content);
 			// notify subscribed user
-//			$this->notify($book, $content);
+			$this->notify($book, $content);
 			return redirect($this->getURI($id).'/'.$id);
 		}
 	}
@@ -266,9 +266,11 @@ class ContentController extends Controller {
 						->url(url('/books'.'/'.$book->id.'/content'.'/'.$content->chapter))
 						->extra(compact('bookname', 'chapter', 'chaptername'))
 						->send();
-				$job = (new SendNotificationEmail($user, $book, $content))->onQueue('emails');
-				$this->dispatch($job);
-				if($user->facebook_id)
+				if($user->email_noti) {
+					$job = (new SendNotificationEmail($user, $book, $content))->onQueue('emails');
+					$this->dispatch($job);
+				}
+				if($user->facebook_id>0 && $user->facebook_noti)
 					$this->facebookNotification($user);
 			}
 		}
