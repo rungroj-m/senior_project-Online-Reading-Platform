@@ -6,7 +6,7 @@
 
 <div class="col-lg-10 col-lg-offset-1">
 
-    <h1><i class="fa fa-users"></i> User Administration <a href="/logout" class="btn btn-default pull-right">Logout</a></h1>
+    <h1><i class="fa fa-users"></i> User Administration </h1>
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
@@ -18,6 +18,7 @@
                     <th>Username</th>
                     <th>Email</th>
                     <th>Type</th>
+                    <th>Allow to Create Comic?</th>
                     <th>Date/Time Added</th>
                     <th></th>
                 </tr>
@@ -30,7 +31,18 @@
                     <td>{{ $user->lastName }}</td>
                     <td>{{ $user->username }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->userLevel }}</td>
+                    @if($user->userLevel==0)
+                      <td>Standard</td>
+                    @elseif($user->userLevel==1)
+                      <td>Critic</td>
+                    @else
+                      <td>Admin</td>
+                    @endif
+                    @if($user->imageLevel==0)
+                      <td>Not Allow</td>
+                    @else
+                      <td>Allow</td>
+                    @endif
                     <td>{{ $user->created_at->format('F d, Y h:ia') }}</td>
                     <td>
                         <a href="/admin/user/{{ $user->id }}/edit" class="btn btn-info pull-left" style="margin-right: 3px;">Edit</a>

@@ -48,6 +48,7 @@ class AdminController extends Controller
         $user->username   = $request->username;
         $user->email      = $request->email;
         $user->userLevel  = $request->userLevel;
+        $user->imageLevel = $request->imageLevel;
         $user->password   = bcrypt($request->password);
 
         $user->save();
@@ -92,6 +93,8 @@ class AdminController extends Controller
       $user->firstName = $request->firstName;
       $user->lastName  = $request->lastName;
       $user->email      = $request->email;
+      $user->userLevel = $request->userLevel;
+      $user->imageLevel = $request->imageLevel;
 
       $user->save();
 
