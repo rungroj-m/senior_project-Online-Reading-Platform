@@ -4,11 +4,9 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-6">
-		<h1>Edit {{$user->username}}</h1>
+		<h1>Update {{$user->username}} Information</h1>
 		<hr/>
 		{!! Form::open(['method' => 'PUT','route' => ['profile']]) !!}
-		{{--{!! Form::open(array('action' => array('BookController@update', $book->bookKey,'_method' => 'PUT'))) !!}--}}
-		{{--{!! Form::open(['method' => 'PATCH','route' => ['books.update',$book->contentKey]])!!}--}}
 			<div class="form-group">
 				{!! Form::label('Firstname','Firstname:') !!}
 				{!! Form::text('firstName',$user->firstName,['class'=>'form-control']) !!}
@@ -24,12 +22,22 @@
 				{!! Form::text('email',$user->email,['class'=>'form-control']) !!}
 			</div>
 
+			<div class="form-group">
+				{!! Form::label('email','Email Notification:') !!}
+				{!! Form::checkbox('email_noti', 1, $preference->email_noti) !!}
+			</div>
+
+			<div class="form-group">
+				{!! Form::label('facebook','Facebook Notification:') !!}
+				{!! Form::checkbox('facebook_noti', 1, $preference->facebook_noti) !!}
+			</div>
+
 			{{$user->image}}
 			<img src="{{ asset('images/'.$user->image) }}" />
 
 			{{--{{HTML::image(URL::to('/'.$user->image))}}--}}
 		<div class="form-group">
-			{!! Form::submit('Edit',['class' => 'btn btn-default']) !!}
+			{!! Form::submit('Update',['class' => 'btn btn-default']) !!}
 		</div>
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		{!! Form::close() !!}

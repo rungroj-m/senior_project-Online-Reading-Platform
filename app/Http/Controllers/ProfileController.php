@@ -51,8 +51,8 @@ class ProfileController extends Controller
     {
         $id = Auth::id();
         $user = User::findOrFail($id);
-        return view('profile.edit',compact('user'));
-
+        $preference = DB::table('preferences')->where('user_id', $id)->first();
+        return view('profile.edit',compact('user', 'preference'));
     }
 
     /**
@@ -70,6 +70,7 @@ class ProfileController extends Controller
         $user -> lastName = $request -> lastName;
         $user -> email = $request -> email;
         $user -> save();
+        DB::table('preferences')->where('user_id', $id)->update(['email_noti' => $request->email_noti, 'facebook_noti' => $request->facebook_noti]);
         return redirect('profile');
     }
 
