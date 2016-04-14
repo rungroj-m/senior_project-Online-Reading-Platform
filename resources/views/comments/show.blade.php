@@ -11,12 +11,7 @@
 					<a href="/books/{{$id}}/content/comment/{{$c->id}}/report" class="first-letter">report</a>
 					<a href="#collapseReply{{$c->id}}" data-toggle="collapse" aria-controls="collapseReply" class="first-letter">reply</a>
 				@if(Auth::user()->isAdmin() || $book->isOwner() || $c->isOwner())
-					{!! Form::open([
-						'method' => 'DELETE',
-						'route' => ['deletecomment', $id, $c->id]
-					]) !!}
-					{!! Form::submit('delete', ['class' => 'btn btn-default']) !!}
-					{!! Form::close() !!}
+						<a href="#" class="first-letter" data-toggle="modal" data-target="#myModal{{$c->id}}">Delete</a>
 				@endif
 				<div class="collapse" id="collapseReply{{$c->id}}">
 					<form method="POST" action="/books/{{$id}}/content/comment/{{$c->id}}">
@@ -30,6 +25,31 @@
 			@foreach($c->childs as $comment)
 				@include('comments.show', ['c' => $comment])
 			@endforeach
+		</div>
+	</div>
+</div>
+
+<!-- MODAL -->
+<div id="myModal{{$c->id}}" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Delete Comment</h4>
+			</div>
+			<div class="modal-body">
+				<p>Delete this comment?</p>
+			</div>
+			{!! Form::open([
+				'method' => 'DELETE',
+				'route' => ['deletecomment', $id, $c->id]
+			]) !!}
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default inline" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-warning inline">Delete</button>
+			</div>
+			{!! Form::close() !!}
 		</div>
 	</div>
 </div>

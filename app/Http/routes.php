@@ -34,10 +34,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('comics/requestcomic',['as' =>'requestcomic','uses' => 'ProfileController@requestCreateComic']);
 
 		// Books & Content Route
+	Route::resource('comics/{book}/content', 'ContentController',['except' => ['show']]);
 	Route::group(['middleware' => 'App\Http\Middleware\ContentMiddleware'], function() {
 		Route::get('comics/{book}/content/{chapter}', 'ContentController@show');
 	});
-	Route::resource('comics/{book}/content', 'ContentController',['except' => ['show']]);
 	Route::get('comics/search/', 'BookController@search');
 	Route::post('comics/{book}/report', ['as' => 'report', 'uses' => 'BookController@report']);
 	Route::post('comics/{book}/ratings', ['as' => 'comics.rating', 'uses' => 'BookController@rate']);
@@ -58,15 +58,16 @@ Route::group(['middleware' => 'auth'], function () {
 	// Review Routes
 	Route::get('comics/{book}/content/review/{review}/up', 'ReviewController@voteUpReview');
 	Route::get('comics/{book}/content/review/{review}/down', 'ReviewController@voteDownReview');
+	Route::delete('comics/{book}/content/review/{review}/', [ 'as' => 'deletereview', 'uses' =>'reviewController@deleteReview']);
 	Route::group(['middleware' => 'App\Http\Middleware\CriticMiddleware'], function () {
 		Route::post('comics/{book}/content/review', 'ReviewController@postReview');
 	});
 
 	// Books & Content Route
-	 Route::group(['middleware' => 'App\Http\Middleware\ContentMiddleware'], function() {
+	Route::resource('books/{book}/content', 'ContentController',['except' => ['show']]);
+	Route::group(['middleware' => 'App\Http\Middleware\ContentMiddleware'], function() {
 		 Route::get('books/{book}/content/{chapter}', 'ContentController@show');
 	 });
-	Route::resource('books/{book}/content', 'ContentController',['except' => ['show']]);
 	Route::get('books/search/', 'BookController@search');
 	Route::resource('books','BookController');
 	Route::post('books/{book}/report', [ 'as' => 'report', 'uses' => 'BookController@report']);
@@ -98,6 +99,7 @@ Route::group(['middleware' => 'auth'], function () {
 	// Review Routes
 	Route::get('books/{book}/content/review/{review}/up', 'ReviewController@voteUpReview');
 	Route::get('books/{book}/content/review/{review}/down', 'ReviewController@voteDownReview');
+	Route::delete('books/{book}/content/review/{review}/', [ 'as' => 'deletereview', 'uses' =>'reviewController@deleteReview']);
 	Route::group(['middleware' => 'App\Http\Middleware\CriticMiddleware'], function() {
 		Route::post('books/{book}/content/review', 'ReviewController@postReview');
 	});
@@ -111,9 +113,6 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::delete('admin/user/{id}', 'AdminController@destroy');
 		Route::get('admin/user', 'AdminController@user');
 		Route::get('admin', 'AdminController@index');
-		Route::get('admin/bookreport', 'AdminController@bookReport');
-		Route::get('admin/commentreport', 'AdminController@commentReport');
-		Route::get('admin/userreport', 'AdminController@userRequest');
 		Route::get('admin/user/{user}/accept', 'AdminController@accept');
 	});
 

@@ -4,6 +4,7 @@
         <tr>
             <th>Comment ID</th>
             <th>Comment</th>
+            <th>From Book</th>
             <th>Number of report</th>
         </tr>
         </thead>
@@ -13,6 +14,11 @@
             <tr>
                 <td>{{ $report-> id }}</td>
                 <td>{{ $report->comment }}</td>
+                @if(\App\Models\Comment::find($report -> id)->book->category == 'Novel')
+                    <td><a href="/books/{{\App\Models\Comment::find($report -> id)->book->book_id}}">{{ \App\Models\Comment::find($report -> id)->book->name }}</a></td>
+                @else
+                    <td><a href="/comics/{{\App\Models\Comment::find($report -> id)->book->book_id}}">{{ \App\Models\Comment::find($report -> id)->book->name }}</a></td>
+                @endif
                 <td>{{ $report->count }}</td>
             </tr>
         @endforeach

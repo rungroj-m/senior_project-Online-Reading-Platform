@@ -52,6 +52,8 @@ class User extends Model implements AuthenticatableContract,  AuthorizableContra
 	}
 
 	public function isCritic(){
+		if($this->isAdmin())
+			return true;
 		return Auth::check() && $this->userLevel == 1;
 	}
 
@@ -62,7 +64,7 @@ class User extends Model implements AuthenticatableContract,  AuthorizableContra
 	public function isComicCreator(){
 		if($this->isAdmin())
 			return true;
-			return Auth::check() && $this->imageLevel == 1;
+		return Auth::check() && $this->imageLevel == 1;
 	}
 
 	public function isRequestComicCreator(){

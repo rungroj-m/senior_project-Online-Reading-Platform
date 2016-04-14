@@ -15,7 +15,7 @@ class CriticMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if ($request->user()->userLevel != 1 ) {
+        if (!$request->user()->isCritic() ) {
           return redirect('/')->with('status', 'You are not allowed.');
         }
         return $next($request);
