@@ -85,6 +85,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile',['as' => 'profile','uses' =>'ProfileController@update']);
 	Route::get('profile/subscription', 'SubscriptionController@index');
 	Route::get('profile/notification', 'ProfileController@notification');
+	Route::get('profile/preference', 'ProfileController@preference');
+	Route::put('profile/preference', 'ProfileController@update_preference');
 
 	// Review Routes
 	Route::get('books/{book}/content/review/{review}/up', 'ReviewController@voteUpReview');
