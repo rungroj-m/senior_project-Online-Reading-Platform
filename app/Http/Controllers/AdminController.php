@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests;
@@ -17,7 +18,9 @@ class AdminController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('admin.index')->with('users', $users);
+        $bookreports = DB::table('book_reports')->select(array('book_id','category','name',DB::raw('Count(book_id) as count')))->join('books','books.id','=','book_reports.book_id')->distinct('user_id')->groupby('book_id')->get();
+        $commentreports = DB::table('comment_reports')->select(array('comment_reports.comment_id as id','comment',DB::raw('Count(comment_reports.comment_id) as count')))->join('comments','comments.id','=','comment_reports.comment_id')->distinct('user_id')->groupby('comment_reports.comment_id')->get();
+        return view('admin.index',compact('users','bookreports','commentreports'));
     }
 
     /**
@@ -105,6 +108,11 @@ class AdminController extends Controller
     {
         User::destroy($id);
         return redirect('/admin')->with('status', 'Delete user no.'.$id.' succeed.');
+    }
+
+    public function user(){
+        $users = User::all();
+        return view('admin.user.index')->with('users', $users);
     }
 
     public function bookReport(){

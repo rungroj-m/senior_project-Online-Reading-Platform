@@ -109,6 +109,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('admin/user/{id}/edit', 'AdminController@edit');
 		Route::put('admin/user/{id}/edit', ['as' => 'admin-edit-user', 'uses' => 'AdminController@update']);
 		Route::delete('admin/user/{id}', 'AdminController@destroy');
+		Route::get('admin/user', 'AdminController@user');
 		Route::get('admin', 'AdminController@index');
 		Route::get('admin/bookreport', 'AdminController@bookReport');
 		Route::get('admin/commentreport', 'AdminController@commentReport');
