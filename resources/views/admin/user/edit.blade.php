@@ -22,6 +22,25 @@
 				{!! Form::text('email',$user->email,['class'=>'form-control']) !!}
 			</div>
 
+			<div class="form-group">
+				<label class="col-md-4 control-label">User Level</label>
+				<div class="col-md-6">
+					<input type="radio" name="userLevel" value="0"> Standard<br>
+					<input type="radio" name="userLevel" value="1"> Critic<br>
+					<input type="radio" name="userLevel" value="2"> Admin<br>
+				</div>
+			</div>
+
+			<br><br><br><br>
+
+			<div class="form-group">
+				<label class="col-md-4 control-label">Allow to create Comic</label>
+				<div class="col-md-6">
+					<input type="radio" name="imageLevel" value="0"> Not Allow<br>
+					<input type="radio" name="imageLevel" value="1"> Allow
+				</div>
+			</div>
+
 			{{$user->image}}
 			<img src="{{ asset('images/'.$user->image) }}" />
 

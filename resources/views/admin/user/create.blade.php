@@ -73,6 +73,14 @@
 						</div>
 
 						<div class="form-group">
+							<label class="col-md-4 control-label">Allow to create Comic</label>
+							<div class="col-md-6">
+                <input type="radio" name="imageLevel" value="0" checked> Not allow<br>
+                <input type="radio" name="imageLevel" value="1"> Allow
+							</div>
+						</div>
+
+						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
 								<button type="submit" class="btn btn-primary">
 									Create
