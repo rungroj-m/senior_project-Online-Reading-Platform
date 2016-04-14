@@ -35,6 +35,9 @@ class ProfileController extends Controller
     }
 
     public function showProfile($id){
+        // if(Auth::user()->getKey() == $id){
+        //     return redirect('profile');
+        // }
         $user = User::findOrFail($id);
 
         return view('profile.user', compact('user'));

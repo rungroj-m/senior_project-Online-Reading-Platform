@@ -56,7 +56,7 @@
 			<div class="tab-content">
 				<div id="notification" class="tab-pane fade in active">
 					<!-- NOTIFICATIONS TABLE -->
-					<div class="table-responsive">
+					<div>
 				        <table class="table table-bordered">
 				            <thead>
 				                <tr>
@@ -92,7 +92,7 @@
 				</div>
 				<div id="subscription" class="tab-pane fade">
 					<!-- SUBSCRIPTIONS TABLE -->
-					<div class="table-responsive">
+					<div>
 				        <table class="table table-bordered">
 				            <thead>
 				                <tr>
@@ -104,7 +104,7 @@
 				                <tr>
 				                    <td>
 				                      <a href="/books/{{ $subscribe->book_id }}/content" class="btn btn-info pull-left" style="margin-right: 3px;">
-				                        {{ $subscribe->book_id }}
+				                        {{ $subscribe->book_id }}r
 				                      </a>
 				                    </td>
 				                </tr>
@@ -119,7 +119,7 @@
 			<header>
 				<h3><span class="first-letter">P</span>UBLISHED BOOKS</h3>
 			</header>
-			<div class="table-responsive">
+			<div>
 				<table class="table table-bordered" align="center">
 					<tbody>
 						@foreach($user->books as $b)
