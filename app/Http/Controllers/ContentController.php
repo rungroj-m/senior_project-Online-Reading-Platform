@@ -2,7 +2,7 @@
 
 use App\Models\User;
 use App\Models\BookReport;
-use Mail;
+use App\Jobs\SendNotificationEmail;
 use Notifynder;
 use App\Models\ContentInfo;
 use App\Models\Image;
@@ -60,7 +60,7 @@ class ContentController extends Controller {
 		return view('contents.index',compact('contents', 'book', 'subscribe', 'owness', 'id'));
 	}
 
-	
+
 
 	/**
 	 * Show the form for creating a new resource.
@@ -260,11 +260,10 @@ class ContentController extends Controller {
 						->url(url('/books'.'/'.$book->id.'/content'.'/'.$content->chapter))
 						->extra(compact('bookname', 'chapter', 'chaptername'))
 						->send();
-				Mail::send('emails.notification', ['user' => $user, 'book' => $book, 'content' => $content, 'link' => url('/books'.'/'.$book->id.'/content'.'/'.$content->chapter)], function ($m) use ($user) {
-		        $m->from('readi.notification@gmail.com', 'Readi');
-						$m->to($user->email, $user->username)->subject('Readi Notification');
-				});
-
+				$job = (new SendNotificationEmail($user, $book, $content))->onQueue('emails');
+				$this->dispatch($job);
+				if($user->facebook_id)
+					$this->facebookNotification($user);
 			}
 		}
 	}
