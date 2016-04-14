@@ -22,7 +22,7 @@ class reviewController extends Controller
         $review -> book_id = $book->getKey();
         $review -> user_id = $ownerId;
         $review -> save();
-        return redirect('books/'.$bookId);
+        return redirect($this->getURI($bookId).'/'.$bookId);
     }
 
     public function getComment($bookId){
@@ -42,7 +42,7 @@ class reviewController extends Controller
 
     public function voteUpReview($bookId, $reviewId){
         if($this->alreadyRate($reviewId))
-            return redirect('/books/'.$bookId);
+            return redirect($this->getURI($bookId).'/'.$bookId);
         $userID = Auth::id();
         $review = Review::findOrfail($reviewId);
         $review -> rating ++;
@@ -52,13 +52,13 @@ class reviewController extends Controller
         $reviewRating -> review_id = $reviewId;
         $reviewRating -> user_id = $userID;
         $reviewRating -> save();
-        return redirect('/books/'.$bookId);
+        return redirect($this->getURI($bookId).'/'.$bookId);
 //        return 'voteup success';
     }
 
     public function voteDownReview($bookId, $reviewId){
         if($this->alreadyRate($reviewId))
-            return redirect('/books/'.$bookId);
+            return redirect($this->getURI($bookId).'/'.$bookId);
         $userID = Auth::id();
         $review = Review::findOrfail($reviewId);
         $review -> rating --;
@@ -68,18 +68,36 @@ class reviewController extends Controller
         $reviewRating -> review_id = $reviewId;
         $reviewRating -> user_id = $userID;
         $reviewRating -> save();
-        return redirect('/books/'.$bookId);
+        return redirect($this->getURI($bookId).'/'.$bookId);
 //        return 'voteup success';
     }
 
-    public function deleteReview($reviewId){
+    public function deleteReview($bookId,$reviewId){
         $review = Review::findOrfail($reviewId);
-        $userID = Auth::id();
-        if( $review->user_id == $userID ) {
-            // delete
+        if(!$review->isOwner())
+            return redirect($this->getURI($bookId).'/'.$bookId);
+
+        $book = Book::find($bookId);
+        if( $review->isOwner() ) {
             $review -> delete();
-            return 'can delete';
         }
-        return 'wrong user can not delete';
+        return redirect($this->getURI($bookId).'/'.$bookId);
+    }
+
+    public function getURI($id = null){
+        if($id) {
+            $book = Book::findOrfail($id);
+            if ($book->isComic())
+                return 'comics';
+            else
+                return 'books';
+        }
+        else {
+            $uri = Route::getCurrentRoute()->getPath();
+            if ($uri == 'comics')
+                return 'comics';
+            else
+                return 'books';
+        }
     }
 }

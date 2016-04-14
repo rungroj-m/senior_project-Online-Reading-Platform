@@ -38,6 +38,8 @@ class Comment extends Model {
 	}
 
 	public function isOwner(){
+		if(Auth::check() && Auth::user()->isAdmin())
+			return true;
 		return $this->user_id & Auth::user()->getKey();
 	}
 

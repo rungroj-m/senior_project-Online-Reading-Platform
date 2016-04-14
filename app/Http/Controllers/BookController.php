@@ -240,6 +240,9 @@ class BookController extends Controller {
 	public function edit($id)
 	{
 		$book = Book::findOrFail($id);
+		if(!$book->isOwner())
+			return redirect($this->getURI($id).'/'.$id);
+
 		return view('books.edit',compact('book'));
 		//
 	}
@@ -253,6 +256,9 @@ class BookController extends Controller {
 	public function update($id)
 	{
 		$book = Book::findOrFail($id);
+		if(!$book->isOwner())
+			return redirect($this->getURI($id).'/'.$id);
+
 		$input = Request::all();
 		$book->name = $input['name'];
 		$book->description = $input['description'];
@@ -269,6 +275,8 @@ class BookController extends Controller {
 	public function destroy($id)
 	{
 		$book = Book::findOrFail($id);
+		if(!$book->isOwner())
+			return redirect($this->getURI($id).'/'.$id);
 		if($book->isOwner() || Auth::user()->isAdmin()) {
 			$this->deleteContent($id);
 			$book->contents()->detach();

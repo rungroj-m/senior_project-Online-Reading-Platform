@@ -70,6 +70,8 @@ class ContentController extends Controller {
 	public function create($id)
 	{
 		$book = Book::findOrFail($id);
+		if(!$book->isOwner())
+			return redirect($this->getURI($id).'/'.$id);
 		return view('contents.create',compact('book'));
 	}
 
@@ -80,6 +82,9 @@ class ContentController extends Controller {
 	 */
 	public function store($id,ill $request)
 	{
+		$book = Book::findOrFail($id);
+		if(!$book->isOwner())
+			return redirect($this->getURI($id).'/'.$id);
 
 		$validator = Validator::make($request->all(), [
         'chapter' => 'required|integer',
@@ -327,6 +332,10 @@ class ContentController extends Controller {
 	 */
 	public function edit($id,$chapter)
 	{
+		$book = Book::findOrFail($id);
+		if(!$book->isOwner())
+			return redirect($this->getURI($id).'/'.$id);
+
 		$content = DB::table('books_contents')
 			->where('book_id', $id)
 			->join('contents', 'books_contents.content_id', '=', 'contents.id')
@@ -343,6 +352,10 @@ class ContentController extends Controller {
 	 */
 	public function update($id, $chapter,ill $request)
 	{
+		$book = Book::findOrFail($id);
+		if(!$book->isOwner())
+			return redirect($this->getURI($id).'/'.$id);
+
 		$content = $this->findContent($id,$chapter);
 		$content->name =  $request->name;
 		$book = Book::findOrfail($id);
@@ -370,6 +383,10 @@ class ContentController extends Controller {
 	 */
 	public function destroy($id,$chapter)
 	{
+		$book = Book::findOrFail($id);
+		if(!$book->isOwner())
+			return redirect($this->getURI($id).'/'.$id);
+
 		$book = Book::find($id);
 		if($book->isOwner() || Auth::user()->isAdmin()) {
 			$content = $this->findContent($id, $chapter);

@@ -23,7 +23,7 @@ class commentController extends Controller
         $comment -> book_id = $book->getKey();
         $comment -> user_id = $ownerId;
         $comment -> save();
-        return redirect('books/'.$bookId);
+        return redirect($this->getURI($bookId).'/'.$bookId);
     }
 
     public function getComment($bookId){
@@ -50,8 +50,7 @@ class commentController extends Controller
         $comment -> user_id = $ownerId;
         $comment -> comment_id = $commentKey;
         $comment -> save();
-        return redirect('books/'.$bookId);
-
+        return redirect($this->getURI($bookId).'/'.$bookId);
     }
 
 //    public function nodeComment($book_comments,$parentKey){
@@ -71,7 +70,7 @@ class commentController extends Controller
         $commentReport -> comment_id = $comment->getKey();
         $commentReport -> user_id = $ownerId;
         $commentReport -> save();
-        return redirect('books/'.$bookId);
+        return redirect($this->getURI($bookId).'/'.$bookId);
     }
 
     public function showTotalReport($bookId,$id){
@@ -91,7 +90,7 @@ class commentController extends Controller
 
     public function voteUpComment($bookId,$commentKey){
         if($this->alreadyRate($commentKey))
-            return redirect('/books/'.$bookId);
+            return redirect($this->getURI($bookId).'/'.$bookId);
         $userID = Auth::id();
         $comment = Comment::findOrfail($commentKey);
         $comment -> rating ++;
@@ -101,13 +100,13 @@ class commentController extends Controller
         $commentRating -> comment_id = $commentKey;
         $commentRating -> user_id = $userID;
         $commentRating -> save();
-        return redirect('/books/'.$bookId);
+        return redirect($this->getURI($bookId).'/'.$bookId);
 //        return 'voteup success';
     }
 
     public function voteDownComment($bookId,$commentKey){
         if($this->alreadyRate($commentKey))
-            return redirect('/books/'.$bookId);
+            return redirect($this->getURI($bookId).'/'.$bookId);
         $userID = Auth::id();
         $comment = Comment::findOrfail($commentKey);
         $comment -> rating --;
@@ -117,18 +116,37 @@ class commentController extends Controller
         $commentRating -> comment_id = $commentKey;
         $commentRating -> user_id = $userID;
         $commentRating -> save();
-        return redirect('/books/'.$bookId);
+        return redirect($this->getURI($bookId).'/'.$bookId);
     }
 
     public function deleteComment($bookId,$commentKey){
 //        return $bookId.'delete comment'.$commentKey;
         $comment = Comment::findOrfail($commentKey);
+        if(!$comment->isOwner())
+            return redirect($this->getURI($bookId).'/'.$bookId);
+
         $userID = Auth::id();
         $book = Book::find($bookId);
         if( $comment->isOwner() || Auth::user()->isadmin() || $book->isOwner()) {
             $comment -> delete();
         }
-        return redirect('/books/'.$bookId);
+        return redirect($this->getURI($bookId).'/'.$bookId);
     }
 
+    public function getURI($id = null){
+        if($id) {
+            $book = Book::findOrfail($id);
+            if ($book->isComic())
+                return 'comics';
+            else
+                return 'books';
+        }
+        else {
+            $uri = Route::getCurrentRoute()->getPath();
+            if ($uri == 'comics')
+                return 'comics';
+            else
+                return 'books';
+        }
+    }
 }

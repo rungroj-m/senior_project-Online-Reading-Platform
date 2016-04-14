@@ -1,6 +1,7 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Review extends Model {
 	/**
@@ -25,5 +26,11 @@ class Review extends Model {
 
 	public function user(){
 		return $this->belongsTo('App\Models\User');
+	}
+
+	public function isOwner(){
+		if(Auth::check() && Auth::user()->isAdmin())
+			return true;
+		return $this->user_id == Auth::user()->getKey();
 	}
 }

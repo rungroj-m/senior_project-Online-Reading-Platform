@@ -19,8 +19,8 @@ class AdminController extends Controller
     public function index()
     {
         $users = User::all();
-        $bookreports = DB::table('book_reports')->select(array('book_id','category','name',DB::raw('Count(book_id) as count')))->join('books','books.id','=','book_reports.book_id')->distinct('user_id')->groupby('book_id')->get();
-        $commentreports = DB::table('comment_reports')->select(array('comment_reports.comment_id as id','comment',DB::raw('Count(comment_reports.comment_id) as count')))->join('comments','comments.id','=','comment_reports.comment_id')->distinct('user_id')->groupby('comment_reports.comment_id')->get();
+        $bookreports = DB::table('books')->where('deleted_at',null)->select(array('book_id','category','name',DB::raw('Count(book_id) as count')))->join('book_reports','books.id','=','book_reports.book_id')->distinct('user_id')->groupby('book_id')->get();
+        $commentreports = DB::table('comments')->where('deleted_at',null)->select(array('comment_reports.comment_id as id','comment',DB::raw('Count(comment_reports.comment_id) as count')))->join('comment_reports','comments.id','=','comment_reports.comment_id')->distinct('user_id')->groupby('comment_reports.comment_id')->get();
         return view('admin.index',compact('users','bookreports','commentreports'));
     }
 
