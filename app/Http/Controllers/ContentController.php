@@ -108,7 +108,7 @@ class ContentController extends Controller {
 			// $content->content = str_replace("\r\n", "<br/>", $request->content);
 			$book->contents()->save($content);
 			// notify subscribed user
-//			$this->notify($book, $content);
+			$this->notify($book, $content);
 			return redirect($this->getURI($id).'/'.$id);
 		}
 	}
