@@ -65,4 +65,5 @@
 		@yield('content')
 	</div>
 
+
 @stop

@@ -157,12 +157,12 @@
 				</div>
 				@endif
 				<h2 class="pull-left"><span class="first-letter">C</span>HAPTERS</h2><br/>
-				<table class="table" style="width:100%">
+				<table class="table table-bordered" style="width:100%">
 					<tbody>
 						@foreach($contents as $c)
 							@if(!$c->private || $book->isOwner() || Auth::user()->isAdmin())
 								<tr>
-									<td><h5>{{$c->chapter}}</h5></td>
+									<td><h4>{{$c->chapter}}</h4></td>
 									@if($book->isComic())
 										<td><h4><a href="/comics/{{$book->id}}/content/{{$c->chapter}}">{{$c->name}}</a></h4>
 									@else
