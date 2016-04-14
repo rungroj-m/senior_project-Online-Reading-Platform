@@ -11,6 +11,7 @@ use App\Models\Image;
 use Carbon\Carbon;
 use Fenos\Notifynder\Models\Notification;
 use Fenos\Notifynder\Models\NotificationCategory;
+use DB;
 
 class ProfileController extends Controller
 {
@@ -87,7 +88,7 @@ class ProfileController extends Controller
 
     }
 
-    
+
     public function imageSave(Request $request){
         $image = new Image();
         if($request->hasFile('image')) {
@@ -121,13 +122,26 @@ class ProfileController extends Controller
         // return view('profile.notification')->with('notifications', $noti);
     }
 
-    public function requestCreateComic(){
+    public function requestCreateComic()
+    {
         $id = Auth::id();
         $user = User::find($id);
-        if(!$user->isComicCreator() && !$user->isRequestComicCreator()){
+        if (!$user->isComicCreator() && !$user->isRequestComicCreator()) {
             $user->imageLevel = 2;
             $user->save();
         }
         return redirect('/comics');
+    }
+
+    public function preference() {
+      $id = Auth::id();
+      $preference = DB::table('preferences')->where('user_id', $id)->first();
+      return view('profile.preference', compact('preference'));
+    }
+
+    public function update_preference(Request $request) {
+      $id = Auth::id();
+      DB::table('preferences')->where('user_id', $id)->update(['email_noti' => $request->email_noti, 'facebook_noti' => $request->facebook_noti]);
+      return redirect(url('profile/preference'));
     }
 }

@@ -272,6 +272,7 @@ class BookController extends Controller {
 		if($book->isOwner() || Auth::user()->isAdmin()) {
 			$this->deleteContent($id);
 			$book->contents()->detach();
+			$this->deleteSubscription($book);
 			$book->delete();
 		}
 		return redirect('index');
@@ -288,6 +289,13 @@ class BookController extends Controller {
 				$findContent->delete();
 		}
 //		$content = Content::find($content_chap->contentKey);
+	}
+
+	public function deleteSubscription($book) {
+		$subscription = $book->subscribers;
+		foreach($subscription as $sub) {
+			$sub->delete();
+		}
 	}
 
 	public function alreadyRate($id){
