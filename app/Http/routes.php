@@ -88,12 +88,12 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('user/{id}', 'ProfileController@showProfile');
 	Route::get('profile','ProfileController@index');
 	Route::post('profile/image/',['as' => 'profile/image/','uses' => 'ProfileController@imageSave']);
-	Route::get('profile/edit','ProfileController@edit');
+	Route::get('profile/edit','ProfileController@getEdit');
 	Route::put('profile',['as' => 'profile','uses' =>'ProfileController@update']);
 	Route::get('profile/subscription', 'SubscriptionController@index');
 	Route::get('profile/notification', 'ProfileController@notification');
-	Route::get('profile/preference', 'ProfileController@preference');
-	Route::put('profile/preference', 'ProfileController@update_preference');
+	// Route::get('profile/preference', 'ProfileController@preference');
+	// Route::put('profile/preference', 'ProfileController@update_preference');
 
 	// Review Routes
 	Route::get('books/{book}/content/review/{review}/up', 'ReviewController@voteUpReview');
