@@ -9,12 +9,12 @@
 		{!! Form::open(['method' => 'PUT','url' => [url('profile/preference')]]) !!}
 			<div class="form-group">
 				{!! Form::label('email','Email Notification:') !!}
-				{!! Form::checkbox('email_noti', 1, $preference->email_noti) !!}
+				{!! Form::checkbox('email_noti', 1, $user->email_noti) !!}
 			</div>
 
 			<div class="form-group">
 				{!! Form::label('facebook','Facebook Notification:') !!}
-				{!! Form::checkbox('facebook_noti', 1, $preference->facebook_noti) !!}
+				{!! Form::checkbox('facebook_noti', 1, $user->facebook_noti) !!}
 			</div>
 		<div class="form-group">
 			{!! Form::submit('Update',['class' => 'btn btn-default']) !!}
