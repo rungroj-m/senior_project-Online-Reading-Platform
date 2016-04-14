@@ -15,7 +15,7 @@
 				</div>
 				@else
 				<div class="thumbnail content user-image">
-					<img src="images/{{$user->image}}">
+					<img src="/images/{{$user->image}}">
 				</div>
 				@endif
 				<div class="content">
