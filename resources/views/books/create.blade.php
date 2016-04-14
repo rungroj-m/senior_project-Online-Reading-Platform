@@ -21,7 +21,9 @@
 					<p>Where this book permanently belongs to</p>
 					<select class="form-control" name="category">
 						<option>Novel</option>
-						<option>Comic</option>
+						@if(Auth::user()->isComicCreator())
+							<option>Comic</option>
+						@endif
 					</select>
 				</div>
 			</div>

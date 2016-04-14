@@ -8,6 +8,13 @@
 		@elseif(Request::path() == 'comics')
 			<h1 class="inline"><span class="first-letter">C</span>OMIC</h1>
 		@endif
+
+		@if(Request::path() == 'comics' && !Auth::user()->isComicCreator())
+			<div class="pull-right">
+				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Request for create comic</button>
+			</div>
+		@endif
+
 		<!-- <form class="navbar-form navbar-left" role="search" method="GET" action="/books/search">
 			<div class="input-group inline">
 				<input type="text" class="form-control" name="request" placeholder="Search">
@@ -43,3 +50,25 @@
 	</div>
 </div>
 @stop
+
+		<!-- MODAL -->
+<div id="myModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Request to create comic</h4>
+			</div>
+			<div class="modal-body">
+				{!! Form::label('Request to create comic') !!}
+			</div>
+			{!! Form::open(['method' => 'POST','route' => ['requestcomic']]) !!}
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default inline" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-success inline">Submit</button>
+			</div>
+			{!! Form::close() !!}
+		</div>
+	</div>
+</div>

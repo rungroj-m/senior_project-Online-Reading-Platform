@@ -135,8 +135,9 @@ class BookController extends Controller {
 	public function store()
 	{
 		$input = Request::all();
-//		return $input;
-//		return $this->findOrCreateTag($input,null);
+		$user = User::find(Auth::id());
+		if($input['category'] == 'Comic' && !$user->isComicCreator())
+			return redirect('/index');
 		$book  = Book::create($input);
 //		$book = '';
 		$this->findOrCreateTag($input,$book);

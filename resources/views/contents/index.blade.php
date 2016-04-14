@@ -160,15 +160,17 @@
 				<table class="table" style="width:100%">
 					<tbody>
 						@foreach($contents as $c)
-							<tr>
-								<td><h5>{{$c->chapter}}</h5></td>
-								@if($book->isComic())
-									<td><h4><a href="/comics/{{$book->id}}/content/{{$c->chapter}}">{{$c->name}}</a></h4>
-								@else
-									<td><h4><a href="/books/{{$book->id}}/content/{{$c->chapter}}">{{$c->name}}</a></h4>
-								@endif
-								Last Updated: {{$c->updated_at}}</td>
-							</tr>
+							@if(!$c->private && $book->isOwner() && Auth::user()->isAdmin())
+								<tr>
+									<td><h5>{{$c->chapter}}</h5></td>
+									@if($book->isComic())
+										<td><h4><a href="/comics/{{$book->id}}/content/{{$c->chapter}}">{{$c->name}}</a></h4>
+									@else
+										<td><h4><a href="/books/{{$book->id}}/content/{{$c->chapter}}">{{$c->name}}</a></h4>
+									@endif
+									Last Updated: {{$c->updated_at}}</td>
+								</tr>
+							@endif
 						@endforeach
 					</tbody>
 				</table>
