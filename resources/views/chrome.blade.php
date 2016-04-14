@@ -39,7 +39,9 @@
 		});
 	</script>
 </footer>
+
 <body>
 	@yield('app')
 </body>
+
 </html>

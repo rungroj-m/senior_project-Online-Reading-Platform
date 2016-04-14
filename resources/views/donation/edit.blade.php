@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-<div class="container">
+<div>
 	<div class="row">
 		<div class="col-md-6">
 		<h1>Edit Donation No. {{$donation->id}}</h1>

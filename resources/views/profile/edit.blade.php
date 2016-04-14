@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-<div class="container">
+<div>
 	<div class="row">
 		<div class="col-md-6">
 		<h1>Update {{$user->username}} Information</h1>
