@@ -261,9 +261,11 @@ class ContentController extends Controller {
 						->url(url('/books'.'/'.$book->id.'/content'.'/'.$content->chapter))
 						->extra(compact('bookname', 'chapter', 'chaptername'))
 						->send();
-				$job = (new SendNotificationEmail($user, $book, $content))->onQueue('emails');
-				$this->dispatch($job);
-				if($user->facebook_id)
+				if($user->email_noti) {
+					$job = (new SendNotificationEmail($user, $book, $content))->onQueue('emails');
+					$this->dispatch($job);
+				}
+				if($user->facebook_id>0 && $user->facebook_noti)
 					$this->facebookNotification($user);
 			}
 		}

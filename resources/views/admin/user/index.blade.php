@@ -19,6 +19,8 @@
                     <th>Email</th>
                     <th>Type</th>
                     <th>Allow to Create Comic?</th>
+                    <th>Email Notification</th>
+                    <th>Facebook Notification</th>
                     <th>Date/Time Added</th>
                     <th></th>
                 </tr>
@@ -42,6 +44,16 @@
                       <td>Not Allow</td>
                     @else
                       <td>Allow</td>
+                    @endif
+                    @if($user->email_noti)
+                      <td>Yes</td>
+                    @else
+                      <td>No</td>
+                    @endif
+                    @if($user->facebook_noti)
+                      <td>Yes</td>
+                    @else
+                      <td>No</td>
                     @endif
                     <td>{{ $user->created_at->format('F d, Y h:ia') }}</td>
                     <td>
