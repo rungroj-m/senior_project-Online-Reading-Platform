@@ -208,14 +208,7 @@
 @endif
 
 @foreach($book->reviews as $review)
-	<p>{{$review->review}}</p>
-	<div style="text-align: right">
-		<p>- {{$review->user->username}} |
-			{{$review->rating}}
-			<a href="/books/{{$book->id}}/content/review/{{$review->id}}/up" class="first-letter" href="">+</a>
-			<a href="/books/{{$book->id}}/content/review/{{$review->id}}/down" class="first-letter">-</a>
-		</p>
-	</div>
+	@include('reviews.show', ['r' => $review,'book' => $book])
 @endforeach
 @stop
 

@@ -350,7 +350,10 @@ class ContentController extends Controller {
 			$content->content = json_encode( $this->multiple_upload($request));
 		}
 		else{
-			$content->content = $request->content;
+			if($request['upload'])
+				$content->content = $this->read_file_docx($request['upload']);
+			else
+				$content->content = $request->content;
 		}
 		$content->chapter = $request->chapter;
 		$content->save();

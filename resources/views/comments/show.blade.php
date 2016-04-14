@@ -38,7 +38,7 @@
 	var hidden = false;
 	function action($value) {
 		hidden = !hidden;
-		if(hidden) {
+		if(document.getElementById($value).innerHTML == '[-]') {
 			document.getElementById($value).innerHTML = '[+]';
 		} else {
 			document.getElementById($value).innerHTML = '[-]';

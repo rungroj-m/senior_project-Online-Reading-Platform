@@ -10,7 +10,7 @@
 		@if($book->isComic())
 			{!! Form::open(['method' => 'PATCH','route' =>  ['comics.{book}.content.update',$content->book_id,$content->chapter],'files'=> true])!!}
 		@else
-			{!! Form::open(['method' => 'PATCH','route' =>  ['books.{book}.content.update',$content->book_id,$content->chapter]])!!}
+			{!! Form::open(['method' => 'PATCH','route' =>  ['books.{book}.content.update',$content->book_id,$content->chapter],'files'=> true])!!}
 		@endif
 		<div class="form-group">
 		{!! Form::label('chapter','Chapter:') !!}
@@ -27,11 +27,14 @@
 				{!! Form::file('images[]', array('multiple'=>true)) !!}
 			@else
 				{!! Form::label('content','Content:') !!}
+				<p>Content of your chapter</p>
 				{!! Form::textarea('content',$content->content,['class'=>'form-control']) !!}
+
+				{!! Form::label('upload', 'Upload Docx file') !!}
+				{!! Form::file('upload') !!}
+
 			@endif
 		</div>
-
-
 		<div class="form-group">
 		{!! Form::submit('Edit Chapter',['class' => 'btn btn-default']) !!}
 		</div>
