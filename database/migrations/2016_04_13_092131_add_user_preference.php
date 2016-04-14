@@ -30,6 +30,6 @@ class AddUserPreference extends Migration
      */
     public function down()
     {
-        Schema::dropTable('preferences');
+        Schema::drop('preferences');
     }
 }

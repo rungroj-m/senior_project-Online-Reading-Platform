@@ -36,6 +36,9 @@ class ProfileController extends Controller
     }
 
     public function showProfile($id){
+        // if(Auth::user()->getKey() == $id){
+        //     return redirect('profile');
+        // }
         $user = User::findOrFail($id);
 
         return view('profile.user', compact('user'));
@@ -121,6 +124,17 @@ class ProfileController extends Controller
         }
         return $noti;
         // return view('profile.notification')->with('notifications', $noti);
+    }
+
+    public function requestCreateComic()
+    {
+        $id = Auth::id();
+        $user = User::find($id);
+        if (!$user->isComicCreator() && !$user->isRequestComicCreator()) {
+            $user->imageLevel = 2;
+            $user->save();
+        }
+        return redirect('/comics');
     }
 
     public function preference() {

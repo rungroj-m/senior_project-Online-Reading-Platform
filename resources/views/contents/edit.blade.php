@@ -20,6 +20,8 @@
 		{!! Form::label('name','Name:') !!}
 		{!! Form::text('name',$content->name,['class'=>'form-control']) !!}
 		</div>
+		<p>Privacy</p>
+		{!! Form::select('private', ['1' => 'Locked', '0' => 'Unlocked'],$content->private, ['class' => 'form-control']) !!}
 
 		<div class="form-group">
 			@if($book->isComic())
