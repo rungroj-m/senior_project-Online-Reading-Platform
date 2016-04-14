@@ -5,7 +5,11 @@
 @section('content')
 
 <div class="col-lg-10 col-lg-offset-1">
-
+    <div class="pull-right">
+        <form action="/admin">
+            <button type="submit" class="btn btn-success">Admin DashBoard</button>
+        </form>
+    </div>
     <h1><i class="fa fa-users"></i> User Administration </h1>
 
     <div class="table-responsive">

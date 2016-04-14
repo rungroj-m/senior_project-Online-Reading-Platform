@@ -53,12 +53,7 @@
 							{!! Form::submit('Subscribe', ['class' => 'btn btn-success form-control']) !!}
 							{!! Form::close() !!}
 						@endif
-						{!! Form::open([
-	                    	'method' => 'GET',
-	                        'route' => ['report', $book->id]
-	                    ]) !!}
 	                    <button type="button" class="btn btn-warning form-control" data-toggle="modal" data-target="#myModal">Report</button>
-	                    {!! Form::close() !!}
 					</li>
 					<li class="list-group-item">
 						<span class="glyphicon glyphicon-thumbs-up"></span>
@@ -146,14 +141,7 @@
 					{!! Form::close() !!}
 				</div>
 				<div class="pull-right" style="padding-top: 10px">
-					@if($book->isComic())
-						{!! Form::open(['method' => 'DELETE','route' => ['comics.destroy', $book->id]]) !!}
-					@else
-						{!! Form::open(['method' => 'DELETE','route' => ['books.destroy', $book->id]]) !!}
-					@endif
-					{!! Form::submit('Delete This Book', ['class' => 'btn btn-default']) !!}
-					{!! Form::close() !!}
-					{{--<a href="{{ route('books.create') }}" class="btn btn-primary">Create new Book</a>--}}
+					<button type="button" class="btn btn-default form-control" data-toggle="modal" data-target="#deleteModal">Delete This Book</button>
 				</div>
 				@endif
 				<h2 class="pull-left"><span class="first-letter">C</span>HAPTERS</h2><br/>
@@ -229,6 +217,29 @@
 					<option value="1">Inappropriate content</option>
 					<option value="2">Piracy content</option>
 				</select>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default inline" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-success inline">Submit</button>
+			</div>
+			{!! Form::close() !!}
+		</div>
+	</div>
+</div>
+
+
+<!-- MODAL -->
+<div id="deleteModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Delete Book</h4>
+			</div>
+			{!! Form::open(['method' => 'DELETE','route' => ['comics.destroy', $book->id]]) !!}
+			<div class="modal-body">
+				<p>Delete this book?</p>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default inline" data-dismiss="modal">Close</button>

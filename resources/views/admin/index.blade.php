@@ -5,6 +5,11 @@
 	<header>
 		<h3 class="inline"><span class="first-letter">A</span>DMIN</h3>
 		<h3 class="inline"><span class="first-letter">D</span>ASHBAORD</h3>
+		<div class="pull-right">
+			<form action="/admin/user">
+				<button type="submit" class="btn btn-success">User Management</button>
+			</form>
+		</div>
 	</header><br/>
 	<div class="row">
 

@@ -263,6 +263,9 @@ class BookController extends Controller {
 		$book->name = $input['name'];
 		$book->description = $input['description'];
 		$book->save();
+		if($input['image'])
+			$book->image = $this->saveimage($input);
+		$book->save();
 		return redirect($this->getURI($id).'/'.$id.'/content');
 	}
 
@@ -342,9 +345,8 @@ class BookController extends Controller {
 
 		// assume it pass data user vote
 
-		if($user -> userLevel == '0' || $user -> userLevel == '2') {
+		if(!$user -> isCritic()) {
 			$book->userRating += $input['rating'];
-//			$book->userRating += 4;
 			$book->userRatingCount += 1;
 			$book->save();
 		}
