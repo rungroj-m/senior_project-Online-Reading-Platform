@@ -35,7 +35,7 @@ class SendNotificationEmail extends Job implements SelfHandling, ShouldQueue
      */
     public function handle()
     {
-      Mail::send('emails.notification', ['user' => $this->user, 'book' => $this->book, 'content' => $this->content, 'link' => url('/books'.'/'.$this->book->id.'/content'.'/'.$this->content->chapter)], function ($m) use ($user) {
+      Mail::send('emails.notification', ['user' => $this->user, 'book' => $this->book, 'content' => $this->content, 'link' => url('/books'.'/'.$this->book->id.'/content'.'/'.$this->content->chapter)], function ($m) {
           $m->from('readi.notification@gmail.com', 'Readi');
           $m->to($this->user->email, $this->user->username)->subject('Readi Notification');
       });

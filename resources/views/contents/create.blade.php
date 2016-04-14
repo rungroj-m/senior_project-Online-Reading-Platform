@@ -23,6 +23,8 @@
 			{!! Form::label('chapter','Chapter:',['class'=>'h3']) !!}
 			<p>Number of this chapter</p>
 			{!! Form::text('chapter',null,['class'=>'form-control']) !!}
+			<p>Privacy</p>
+			{!! Form::select('private', ['0' => 'Unlocked','1' => 'Locked'], null, ['class' => 'form-control']) !!}
 		</div>
 		<div class="form-group">
 			@if($book->isComic())

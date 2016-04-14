@@ -30,7 +30,7 @@ class User extends Model implements AuthenticatableContract,  AuthorizableContra
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['username', 'firstName','lastName', 'email', 'password', 'userLevel' ,'image'];
+	protected $fillable = ['username', 'firstName','lastName', 'email', 'password', 'userLevel' ,'image','imageLevel'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -57,6 +57,16 @@ class User extends Model implements AuthenticatableContract,  AuthorizableContra
 
 	public function isAdmin(){
 		return Auth::check() && $this->userLevel == 2;
+	}
+
+	public function isComicCreator(){
+		if($this->isAdmin())
+			return true;
+			return Auth::check() && $this->imageLevel == 1;
+	}
+
+	public function isRequestComicCreator(){
+		return Auth::check() && $this->imageLevel == 2;
 	}
 
 	public function donations() {

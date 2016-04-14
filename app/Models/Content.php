@@ -9,7 +9,7 @@ class Content extends Model {
 	 *
 	 * @var string
 	 */
-	protected $fillable = array('name','content','chapter','type');
+	protected $fillable = array('name','content','chapter','type','private');
 	protected $primaryKey = 'id';
 
 	public function book() {

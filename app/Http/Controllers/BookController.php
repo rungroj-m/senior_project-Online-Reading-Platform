@@ -135,8 +135,9 @@ class BookController extends Controller {
 	public function store()
 	{
 		$input = Request::all();
-//		return $input;
-//		return $this->findOrCreateTag($input,null);
+		$user = User::find(Auth::id());
+		if($input['category'] == 'Comic' && !$user->isComicCreator())
+			return redirect('/index');
 		$book  = Book::create($input);
 //		$book = '';
 		$this->findOrCreateTag($input,$book);
@@ -271,6 +272,7 @@ class BookController extends Controller {
 		if($book->isOwner() || Auth::user()->isAdmin()) {
 			$this->deleteContent($id);
 			$book->contents()->detach();
+			$this->deleteSubscription($book);
 			$book->delete();
 		}
 		return redirect('index');
@@ -287,6 +289,13 @@ class BookController extends Controller {
 				$findContent->delete();
 		}
 //		$content = Content::find($content_chap->contentKey);
+	}
+
+	public function deleteSubscription($book) {
+		$subscription = $book->subscribers;
+		foreach($subscription as $sub) {
+			$sub->delete();
+		}
 	}
 
 	public function alreadyRate($id){

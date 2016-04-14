@@ -118,4 +118,16 @@ class AdminController extends Controller
         return view('admin.commentReport')->with('commentReport',$commentreport);
     }
 
+    public function userRequest(){
+        $users = User::where('imageLevel',2)->get();
+        return view('admin.user.userRequest',compact('users'));
+    }
+
+    public function accept($id){
+        $user = User::find($id);
+        $user->imageLevel = 1;
+        $user->save();
+        return redirect('admin/userreport');
+    }
+
 }

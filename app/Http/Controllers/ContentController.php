@@ -95,6 +95,7 @@ class ContentController extends Controller {
 			$content = new Content;
 			$content->name = $request->name;
 			$content->chapter = $request->chapter;
+			$content->private = $request->private;
 			if($book->isComic()) {
 				$content->content = json_encode( $this->multiple_upload($request));
 //				return $request;
@@ -107,7 +108,7 @@ class ContentController extends Controller {
 			// $content->content = str_replace("\r\n", "<br/>", $request->content);
 			$book->contents()->save($content);
 			// notify subscribed user
-			$this->notify($book, $content);
+//			$this->notify($book, $content);
 			return redirect($this->getURI($id).'/'.$id);
 		}
 	}
@@ -354,6 +355,7 @@ class ContentController extends Controller {
 			else
 				$content->content = $request->content;
 		}
+		$content->private =  $request->private;
 		$content->chapter = $request->chapter;
 		$content->save();
 		return redirect($this->getURI($id).'/'.$id.'/content/'.$chapter);

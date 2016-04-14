@@ -30,38 +30,45 @@ Route::group(['middleware' => 'auth'], function () {
 	// Index
 	Route::get('index', 'WelcomeController@index');
 
-	// Route::group(['middleware' => 'App\Http\Middleware\ImageMiddleware'], function() {
+	//Request to create comic
+	Route::post('comics/requestcomic',['as' =>'requestcomic','uses' => 'ProfileController@requestCreateComic']);
+
 		// Books & Content Route
-		Route::get('comics/search/', 'BookController@search');
-		Route::post('comics/{book}/report', ['as' => 'report', 'uses' => 'BookController@report']);
-		Route::post('comics/{book}/ratings', ['as' => 'comics.rating', 'uses' => 'BookController@rate']);
-		Route::resource('comics', 'BookController');
-		Route::resource('comics/{book}/content', 'ContentController');
+	Route::group(['middleware' => 'App\Http\Middleware\ContentMiddleware'], function() {
+		Route::get('comics/{book}/content/{chapter}', 'ContentController@show');
+	});
+	Route::resource('comics/{book}/content', 'ContentController',['except' => ['show']]);
+	Route::get('comics/search/', 'BookController@search');
+	Route::post('comics/{book}/report', ['as' => 'report', 'uses' => 'BookController@report']);
+	Route::post('comics/{book}/ratings', ['as' => 'comics.rating', 'uses' => 'BookController@rate']);
+	Route::resource('comics', 'BookController');
 
-		// Comment Routes
-		Route::post('comics/{book}/content/comment', 'CommentController@postComment');
-		Route::get('comics/{book}/content/comment/{comment}/up', 'CommentController@voteUpComment');
-		Route::get('comics/{book}/content/comment/{comment}/down', 'CommentController@voteDownComment');
-		Route::get('comics/{book}/content/comment/{comment}/report', ['as' => 'commentreport', 'uses' => 'CommentController@report']);
-		Route::post('comics/{book}/content/comment/{comment}/', 'CommentController@repliedComment');
-		Route::delete('comics/{book}/content/comment/{comment}/', ['as' => 'deletecomment', 'uses' => 'CommentController@deleteComment']);
+	// Comment Routes
+	Route::post('comics/{book}/content/comment', 'CommentController@postComment');
+	Route::get('comics/{book}/content/comment/{comment}/up', 'CommentController@voteUpComment');
+	Route::get('comics/{book}/content/comment/{comment}/down', 'CommentController@voteDownComment');
+	Route::get('comics/{book}/content/comment/{comment}/report', ['as' => 'commentreport', 'uses' => 'CommentController@report']);
+	Route::post('comics/{book}/content/comment/{comment}/', 'CommentController@repliedComment');
+	Route::delete('comics/{book}/content/comment/{comment}/', ['as' => 'deletecomment', 'uses' => 'CommentController@deleteComment']);
 
-		// Subscription Route
-		Route::get('comics/{book}/subscribe', ['as' => 'subscribe', 'uses' => 'SubscriptionController@subscribe']);
-		Route::get('comics/{book}/unsubscribe', ['as' => 'unsubscribe', 'uses' => 'SubscriptionController@unsubscribe']);
+	// Subscription Route
+	Route::get('comics/{book}/subscribe', ['as' => 'subscribe', 'uses' => 'SubscriptionController@subscribe']);
+	Route::get('comics/{book}/unsubscribe', ['as' => 'unsubscribe', 'uses' => 'SubscriptionController@unsubscribe']);
 
-		// Review Routes
-		Route::get('comics/{book}/content/review/{review}/up', 'ReviewController@voteUpReview');
-		Route::get('comics/{book}/content/review/{review}/down', 'ReviewController@voteDownReview');
-		Route::group(['middleware' => 'App\Http\Middleware\CriticMiddleware'], function () {
-			Route::post('comics/{book}/content/review', 'ReviewController@postReview');
-		});
-	// });
+	// Review Routes
+	Route::get('comics/{book}/content/review/{review}/up', 'ReviewController@voteUpReview');
+	Route::get('comics/{book}/content/review/{review}/down', 'ReviewController@voteDownReview');
+	Route::group(['middleware' => 'App\Http\Middleware\CriticMiddleware'], function () {
+		Route::post('comics/{book}/content/review', 'ReviewController@postReview');
+	});
 
 	// Books & Content Route
+	 Route::group(['middleware' => 'App\Http\Middleware\ContentMiddleware'], function() {
+		 Route::get('books/{book}/content/{chapter}', 'ContentController@show');
+	 });
+	Route::resource('books/{book}/content', 'ContentController',['except' => ['show']]);
 	Route::get('books/search/', 'BookController@search');
 	Route::resource('books','BookController');
-	Route::resource('books/{book}/content', 'ContentController');
 	Route::post('books/{book}/report', [ 'as' => 'report', 'uses' => 'BookController@report']);
 	Route::post('books/{book}/ratings', ['as' => 'books.rating', 'uses' => 'BookController@rate']);
 
@@ -85,6 +92,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile',['as' => 'profile','uses' =>'ProfileController@update']);
 	Route::get('profile/subscription', 'SubscriptionController@index');
 	Route::get('profile/notification', 'ProfileController@notification');
+	Route::get('profile/preference', 'ProfileController@preference');
+	Route::put('profile/preference', 'ProfileController@update_preference');
 
 	// Review Routes
 	Route::get('books/{book}/content/review/{review}/up', 'ReviewController@voteUpReview');
@@ -103,6 +112,8 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('admin', 'AdminController@index');
 		Route::get('admin/bookreport', 'AdminController@bookReport');
 		Route::get('admin/commentreport', 'AdminController@commentReport');
+		Route::get('admin/userreport', 'AdminController@userRequest');
+		Route::get('admin/user/{user}/accept', 'AdminController@accept');
 	});
 
 	Route::get('donation', 'DonationController@index');
