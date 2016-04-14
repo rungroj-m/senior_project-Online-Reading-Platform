@@ -160,7 +160,7 @@
 				<table class="table" style="width:100%">
 					<tbody>
 						@foreach($contents as $c)
-							@if(!$c->private && $book->isOwner() && Auth::user()->isAdmin())
+							@if(!$c->private || $book->isOwner() || Auth::user()->isAdmin())
 								<tr>
 									<td><h5>{{$c->chapter}}</h5></td>
 									@if($book->isComic())
