@@ -64,10 +64,11 @@
 						<a data-toggle="collapse" href="#collapseUserRating" aria-controls="collapseUserRating">
 							User Rating
 						</a>
+						({{$book->userRatingCount}} votes)
 						<h4>{{$book->getUserRatingAverage()}}</h4>
 						<div class="collapse" id="collapseUserRating">
 							<!-- RATING FORM HERE -->
-							@if(!Auth::user()->isCritic() && !$book->alreadyVote())
+							@if(!Auth::user()->isCritic() && !$book->alreadyVote($book->id))
 								@if($book->isComic())
 									{!! Form::open(['method' => 'POST','route' => ['comics.rating', $book->id]]) !!}
 								@else
@@ -89,10 +90,11 @@
 						<a data-toggle="collapse" href="#collapseCriticRating" aria-controls="collapseCriticRating">
 							Critic Rating
 						</a>
+						({{$book->criticRatingCount}} votes)
 						<h4>{{$book->getCriticRatingAverage()}}</h4>
 						<div class="collapse" id="collapseCriticRating">
 							<!-- RATING FORM HERE -->
-							@if(Auth::user()->isCritic() && !$book->alreadyVote())
+							@if(Auth::user()->isCritic() && !$book->alreadyVote($book->id))
 								@if($book->isComic())
 									{!! Form::open(['method' => 'POST','route' => ['comics.rating', $book->id]]) !!}
 								@else
@@ -164,7 +166,9 @@
 			</table>
 		</div>
 		<div class="col-md-4">
-			<button class="pull-right btn btn-success" data-toggle="modal" data-target="#pleadModal" style="padding-top: 10px">Plead</button>
+			@if($book->donations->count())
+				<button class="pull-right btn btn-success" data-toggle="modal" data-target="#pleadModal" style="padding-top: 10px">Plead</button>
+			@endif
 			<h3><span class="first-letter">D</span>ONATIONS</h3>
 			@foreach($book->donations as $d)
 				@if($d->active == 1)
@@ -180,7 +184,9 @@
 	<div class="row">
 		<div class="col-md-8">
 			<div class="pull-right" style="padding-top: 10px">
-				<button class="btn btn-success glyphicon glyphicon-plus" data-toggle="collapse" href="#collapseReview" aria-controls="collapseReview"></button>
+				@if(Auth::user()->isCritic())
+					<button class="btn btn-success glyphicon glyphicon-plus" data-toggle="collapse" href="#collapseReview" aria-controls="collapseReview"></button>
+				@endif
 			</div>
 			<h3><span class="first-letter">R</span>EVIEWS</h3><br/>
 			@if(Auth::user()->isCritic())

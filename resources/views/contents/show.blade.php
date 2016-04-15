@@ -10,29 +10,51 @@
 		<h4 align="center">{{ $content_chap->name }}</h1>
 		<hr>
 			@if($book->isComic())
-				<p class="content-text" align="center">
+				<!-- <p class="content-text" align="center"> -->
 					<?php $i = 1 ?>
-					@foreach($content_images as $content)
-						<img src="/images/{{$content}}" style="height: 100%; width: 100%">
-						{{$i}}/{{count($content_images)}}
-					<?php $i++ ?>
-					@endforeach
-				</p>
+					<div class="owl-carousel">
+						@foreach($content_images as $content)
+							<div class="item">
+								<img class="owl-lazy" src="/images/{{$content}}" style="height: 100%; width: 100%">
+								<p align="center">{{$i}}/{{count($content_images)}}</p>
+								<?php $i++ ?>
+							</div>
+						@endforeach
+					</div>
+				<!-- </p> -->
+				<script type="text/javascript" display="none">
+					$(document).ready(function(){
+						$('.owl-carousel').owlCarousel({
+							lazyLoad: true,
+							loop:false,
+							margin:5,
+	    				loop:false,
+	    				nav:true,
+							responsive:{
+					        0:{
+					            items:1
+					        }
+					    }
+						});
+					});
+				</script>
 			@else
 				<p class="content-text">{!! $content_chap->content !!}</p>
 			@endif
 	</div>
 
 	<div class="col-md-2">
-		<div class="btn-group-vertical">
-			{!! Form::open([
-				'method' => 'GET',
-				'route' => ['books.{book}.content.edit',$id,$content_chap->chapter]
-			]) !!}
-			{!! Form::submit('Edit Chapter', ['class' => 'btn btn-default']) !!}
-			{!! Form::close() !!}
-			<button type="button" class="btn btn-default form-control" data-toggle="modal" data-target="#deleteModal">Delete Chapter</button>
-		</div>
+		@if($book->isOwner())
+			<div class="btn-group-vertical">
+				{!! Form::open([
+					'method' => 'GET',
+					'route' => ['books.{book}.content.edit',$id,$content_chap->chapter]
+				]) !!}
+				{!! Form::submit('Edit Chapter', ['class' => 'btn btn-default']) !!}
+				{!! Form::close() !!}
+				<button type="button" class="btn btn-default form-control" data-toggle="modal" data-target="#deleteModal">Delete Chapter</button>
+			</div>
+		@endif
 	</div>
 </div>
 
