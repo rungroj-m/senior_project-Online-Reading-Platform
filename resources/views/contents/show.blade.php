@@ -10,14 +10,34 @@
 		<h4 align="center">{{ $content_chap->name }}</h1>
 		<hr>
 			@if($book->isComic())
-				<p class="content-text" align="center">
+				<!-- <p class="content-text" align="center"> -->
 					<?php $i = 1 ?>
-					@foreach($content_images as $content)
-						<img src="/images/{{$content}}" style="height: 100%; width: 100%">
-						{{$i}}/{{count($content_images)}}
-					<?php $i++ ?>
-					@endforeach
-				</p>
+					<div class="owl-carousel">
+						@foreach($content_images as $content)
+							<div class="item">
+								<img class="owl-lazy" src="/images/{{$content}}" style="height: 100%; width: 100%">
+								<p align="center">{{$i}}/{{count($content_images)}}</p>
+								<?php $i++ ?>
+							</div>
+						@endforeach
+					</div>
+				<!-- </p> -->
+				<script type="text/javascript" display="none">
+					$(document).ready(function(){
+						$('.owl-carousel').owlCarousel({
+							lazyLoad: true,
+							loop:false,
+							margin:5,
+	    				loop:false,
+	    				nav:true,
+							responsive:{
+					        0:{
+					            items:1
+					        }
+					    }
+						});
+					});
+				</script>
 			@else
 				<p class="content-text">{!! $content_chap->content !!}</p>
 			@endif
