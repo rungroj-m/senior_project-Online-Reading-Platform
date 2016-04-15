@@ -22,9 +22,11 @@
 						<span class="badge">{{$tag->tag}}</span>
 					@endforeach
 				</div>
+			</div><br/>
+			<div class="content">
+				<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Report this Book</button>
 			</div>
 		</div>
-
 		<div class="col-md-6">
 			<div class="word-wrap"><h1>{{$book->name}}</h1></div>
 			<span class="glyphicon glyphicon-list"></span> <a href="/user/{{$book->user->id}}">{{$book->user->username}} </a><span class="glyphicon glyphicon-time"></span> {{$book->created_at}}</p>
@@ -53,18 +55,14 @@
 							{!! Form::submit('Subscribe', ['class' => 'btn btn-success form-control']) !!}
 							{!! Form::close() !!}
 						@endif
-	                    <button type="button" class="btn btn-warning form-control" data-toggle="modal" data-target="#myModal">Report</button>
 					</li>
 					<li class="list-group-item">
 						<span class="glyphicon glyphicon-thumbs-up"></span>
-						<span data-toggle="collapse" href="#collapseUserRating" aria-controls="collapseUserRating">
+						<a data-toggle="collapse" href="#collapseUserRating" aria-controls="collapseUserRating">
 							User Rating
-							<div>
-								<h4>{{$book->getUserRatingAverage()}}</h4>
-							</div>
-						</span>
+						</a>
+						<h4>{{$book->getUserRatingAverage()}}</h4>
 						<div class="collapse" id="collapseUserRating">
-							RATING FORM HERE
 							<!-- RATING FORM HERE -->
 							@if(!Auth::user()->isCritic() && !$book->alreadyVote())
 								@if($book->isComic())
@@ -85,12 +83,11 @@
 					</li>
 					<li class="list-group-item">
 						<span class="glyphicon glyphicon-hand-right"></span>
-						<span data-toggle="collapse" href="#collapseCriticRating" aria-controls="collapseCriticRating">
+						<a data-toggle="collapse" href="#collapseCriticRating" aria-controls="collapseCriticRating">
 							Critic Rating
-							<h4>{{$book->getCriticRatingAverage()}}</h4>
-						</span>
+						</a>
+						<h4>{{$book->getCriticRatingAverage()}}</h4>
 						<div class="collapse" id="collapseCriticRating">
-							RATING FORM ALSO HERE
 							<!-- RATING FORM HERE -->
 							@if(Auth::user()->isCritic() && !$book->alreadyVote())
 								@if($book->isComic())
@@ -118,89 +115,102 @@
 			</div>
 		</div>
 	</div>
+	<hr/>
 	<div class="row">
-		<div>
-			<div class="col-md-8">
-				@if($owness)
-				<div class="pull-right" style="padding-top: 10px">
-					@if($book->isComic())
-						{!! Form::open(['method' => 'GET','route' => ['comics.{book}.content.create', $book->id]]) !!}
-					@else
-						{!! Form::open(['method' => 'GET','route' => ['books.{book}.content.create', $book->id]]) !!}
-					@endif
-					{!! Form::submit('New Chapter', ['class' => 'btn btn-success']) !!}
-					{!! Form::close() !!}
-				</div>
-				<div class="pull-right" style="padding-top: 10px">
-					@if($book->isComic())
-						{!! Form::open(['method' => 'GET','route' => ['comics.edit', $book->id]]) !!}
-					@else
-						{!! Form::open(['method' => 'GET','route' => ['books.edit', $book->id]]) !!}
-					@endif
-					{!! Form::submit('Edit This Book', ['class' => 'btn btn-default']) !!}
-					{!! Form::close() !!}
-				</div>
-				<div class="pull-right" style="padding-top: 10px">
-					<button type="button" class="btn btn-default form-control" data-toggle="modal" data-target="#deleteModal">Delete This Book</button>
-				</div>
+		<div class="col-md-8">
+			@if($owness)
+			<div class="pull-right" style="padding-top: 10px">
+				@if($book->isComic())
+					{!! Form::open(['method' => 'GET','route' => ['comics.{book}.content.create', $book->id]]) !!}
+				@else
+					{!! Form::open(['method' => 'GET','route' => ['books.{book}.content.create', $book->id]]) !!}
 				@endif
-				<h2 class="pull-left"><span class="first-letter">C</span>HAPTERS</h2><br/>
-				<table class="table table-bordered" style="width:100%">
-					<tbody>
-						@foreach($contents as $c)
-							@if(!$c->private || $book->isOwner() || Auth::user()->isAdmin())
-								<tr>
-									<td><h4>{{$c->chapter}}</h4></td>
-									@if($book->isComic())
-										<td><h4><a href="/comics/{{$book->id}}/content/{{$c->chapter}}">{{$c->name}}</a></h4>
-									@else
-										<td><h4><a href="/books/{{$book->id}}/content/{{$c->chapter}}">{{$c->name}}</a></h4>
-									@endif
-									Last Updated: {{$c->updated_at}}</td>
-								</tr>
-							@endif
-						@endforeach
-					</tbody>
-				</table>
+				{!! Form::submit('New Chapter', ['class' => 'btn btn-success']) !!}
+				{!! Form::close() !!}
 			</div>
-			<div class="col-md-4">
-				<div class="pull-right" style="padding-top: 10px">
-					<button class="btn btn-default glyphicon glyphicon-plus" data-toggle="collapse" href="#collapseComment" aria-controls="collapseComment"></button>
-				</div>
-				<h3><span class="first-letter">C</span>OMMENTS</h3><br/>
-				<div class="collapse" id="collapseComment">
+			<div class="pull-right" style="padding-top: 10px">
+				@if($book->isComic())
+					{!! Form::open(['method' => 'GET','route' => ['comics.edit', $book->id]]) !!}
+				@else
+					{!! Form::open(['method' => 'GET','route' => ['books.edit', $book->id]]) !!}
+				@endif
+				{!! Form::submit('Edit This Book', ['class' => 'btn btn-default']) !!}
+				{!! Form::close() !!}
+			</div>
+			<div class="pull-right" style="padding-top: 10px">
+				<button type="button" class="btn btn-default form-control" data-toggle="modal" data-target="#deleteModal">Delete This Book</button>
+			</div>
+			@endif
+			<h2 class="pull-left"><span class="first-letter">C</span>HAPTERS</h2><br/>
+			<table class="table table-bordered" style="width:100%">
+				<tbody>
+					@foreach($contents as $c)
+						@if(!$c->private || $book->isOwner() || Auth::user()->isAdmin())
+							<tr>
+								<td><h4>{{$c->chapter}}</h4></td>
+								@if($book->isComic())
+									<td><h4><a href="/comics/{{$book->id}}/content/{{$c->chapter}}">{{$c->name}}</a></h4>
+								@else
+									<td><h4><a href="/books/{{$book->id}}/content/{{$c->chapter}}">{{$c->name}}</a></h4>
+								@endif
+								Last Updated: {{$c->updated_at}}</td>
+							</tr>
+						@endif
+					@endforeach
+				</tbody>
+			</table>
+		</div>
+		<div class="col-md-4">
+			<h3><span class="first-letter">D</span>ONATIONS</h3><br/>
+			Donation Here Soon
+		</div>
+		<div class="col-md-8">
+			<div class="pull-right" style="padding-top: 10px">
+				<button class="btn btn-success glyphicon glyphicon-plus" data-toggle="collapse" href="#collapseReview" aria-controls="collapseReview"></button>
+			</div>
+			<h3><span class="first-letter">R</span>EVIEWS</h3><br/>
+			@if(Auth::user()->isCritic())
+				<div class="collapse" id="collapseReview">
 					<div class="thumbnail">
-						<div class="caption">
-							<form method="POST" action="/books/{{$book->id}}/content/comment">
-								<input class="form-control" type="text" name="comment" ng-model="comment"><br/>
-								<button type="submit" class="btn btn-success">Add Comment</button>
-								<input type="hidden" name="_token" value="{{ csrf_token() }}">
-							</form>
-						</div>
+						<form method="POST" action="/books/{{$book->id}}/content/review/">
+							<input class="form-control" type="text" name="review" ng-model="review"><br/>
+							<button type="submit" class="btn btn-success">Add Review</button>
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+						</form>
 					</div>
 				</div>
+			@endif
+
+			@foreach($book->reviews as $review)
+				@include('reviews.show', ['r' => $review,'book' => $book])
+			@endforeach
+		</div>
+	</div><hr/>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="pull-right" style="padding-top: 10px">
+				<button class="btn btn-success glyphicon glyphicon-plus" data-toggle="collapse" href="#collapseComment" aria-controls="collapseComment"></button>
+			</div>
+			<h3><span class="first-letter">C</span>OMMENTS</h3><br/>
+			<div class="collapse" id="collapseComment">
+				<div class="thumbnail">
+					<div class="caption">
+						<form method="POST" action="/books/{{$book->id}}/content/comment">
+							<input class="form-control" type="text" name="comment" ng-model="comment"><br/>
+							<button type="submit" class="btn btn-success">Add Comment</button>
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+						</form>
+					</div>
+				</div>
+			</div>
 			@foreach($book->comments as $comment)
 					@if(!$comment->parent)
 						@include('comments.show', ['c' => $comment,'book' => $book])
 					@endif
 			@endforeach
-			</div>
 		</div>
 	</div>
 </div>
-
-@if(Auth::user()->isCritic())
-	<form method="POST" action="/books/{{$book->id}}/content/review/">
-		<input class="form-control" type="text" name="review" ng-model="review"><br/>
-		<button type="submit" class="btn btn-success form-control">Add Review</button>
-		<input type="hidden" name="_token" value="{{ csrf_token() }}">
-	</form>
-@endif
-
-@foreach($book->reviews as $review)
-	@include('reviews.show', ['r' => $review,'book' => $book])
-@endforeach
-@stop
 
 <!-- MODAL -->
 <div id="myModal" class="modal fade" role="dialog">
@@ -227,6 +237,7 @@
 	</div>
 </div>
 
+@stop
 
 <!-- MODAL -->
 <div id="deleteModal" class="modal fade" role="dialog">

@@ -4,7 +4,7 @@
 		<div class="caption">
 			<p>{{$r->review}}</p>
 			<div style="text-align: right">
-				<p>- {{$r->user->username}} |
+				<p><a href="/user/{{$r->user->id}}">{{$r->user->username}}</a> |
 					{{$r->rating}}
 					<a href="/books/{{$book->id}}/content/review/{{$r->id}}/up" class="first-letter" href="">+</a>
 					<a href="/books/{{$book->id}}/content/review/{{$r->id}}/down" class="first-letter">-</a>

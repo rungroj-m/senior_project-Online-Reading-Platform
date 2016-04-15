@@ -35,7 +35,14 @@
 				</div>
 				<div class="user-profile">
 					<span class="glyphicon glyphicon-lock"></span>
-					<b class="inline">Permission Level: </b> {{$user->userLevel}}
+					<b class="inline">Permission Level: </b> 
+					@if($user->userLevel == 0)
+						Standard
+					@elseif($user->userLevel == 1)
+						Critic
+					@else
+						Administrator
+					@endif
 				</div>
 				<div class="user-profile">
 					<span class="glyphicon glyphicon-book"></span>

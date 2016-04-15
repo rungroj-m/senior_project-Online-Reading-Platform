@@ -1,24 +1,32 @@
 <div class="thumbnail">
-	<a href="#collapseComment{{$c->id}}" data-toggle="collapse" aria-controls="collapseComment" id ={{$c->id}}  onclick="commentaction({{$c->id}});">[-]</a>
+	<div class="inline">
+	<a href="#collapseComment{{$c->id}}" data-toggle="collapse" aria-controls="collapseComment" id ="{{$c->id}}"  onclick="commentaction({{$c->id}});">[-]</a>
+	</div>
+	<div class="inline">
+		<a href="/user/{{$c->user->id}}">{{$c->user->username}}</a> | rating:{{$c->rating}}
+		<a href="/books/{{$id}}/content/comment/{{$c->id}}/up" class="first-letter" href="">+</a>
+		<a href="/books/{{$id}}/content/comment/{{$c->id}}/down" class="first-letter">-</a>
+	</div>
+	<div class="inline" style="float: right;">
+		<a href="#collapseReply{{$c->id}}" data-toggle="collapse" aria-controls="collapseReply" class="first-letter">reply</a> |
+		<a href="#" class="first-letter" data-toggle="modal" data-target="#commentreport{{$c->id}}">report</a> |
+		@if(Auth::user()->isAdmin() || $book->isOwner() || $c->isOwner())
+			<a href="#" class="first-letter" data-toggle="modal" data-target="#commentdelete{{$c->id}}">delete</a>
+		@endif
+	</div>
 	<div class="collapse in" id="collapseComment{{$c->id}}">
 		<div class="caption">
 			<p>{{$c->comment}}</p>
-			<div style="text-align: right">
-				<p>- {{$c->user->username}} |
-					{{$c->rating}}
-					<a href="/books/{{$id}}/content/comment/{{$c->id}}/up" class="first-letter" href="">+</a>
-					<a href="/books/{{$id}}/content/comment/{{$c->id}}/down" class="first-letter">-</a>
-					<a href="#collapseReply{{$c->id}}" data-toggle="collapse" aria-controls="collapseReply" class="first-letter">reply</a>
-					<a href="#" class="first-letter" data-toggle="modal" data-target="#commentreport{{$c->id}}">report</a>
-				@if(Auth::user()->isAdmin() || $book->isOwner() || $c->isOwner())
-						<a href="#" class="first-letter" data-toggle="modal" data-target="#commentdelete{{$c->id}}">delete</a>
-				@endif
+			<div>
+				<p>
 				<div class="collapse" id="collapseReply{{$c->id}}">
-					<form method="POST" action="/books/{{$id}}/content/comment/{{$c->id}}">
-						<input class="form-control" type="text" name="comment" ng-model="comment{{$c->id}}"><br/>
-						<button type="submit" class="btn btn-success form-control">Add Comment</button>
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-					</form>
+					<div>
+						<form method="POST" action="/books/{{$id}}/content/comment/{{$c->id}}">
+							<input class="form-control" type="text" name="comment" ng-model="comment{{$c->id}}"><br/>
+							<button type="submit" class="btn btn-success">Add Reply</button>
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+						</form>
+					</div>
 				</div>
 				</p>
 			</div>
