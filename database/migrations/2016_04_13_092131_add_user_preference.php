@@ -12,7 +12,7 @@ class AddUserPreference extends Migration
      */
     public function up()
     {
-      Schema::create('preferences', function (Blueprint $table) {
+        Schema::create('preferences', function (Blueprint $table) {
           $table->increments('id');
           $table->integer('user_id')->unsigned();
           $table->boolean('email_noti');
@@ -30,6 +30,6 @@ class AddUserPreference extends Migration
      */
     public function down()
     {
-        Schema::drop('preferences');
+        Schema::dropIfexists('preferences');
     }
 }
