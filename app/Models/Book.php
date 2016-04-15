@@ -55,9 +55,9 @@ class Book extends Model {
 		return $this->hasMany('App\Models\Donation');
 	}
 
-	public function alreadyVote(){
+	public function alreadyVote($id){
 		$userID = Auth::id();
-		$condition = ['user_id' => $userID , 'book_id' => $this->id];
+		$condition = ['user_id' => $userID , 'book_id' => $id];
 		$check = DB::table('ratings')->where($condition)->first();
 		if($check == null)
 			return false;

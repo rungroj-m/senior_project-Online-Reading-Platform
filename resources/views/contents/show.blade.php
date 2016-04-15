@@ -44,15 +44,17 @@
 	</div>
 
 	<div class="col-md-2">
-		<div class="btn-group-vertical">
-			{!! Form::open([
-				'method' => 'GET',
-				'route' => ['books.{book}.content.edit',$id,$content_chap->chapter]
-			]) !!}
-			{!! Form::submit('Edit Chapter', ['class' => 'btn btn-default']) !!}
-			{!! Form::close() !!}
-			<button type="button" class="btn btn-default form-control" data-toggle="modal" data-target="#deleteModal">Delete Chapter</button>
-		</div>
+		@if($book->isOwner())
+			<div class="btn-group-vertical">
+				{!! Form::open([
+					'method' => 'GET',
+					'route' => ['books.{book}.content.edit',$id,$content_chap->chapter]
+				]) !!}
+				{!! Form::submit('Edit Chapter', ['class' => 'btn btn-default']) !!}
+				{!! Form::close() !!}
+				<button type="button" class="btn btn-default form-control" data-toggle="modal" data-target="#deleteModal">Delete Chapter</button>
+			</div>
+		@endif
 	</div>
 </div>
 

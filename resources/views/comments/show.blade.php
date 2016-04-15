@@ -1,6 +1,6 @@
 <div class="thumbnail">
 	<div class="inline">
-	<a href="#collapseComment{{$c->id}}" data-toggle="collapse" aria-controls="collapseComment" id ="{{$c->id}}"  onclick="commentaction({{$c->id}});">[-]</a>
+	<a href="#collapseComment{{$c->id}}" data-toggle="collapse" aria-controls="collapseComment" id ="comment{{$c->id}}"  onclick=commentaction("comment{{$c->id}}");>[-]</a>
 	</div>
 	<div class="inline">
 		<a href="/user/{{$c->user->id}}">{{$c->user->username}}</a> | rating:{{$c->rating}}

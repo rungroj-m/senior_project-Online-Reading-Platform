@@ -1,5 +1,5 @@
 <div class="thumbnail">
-	<a href="#collapseReview{{$r->id}}" data-toggle="collapse" aria-controls="collapseComment" id ={{$r->id}}  onclick="reviewaction({{$r->id}});">[-]</a>
+	<a href="#collapseReview{{$r->id}}" data-toggle="collapse" aria-controls="collapseComment" id ="review{{$c->id}}"  onclick=reviewaction("review{{$c->id}}");>[-]</a>
 	<div class="collapse in" id="collapseReview{{$r->id}}">
 		<div class="caption">
 			<p>{!! $r->review !!}</p>
@@ -17,18 +17,6 @@
 		</div>
 	</div>
 </div>
-
-<script>
-	var hidden = false;
-	function action($value) {
-		hidden = !hidden;
-		if(document.getElementById($value).innerHTML == '[-]') {
-			document.getElementById($value).innerHTML = '[+]';
-		} else {
-			document.getElementById($value).innerHTML = '[-]';
-		}
-	}
-</script>
 
 <!-- MODAL -->
 <div id="reviewreport{{$r->id}}" class="modal fade" role="dialog">
