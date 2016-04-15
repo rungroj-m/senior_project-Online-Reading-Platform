@@ -64,10 +64,11 @@
 						<a data-toggle="collapse" href="#collapseUserRating" aria-controls="collapseUserRating">
 							User Rating
 						</a>
+						({{$book->userRatingCount}} votes)
 						<h4>{{$book->getUserRatingAverage()}}</h4>
 						<div class="collapse" id="collapseUserRating">
 							<!-- RATING FORM HERE -->
-							@if(!Auth::user()->isCritic() && !$book->alreadyVote())
+							@if(!Auth::user()->isCritic() && !$book->alreadyVote($book->id))
 								@if($book->isComic())
 									{!! Form::open(['method' => 'POST','route' => ['comics.rating', $book->id]]) !!}
 								@else
@@ -89,10 +90,11 @@
 						<a data-toggle="collapse" href="#collapseCriticRating" aria-controls="collapseCriticRating">
 							Critic Rating
 						</a>
+						({{$book->criticRatingCount}} votes)
 						<h4>{{$book->getCriticRatingAverage()}}</h4>
 						<div class="collapse" id="collapseCriticRating">
 							<!-- RATING FORM HERE -->
-							@if(Auth::user()->isCritic() && !$book->alreadyVote())
+							@if(Auth::user()->isCritic() && !$book->alreadyVote($book->id))
 								@if($book->isComic())
 									{!! Form::open(['method' => 'POST','route' => ['comics.rating', $book->id]]) !!}
 								@else

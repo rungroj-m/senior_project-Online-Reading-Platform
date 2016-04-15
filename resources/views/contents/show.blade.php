@@ -24,7 +24,7 @@
 	</div>
 
 	<div class="col-md-2">
-		@if($book->isOWner())
+		@if($book->isOwner())
 			<div class="btn-group-vertical">
 				{!! Form::open([
 					'method' => 'GET',
