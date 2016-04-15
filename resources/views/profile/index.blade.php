@@ -218,6 +218,7 @@
 			                    <th>Active</th>
 			                    <th>Description</th>
 			                    <th>Date/Time Added</th>
+			                    <th>View</th>
 			                    <th>Edit</th>
 			                </tr>
 			            </thead>
@@ -225,11 +226,17 @@
 			                @foreach ($user->donations as $donation)
 			                <tr>
 			                    <td>{{ $donation->id }}</td>
-			                    <td>{{ $donation->book->name }}</td>
+			                    <td>
+			                    	@if($donation->book->isComic())
+			                    		<a href="/comics/{{$donation->book_id}}/content">{{ $donation->book->name }}</a></td>
+			                    	@else
+			                    		<a href="/books/{{$donation->book_id}}/content">{{ $donation->book->name }}</a></td>
+			                    	@endif
 			                    <td>{{ $donation->goal_amount }}</td>
 			                    <td>{{ $donation->active }}</td>
 			                    <td>{{ $donation->description }}</td>
 			                    <td>{{ $donation->created_at->format('F d, Y h:ia') }}</td>
+			                    <td><a href="/donation/{{ $donation->id }}" class="btn btn-success pull-left" style="margin-right: 3px;">View</a></td>
 			                    <td>
 			                      <a href="/donation/{{ $donation->id }}/edit" class="btn btn-info pull-left" style="margin-right: 3px;">Edit</a>
 			                    </td>

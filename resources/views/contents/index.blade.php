@@ -161,14 +161,20 @@
 			</table>
 		</div>
 		<div class="col-md-4">
+			<button class="pull-right btn btn-success" data-toggle="modal" data-target="#pleadModal" style="padding-top: 10px">Plead</button>
 			<h3><span class="first-letter">D</span>ONATIONS</h3>
 			@foreach($book->donations as $d)
-				<div class="thumbnail">
-					{{$d->description}}
-					Goals: {{$d->goal_amount}}
-				</div>
+				@if($d->active == 1)
+					<div class="thumbnail">
+						<h3>{{$d->description}}</h3>
+						<h4 align="right">Open for Pleading!</h4>
+						<h4 align="right">Goals: {{$d->goal_amount}} THB</h4>
+					</div>
+				@endif
 			@endforeach
 		</div>
+	</div><hr/>
+	<div class="row">
 		<div class="col-md-8">
 			<div class="pull-right" style="padding-top: 10px">
 				<button class="btn btn-success glyphicon glyphicon-plus" data-toggle="collapse" href="#collapseReview" aria-controls="collapseReview"></button>
@@ -192,7 +198,7 @@
 		</div>
 	</div><hr/>
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-8">
 			<div class="pull-right" style="padding-top: 10px">
 				<button class="btn btn-success glyphicon glyphicon-plus" data-toggle="collapse" href="#collapseComment" aria-controls="collapseComment"></button>
 			</div>
@@ -262,6 +268,38 @@
 				<button type="submit" class="btn btn-success inline">Submit</button>
 			</div>
 			{!! Form::close() !!}
+		</div>
+	</div>
+</div>
+
+<div id="pleadModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Donation Pleading</h4>
+			</div>
+			<form class="form-horizontal" role="form" method="POST" action="{{ url('donation/plead/create') }}">
+				<div class="modal-body">
+					<h4>Select Donation:</h4>
+					@foreach ($book->donations as $donation)
+						@if($donation->active == 1)
+                  			<input type="radio" name="donation" value="{{ $donation->id }}"> {{ $donation->description }}<br/>
+                  		@endif
+                	@endforeach
+                	<br/>
+                	<h4>Amount: </h4>
+                	<p>How much are you pleading for this donation.</p>
+                	<input type="text" class="form-control" name="amount" value="{{ old('amount') }}">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default inline" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-success inline">Submit</button>
+				</div>
+				<input type="hidden" name="pleader" value="{{ Auth::user()->id }}">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+			</form>
 		</div>
 	</div>
 </div>
