@@ -18,7 +18,8 @@
 <footer>
 	<script src="{{ asset('js/app.js') }}"></script>
 	<script src="{{ asset('js/templates.js') }}"></script>
-
+	<script src="{{ asset('jquery/dist/jquery.min.js') }}"</script>
+	
 	<!-- TinyMCE Text Editor Init -->
 	<script src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
 	<script>

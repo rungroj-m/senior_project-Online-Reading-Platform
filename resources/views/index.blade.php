@@ -16,12 +16,9 @@
 		<div class="col-md-10 col-md-offset-1">
 			<div class="thumbnail">
 				<h1 align="middle">Welcome To <span class="first-letter">R</span>EADI!</h1>
-				<h3>1. Start your own creation right now.</h3>
-				<h3>2. Browse through other creator's masterpiece.</h3>
-				<h3>3. Give others rating and useful comments.</h3>
-				<h3 align="right">4. Subscribe and get notifications.</h3>
-				<h3 align="right">5. Spread the word of their creations.</h3>
-				<h2 align="middle">Share it everywhere!</h2>
+				<h3 align="middle">Write</h3>
+				<h3 align="middle">Read</h3>
+				<h3 align="middle">Contribute</h3>
 			</div>
 		</div>
 		<div class="col-md-5">
@@ -65,7 +62,11 @@
 			<div class="table-responsive">
 				<table class="table table-bordered" align="center">
 					<tbody>
+						<?php $bookCount = 0;?>
 						@foreach($books as $b)
+							@if($bookCount == 6)
+								<?php break; ?>
+							@endif
 							@if($b->category == 'Novel')
 								<tr>
 									@if($b->image == null)
@@ -86,11 +87,13 @@
 									<td><p>+ {{$b->getUserRatingAverage()}}</p><p>+ {{$b->getCriticRatingAverage()}}</p></td>
 									<td><p><span class="glyphicon glyphicon-user"></span> {{$b->user->username}}</p></td>
 								</tr>
+								<?php $bookCount++; ?>
 							@endif
 						@endforeach
 					</tbody>
 				</table>
 			</div>
+			<a href="/books"><h4 align="right">Load more Novels...</h4></a>
 		</div>
 	</div>
 	<hr/>
@@ -100,11 +103,13 @@
 				<h3><span class="first-letter">T</span>op Comics</h3>
 			</div>
 			<div class="row">
-				<?php $max = $books->count();
-					if($max>2) $max = 2;
-				?>
+				<?php 	$max = $books->count();
+						$comicCount = 0; ?>
 				@for($i = 0; $i < $max; $i++)
 					<?php $b = $books[$i] ?>
+					@if($comicCount >= 2)
+						<?php break; ?>
+					@endif
 					@if($b->category == 'Comic')
 						<div class="thumbnail col-md-3 book-thumbnail content">
 							@if($b->isComic())
@@ -125,18 +130,23 @@
 							<div><h4>User Rating</h4></div>
 							<div><h4>{{ $b->getUserRatingAverage() }}</div>
 						</div>
+						<?php $comicCount++ ?>
 					@endif
 				@endfor
 			</div>
 		</div>
 		<div class="col-md-7">
 			<div class="header">
-				<h3><span class="first-letter">R</span>ecent Novels</h3><br/>
+				<h3><span class="first-letter">R</span>ecent Comics</h3><br/>
 			</div>
 			<div class="table-responsive">
 				<table class="table table-bordered" align="center">
 					<tbody>
+						<?php $bookCount = 0;?>
 						@foreach($books as $b)
+							@if($bookCount == 6)
+								<?php break; ?>
+							@endif
 							@if($b->category == 'Comic')
 								<tr>
 									@if($b->image == null)
@@ -157,11 +167,21 @@
 									<td><p>+ {{$b->getUserRatingAverage()}}</p><p>+ {{$b->getCriticRatingAverage()}}</p></td>
 									<td><p><span class="glyphicon glyphicon-user"></span> {{$b->user->username}}</p></td>
 								</tr>
+								<?php $bookCount++; ?>
 							@endif
 						@endforeach
 					</tbody>
 				</table>
 			</div>
+			<a href="/comics"><h4 align="right">Load more Comics...</h4></a>
+		</div>
+	</div>
+	<hr/>
+	<div class="row">
+		<div class="col-md-6">
+			<header>
+				<h3><span class="first-letter">T</span>ags</h3>
+			</header>
 		</div>
 	</div>
 </div>
