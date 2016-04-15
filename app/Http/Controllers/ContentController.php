@@ -90,6 +90,8 @@ class ContentController extends Controller {
         'chapter' => 'required|integer',
 				'name' => 'required'
     ]);
+		if(!$book->contents()->where('chapter',$request->chapter)->get()->isEmpty())
+			return redirect($this->getURI($id).'/'.$id)->withErrors("duplicate chapter");
 		if ($validator->fails()) {
     	 return redirect()->action('ContentController@create',  ['bookId' => $id])
                 				->withErrors($validator)
