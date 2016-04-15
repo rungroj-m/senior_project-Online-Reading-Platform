@@ -23,9 +23,6 @@
 					@endforeach
 				</div>
 			</div><br/>
-			<div class="content">
-				<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Report this Book</button>
-			</div>
 		</div>
 		<div class="col-md-6">
 			<div class="word-wrap"><h1>{{$book->name}}</h1></div>
@@ -55,6 +52,12 @@
 							{!! Form::submit('Subscribe', ['class' => 'btn btn-success form-control']) !!}
 							{!! Form::close() !!}
 						@endif
+					</li>
+					<li class="list-group-item">
+						<span class="glyphicon glyphicon-fire"></span>
+						Report Content
+						<button type="button" class="btn btn-warning form-control" data-toggle="modal" data-target="#myModal">Report this Book</button>
+						
 					</li>
 					<li class="list-group-item">
 						<span class="glyphicon glyphicon-thumbs-up"></span>
