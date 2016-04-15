@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Auth;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Review extends Model {
 	/**
@@ -13,6 +14,9 @@ class Review extends Model {
 	protected $primaryKey = 'id';
 
 	protected $table = 'books_reviews';
+
+	use SoftDeletes;
+	
 	/**
 	 * The attributes that are mass assignable.
 	 *

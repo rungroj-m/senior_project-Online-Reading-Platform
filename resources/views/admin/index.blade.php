@@ -24,6 +24,9 @@
 				<li>
 					<a data-toggle="tab" href="#commentreport"><h4><span class="first-letter">C</span>omment <span class="first-letter">R</span>eport</h4></a>
 				</li>
+				<li>
+					<a data-toggle="tab" href="#reviewreport"><h4><span class="first-letter">R</span>eview <span class="first-letter">R</span>eport</h4></a>
+				</li>
 
 			</ul>
 			<!-- Tab Content -->
@@ -42,6 +45,11 @@
 					<!-- SUBSCRIPTIONS TABLE -->
 					@include('admin.commentReport', ['commentreports' => $commentreports])
 				</div>
+				<div id="reviewreport" class="tab-pane fade">
+					<!-- SUBSCRIPTIONS TABLE -->
+					@include('admin.reviewReport', ['reviewreports' => $reviewreports])
+				</div>
+
 			</div>
 		</div>
 	</div>

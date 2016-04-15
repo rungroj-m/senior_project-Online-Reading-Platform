@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Review;
 use App\Models\reviewRating;
+use App\Models\ReviewReport;
 use Request;
 use App\Models\Book;
 use Auth;
@@ -99,5 +100,16 @@ class reviewController extends Controller
             else
                 return 'books';
         }
+    }
+
+    public function report($bookId,$reviewId){
+        $report = Review::findOrfail($reviewId);
+        $ownerId = Auth::id();
+        $reviewReport = ReviewReport::create();
+        $reviewReport -> type = 1;
+        $reviewReport -> review_id = $report->getKey();
+        $reviewReport -> user_id = $ownerId;
+        $reviewReport -> save();
+        return redirect($this->getURI($bookId).'/'.$bookId);
     }
 }

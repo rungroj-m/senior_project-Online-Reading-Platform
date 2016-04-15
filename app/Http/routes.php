@@ -62,6 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::group(['middleware' => 'App\Http\Middleware\CriticMiddleware'], function () {
 		Route::post('comics/{book}/content/review', 'ReviewController@postReview');
 	});
+	Route::get('comics/{book}/content/review/{review}/report', ['as' => 'reviewreport', 'uses' => 'ReviewController@report']);
 
 	// Books & Content Route
 	Route::resource('books/{book}/content', 'ContentController',['except' => ['show']]);
@@ -103,6 +104,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::group(['middleware' => 'App\Http\Middleware\CriticMiddleware'], function() {
 		Route::post('books/{book}/content/review', 'ReviewController@postReview');
 	});
+	Route::get('books/{book}/content/review/{review}/report', ['as' => 'reviewreport', 'uses' => 'ReviewController@report']);
 
 	// Admin Routes
 	Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function() {

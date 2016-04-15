@@ -1,5 +1,5 @@
 <div class="thumbnail">
-	<a href="#collapseComment{{$c->id}}" data-toggle="collapse" aria-controls="collapseComment" id ={{$c->id}}  onclick="action({{$c->id}});">[-]</a>
+	<a href="#collapseComment{{$c->id}}" data-toggle="collapse" aria-controls="collapseComment" id ={{$c->id}}  onclick="commentaction({{$c->id}});">[-]</a>
 	<div class="collapse in" id="collapseComment{{$c->id}}">
 		<div class="caption">
 			<p>{{$c->comment}}</p>
@@ -8,10 +8,10 @@
 					{{$c->rating}}
 					<a href="/books/{{$id}}/content/comment/{{$c->id}}/up" class="first-letter" href="">+</a>
 					<a href="/books/{{$id}}/content/comment/{{$c->id}}/down" class="first-letter">-</a>
-					<a href="#" class="first-letter" data-toggle="modal" data-target="#report{{$c->id}}">report</a>
 					<a href="#collapseReply{{$c->id}}" data-toggle="collapse" aria-controls="collapseReply" class="first-letter">reply</a>
+					<a href="#" class="first-letter" data-toggle="modal" data-target="#commentreport{{$c->id}}">report</a>
 				@if(Auth::user()->isAdmin() || $book->isOwner() || $c->isOwner())
-						<a href="#" class="first-letter" data-toggle="modal" data-target="#myModal{{$c->id}}">delete</a>
+						<a href="#" class="first-letter" data-toggle="modal" data-target="#commentdelete{{$c->id}}">delete</a>
 				@endif
 				<div class="collapse" id="collapseReply{{$c->id}}">
 					<form method="POST" action="/books/{{$id}}/content/comment/{{$c->id}}">
@@ -30,7 +30,7 @@
 </div>
 
 <!-- MODAL -->
-<div id="report{{$c->id}}" class="modal fade" role="dialog">
+<div id="commentreport{{$c->id}}" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 		<!-- Modal content-->
 		<div class="modal-content">
@@ -55,7 +55,7 @@
 </div>
 
 <!-- MODAL -->
-<div id="myModal{{$c->id}}" class="modal fade" role="dialog">
+<div id="commentdelete{{$c->id}}" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 		<!-- Modal content-->
 		<div class="modal-content">
@@ -81,7 +81,7 @@
 
 <script>
 	var hidden = false;
-	function action($value) {
+	function commentaction($value) {
 		hidden = !hidden;
 		if(document.getElementById($value).innerHTML == '[-]') {
 			document.getElementById($value).innerHTML = '[+]';
