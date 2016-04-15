@@ -129,28 +129,38 @@
 				        <table class="table table-bordered">
 				            <tbody>
 				                @foreach ($subscriptions as $subscribe)
-				                <tr>
-				                	<td>
-				                      <a href="/books/{{ $subscribe->book_id }}/content" class="btn btn-info pull-left" style="margin-right: 3px;">
-				                        {{ $subscribe->book_id }}
-				                      </a>
-				                    </td>
-				                	@if($subscribe->book->image == null)
-										<td align="center">
-											<div>No</div> 
-											<div>Image</div>
+									@if($subscribe->active)
+									<tr>
+										<td>
+										  <a href="/books/{{ $subscribe->book_id }}/content" class="btn btn-info pull-left" style="margin-right: 3px;">
+											{{ $subscribe->book_id }}
+										  </a>
 										</td>
-									@else
-										<td align="center"><img class="small-cover-image-thumbnail" src="/images/{{$subscribe->book->image}}"></td>
-									@endif
-									@if($subscribe->book->isComic())
-										<td><h4><a href="/comics/{{$subscribe->book->id}}"> {{str_limit($subscribe->book->name, $limit = 100, $end = '...')}} </a></h4>
-									@else($subscribe->book->category == 'Comic')
-										<td><h4><a href="/books/{{$subscribe->book->id}}"> {{str_limit($subscribe->book->name, $limit = 100, $end = '...')}} </a></h4>
-									@endif
-									Subscribed since: {{$subscribe->updated_at}}
-									in {{$subscribe->book->category}}</td>
-				                </tr>
+										@if($subscribe->book->image == null)
+											<td align="center">
+												<div>No</div>
+												<div>Image</div>
+											</td>
+										@else
+											<td align="center"><img class="small-cover-image-thumbnail" src="/images/{{$subscribe->book->image}}"></td>
+										@endif
+										@if($subscribe->book->isComic())
+											<td><h4><a href="/comics/{{$subscribe->book->id}}"> {{str_limit($subscribe->book->name, $limit = 100, $end = '...')}} </a></h4>
+										@else($subscribe->book->category == 'Comic')
+											<td><h4><a href="/books/{{$subscribe->book->id}}"> {{str_limit($subscribe->book->name, $limit = 100, $end = '...')}} </a></h4>
+										@endif
+										Subscribed since: {{$subscribe->updated_at}}
+										in {{$subscribe->book->category}}</td>
+											<td>
+												{!! Form::open([
+													'method' => 'GET',
+													'route' => ['unsubscribe', $subscribe->book->id]
+												]) !!}
+												{!! Form::submit('Unsubscribe', ['class' => 'btn btn-warning form-control']) !!}
+												{!! Form::close() !!}
+											</td>
+									</tr>
+								@endif
 				                @endforeach
 				            </tbody>
 				        </table>
