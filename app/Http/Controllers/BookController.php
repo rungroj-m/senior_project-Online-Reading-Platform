@@ -161,7 +161,7 @@ class BookController extends Controller {
 					if(!Tag::where('tag',$checkbox)->get()->isEmpty()){
 						// save it to book
 						foreach (Tag::where('tag',$checkbox)->get() as $tb){
-							$tb->books()->attach($book);
+							$tb->books()->sync([$book->id],false);
 							$tb->save();
 						}
 					}else{
@@ -169,7 +169,7 @@ class BookController extends Controller {
 						$tag = Tag::create();
 						$tag->tag = $checkbox;
 						$tag->save();
-						$book->tags()->attach($tag);
+						$book->tags()->sync([$tag->id],false);
 						$book->save();
 					}
 				}
@@ -180,7 +180,7 @@ class BookController extends Controller {
 				if (!Tag::where('tag', $t)->get()->isEmpty()) {
 					// save it to book
 					foreach (Tag::where('tag',$t)->get() as $tb){
-						$tb->books()->attach($book);
+						$tb->books()->sync([$book->id],false);
 						$tb->save();
 					}
 				} else {
@@ -188,7 +188,7 @@ class BookController extends Controller {
 					$tag = Tag::create();
 					$tag->tag = $t;
 					$tag->save();
-					$book->tags()->attach($tag);
+					$book->tags()->sync([$tag->id],false);
 					$book->save();
 				}
 			}
@@ -218,6 +218,8 @@ class BookController extends Controller {
 	 */
 	public function show($id)
 	{
+
+
 		$book = Book::findOrfail($id);
 		$book->view_count++;
 		$book->save();
@@ -263,8 +265,13 @@ class BookController extends Controller {
 		$book->name = $input['name'];
 		$book->description = $input['description'];
 		$book->save();
-		if($input['image'])
-			$book->image = $this->saveimage($input);
+		$image = $this->saveimage($input);
+		if($image)
+			$book->image = $image;
+		if(Input::has('checkbox') || Input::has('tags')) {
+			$book->tags()->detach();
+			$this->findOrCreateTag($input,$book);
+		}
 		$book->save();
 		return redirect($this->getURI($id).'/'.$id.'/content');
 	}
