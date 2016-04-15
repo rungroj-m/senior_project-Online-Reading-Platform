@@ -135,7 +135,7 @@ class AuthController extends Controller {
      */
     protected function create(array $data)
     {
-				$validator = this->validator($data);
+				$validator = $this->validator($data);
 				if($validator->fails()) {
 					return redirect()->action('AdminController@create')
 													->withErrors($validator)
