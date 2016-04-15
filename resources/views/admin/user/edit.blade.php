@@ -8,13 +8,8 @@
 		<hr/>
 		{!! Form::open(['method' => 'PUT','route' => ['admin-edit-user', $user->id]]) !!}
 			<div class="form-group">
-				{!! Form::label('Firstname','Firstname:') !!}
-				{!! Form::text('firstName',$user->firstName,['class'=>'form-control']) !!}
-			</div>
-
-			<div class="form-group">
-				{!! Form::label('Lastname','Lastname:') !!}
-				{!! Form::text('lastName',$user->lastName,['class'=>'form-control']) !!}
+				{!! Form::label('Username','Username:') !!}
+				{!! Form::text('username',$user->username,['class'=>'form-control']) !!}
 			</div>
 
 			<div class="form-group">
@@ -24,25 +19,13 @@
 
 			<div class="form-group">
 				<label class="col-md-4 control-label">User Level</label>
-				<div class="col-md-6">
-					<input type="radio" name="userLevel" value="0"> Standard<br>
-					<input type="radio" name="userLevel" value="1"> Critic<br>
-					<input type="radio" name="userLevel" value="2"> Admin<br>
-				</div>
+				{!! Form::select('userLevel', ['2' => 'Admin','1' => 'Critic', '0' => 'Standard'],$user->userLevel, ['class' => 'form-control']) !!}
 			</div>
-
-			<br><br><br><br>
 
 			<div class="form-group">
 				<label class="col-md-4 control-label">Allow to create Comic</label>
-				<div class="col-md-6">
-					<input type="radio" name="imageLevel" value="0"> Not Allow<br>
-					<input type="radio" name="imageLevel" value="1"> Allow
-				</div>
+				{!! Form::select('imageLevel', ['1' => 'Allow', '0' => 'Not Allow'],$user->imageLevel, ['class' => 'form-control']) !!}
 			</div>
-
-			{{$user->image}}
-			<img src="{{ asset('images/'.$user->image) }}" />
 
 			{{--{{HTML::image(URL::to('/'.$user->image))}}--}}
 		<div class="form-group">

@@ -68,7 +68,7 @@ class AuthController extends Controller {
 
             Auth::login($authUser,true);
 
-            return redirect('books');
+            return redirect('index');
 
         }else{
             return 'something went wrong';
@@ -91,6 +91,14 @@ class AuthController extends Controller {
         }
 
         else{
+            $historyuser = User::withTrashed()->where('username',$facebookUser->getName())->first();
+            if($historyuser){
+                $historyuser->restore();
+                $historyuser->userLevel = 0;
+                $historyuser->imageLevel = 0;
+                $historyuser->save();
+                return $historyuser;
+            }
             $user = User::create([
                 'username' => $facebookUser->getName(),
                 'email' => $facebookUser->getEmail(),

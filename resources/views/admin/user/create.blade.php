@@ -21,20 +21,6 @@
 					<form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/user/create') }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-            <div class="form-group">
-							<label class="col-md-4 control-label">First Name</label>
-							<div class="col-md-6">
-								<input type="text" class="form-control" name="firstName" value="{{ old('firstName') }}">
-							</div>
-						</div>
-
-            <div class="form-group">
-							<label class="col-md-4 control-label">Last Name</label>
-							<div class="col-md-6">
-								<input type="text" class="form-control" name="lastName" value="{{ old('lastName') }}">
-							</div>
-						</div>
-
 						<div class="form-group">
 							<label class="col-md-4 control-label">Username</label>
 							<div class="col-md-6">
@@ -63,20 +49,17 @@
 							</div>
 						</div>
 
-            <div class="form-group">
+			            <div class="form-group">
 							<label class="col-md-4 control-label">User Level</label>
 							<div class="col-md-6">
-                <input type="radio" name="userLevel" value="0" checked> Standard<br>
-                <input type="radio" name="userLevel" value="1"> Critic<br>
-                <input type="radio" name="userLevel" value="2"> Admin
+								{!! Form::select('userLevel', ['2' => 'Admin','1' => 'Critic', '0' => 'Standard'],null, ['class' => 'form-control']) !!}
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">Allow to create Comic</label>
 							<div class="col-md-6">
-                <input type="radio" name="imageLevel" value="0" checked> Not allow<br>
-                <input type="radio" name="imageLevel" value="1"> Allow
+								{!! Form::select('imageLevel', ['1' => 'Allow', '0' => 'Not Allow'],null, ['class' => 'form-control']) !!}
 							</div>
 						</div>
 
