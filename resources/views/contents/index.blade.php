@@ -161,8 +161,13 @@
 			</table>
 		</div>
 		<div class="col-md-4">
-			<h3><span class="first-letter">D</span>ONATIONS</h3><br/>
-			Donation Here Soon
+			<h3><span class="first-letter">D</span>ONATIONS</h3>
+			@foreach($book->donations as $d)
+				<div class="thumbnail">
+					{{$d->description}}
+					Goals: {{$d->goal_amount}}
+				</div>
+			@endforeach
 		</div>
 		<div class="col-md-8">
 			<div class="pull-right" style="padding-top: 10px">
@@ -173,7 +178,7 @@
 				<div class="collapse" id="collapseReview">
 					<div class="thumbnail">
 						<form method="POST" action="/books/{{$book->id}}/content/review/">
-							<input class="form-control" type="text" name="review" ng-model="review"><br/>
+							<textarea class="form-control" type="text" name="review" ng-model="review"></textarea><br/>
 							<button type="submit" class="btn btn-success">Add Review</button>
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						</form>

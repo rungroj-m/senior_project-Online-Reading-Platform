@@ -2,7 +2,7 @@
 	<a href="#collapseReview{{$r->id}}" data-toggle="collapse" aria-controls="collapseComment" id ={{$r->id}}  onclick="reviewaction({{$r->id}});">[-]</a>
 	<div class="collapse in" id="collapseReview{{$r->id}}">
 		<div class="caption">
-			<p>{{$r->review}}</p>
+			<p>{!! $r->review !!}</p>
 			<div style="text-align: right">
 				<p><a href="/user/{{$r->user->id}}">{{$r->user->username}}</a> |
 					{{$r->rating}}
