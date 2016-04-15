@@ -9,10 +9,20 @@
 			<h1 class="inline"><span class="first-letter">C</span>OMIC</h1>
 		@endif
 
-		@if(Request::path() == 'comics' && !Auth::user()->isComicCreator())
+		@if(Request::path() == 'books')
 			<div class="pull-right">
-				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Request for create comic</button>
+				<a href="{{ route('books.create') }}" class="btn btn-success">Create Now</a>
 			</div>
+		@elseif(Request::path() == 'comics')
+			@if(!Auth::user()->isComicCreator())
+				<div class="pull-right">
+					<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Request for create comic</button>
+				</div>
+			@else
+				<div class="pull-right">
+					<a href="{{ route('comics.create') }}" class="btn btn-success">Create Now</a>
+				</div>
+			@endif
 		@endif
 
 		<!-- <form class="navbar-form navbar-left" role="search" method="GET" action="/books/search">

@@ -87,9 +87,12 @@ class ContentController extends Controller {
 			return redirect($this->getURI($id).'/'.$id);
 
 		$validator = Validator::make($request->all(), [
-        'chapter' => 'required|integer',
+        'chapter' => 'required|numeric',
 				'name' => 'required'
     ]);
+		if(!$book->contents()->where('chapter',$request->chapter)->get()->isEmpty())
+			return redirect()->action('ContentController@create',['bookId'=>$id])
+				->withErrors("Chapter number already exists.")->withInput();
 		if ($validator->fails()) {
     	 return redirect()->action('ContentController@create',  ['bookId' => $id])
                 				->withErrors($validator)

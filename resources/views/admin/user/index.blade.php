@@ -17,8 +17,6 @@
 
             <thead>
                 <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
                     <th>Username</th>
                     <th>Email</th>
                     <th>Type</th>
@@ -33,8 +31,6 @@
             <tbody>
                 @foreach ($users as $user)
                 <tr>
-                    <td>{{ $user->firstName }}</td>
-                    <td>{{ $user->lastName }}</td>
                     <td>{{ $user->username }}</td>
                     <td>{{ $user->email }}</td>
                     @if($user->userLevel==0)
@@ -62,7 +58,7 @@
                     <td>{{ $user->created_at->format('F d, Y h:ia') }}</td>
                     <td>
                         <a href="/admin/user/{{ $user->id }}/edit" class="btn btn-info pull-left" style="margin-right: 3px;">Edit</a>
-                        {!! Form::open(['url' => '/admin/user/' . $user->userKey, 'method' => 'DELETE']) !!}
+                        {!! Form::open(['url' => '/admin/user/' . $user->id, 'method' => 'DELETE']) !!}
                         {!! Form::submit('Delete', ['class' => 'btn btn-danger'])!!}
                         {!! Form::close() !!}
                     </td>

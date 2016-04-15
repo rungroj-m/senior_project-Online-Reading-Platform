@@ -44,9 +44,6 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $user = new User;
-
-        $user->firstName = $request->firstName;
-        $user->lastName  = $request->lastName;
         $user->username   = $request->username;
         $user->email      = $request->email;
         $user->userLevel  = $request->userLevel;
@@ -55,7 +52,7 @@ class AdminController extends Controller
 
         $user->save();
 
-        return redirect('/admin')->with('status', 'Create user ' + $user->username + ' succeed.');
+        return redirect('/admin/user')->with('status', 'Create user ' + $user->username + ' succeed.');
     }
 
     /**
@@ -92,15 +89,13 @@ class AdminController extends Controller
     {
       $user = User::find($id);
 
-      $user->firstName = $request->firstName;
-      $user->lastName  = $request->lastName;
       $user->email      = $request->email;
       $user->userLevel = $request->userLevel;
       $user->imageLevel = $request->imageLevel;
 
       $user->save();
 
-      return redirect('/admin');
+      return redirect('/admin/user');
     }
 
     /**
