@@ -65,5 +65,7 @@
 		@yield('content')
 	</div>
 
+	<!-- <nav class="navbar navbar-default navbar-fixed-bottom" style="margin-bottom: 0px; margin-top: 20px;">
 
+	</nav> -->
 @stop

@@ -33,11 +33,32 @@
 				</div>
 			</div>
 		</form> -->
-	</div><hr/>
+	</div>
+	@if(Request::path() == 'books/search')
+		<div>
+			<div class="form-group">
+				<label class="h4 inline">Show Novels 
+					<input align="middle" type="checkbox" ng-model="novel" ng-init="novel=true"/>
+				</label>
+			</div>
+			<div class="form-group">
+				<label class="h4 inline">Show Comics 
+					<input type="checkbox" ng-model="comic" ng-init="comic=true"/>
+				</label>
+			</div>
+		</div>
+	@endif
+	<hr/>
 	<div>
 		@for($i = 0; $i < count($books); $i++)
 			<?php $b = $books[$i] ?>
-			<div class="thumbnail col-md-3 book-thumbnail content">
+			@if($b->isComic() && Request::path() == 'books/search')
+				<div class="thumbnail col-md-3 book-thumbnail content" ng-show="comic">
+			@elseif(Request::path() == 'books/search')
+				<div class="thumbnail col-md-3 book-thumbnail content" ng-show="novel">
+			@else
+				<div class="thumbnail col-md-3 book-thumbnail content">
+			@endif
 				@if($b->isComic())
 					<a href="/comics/{{$b->id}}/content"><h4>{{str_limit($b->name, $limit = 20, $end = '...')}}</h4>
 				@else

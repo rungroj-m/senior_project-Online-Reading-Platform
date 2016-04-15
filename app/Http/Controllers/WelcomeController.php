@@ -2,6 +2,7 @@
 
 use Auth;
 use App\Models\Book;
+use App\Models\Tag;
 
 class WelcomeController extends Controller {
 
@@ -37,6 +38,13 @@ class WelcomeController extends Controller {
 
 	public function index(){
 		$books = Book::all();
-		return view('index', compact ('books'));
+		$tags = Tag::all();
+
+		$recentNovels = Book::where('category', 'Novel')->orderBy('updated_at', 'desc')->get();
+		$recentComics = Book::where('category', 'Comic')->orderBy('updated_at', 'desc')->get();
+
+		$topNovels = Book::where('category', 'Novel')->orderBy('userRating', 'desc')->get();
+		$topComics = Book::where('category', 'Comic')->orderBy('userRating', 'desc')->get();
+		return view('index', compact ('books', 'tags', 'topNovels', 'topComics', 'recentNovels', 'recentComics'));
 	}
 }
