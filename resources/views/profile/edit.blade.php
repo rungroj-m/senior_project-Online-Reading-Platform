@@ -8,13 +8,8 @@
 		<hr/>
 		{!! Form::open(['method' => 'PUT','route' => ['profile']]) !!}
 			<div class="form-group">
-				{!! Form::label('Firstname','Firstname:') !!}
-				{!! Form::text('firstName',$user->firstName,['class'=>'form-control']) !!}
-			</div>
-
-			<div class="form-group">
-				{!! Form::label('Lastname','Lastname:') !!}
-				{!! Form::text('lastName',$user->lastName,['class'=>'form-control']) !!}
+				{!! Form::label('Username','Username:') !!}
+				{!! Form::text('username',$user->username,['class'=>'form-control']) !!}
 			</div>
 
 			<div class="form-group">
@@ -31,9 +26,6 @@
 				{!! Form::label('facebook','Facebook Notification:') !!}
 				{!! Form::checkbox('facebook_noti', 1, $user->facebook_noti) !!}
 			</div>
-
-			{{$user->image}}
-			<img src="{{ asset('images/'.$user->image) }}" />
 
 			{{--{{HTML::image(URL::to('/'.$user->image))}}--}}
 		<div class="form-group">

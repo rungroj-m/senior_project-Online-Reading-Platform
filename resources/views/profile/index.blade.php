@@ -5,6 +5,9 @@
 	<header>
 		<h3 class="inline"><span class="first-letter">P</span>ROFILE</h3>
 		<h3 class="inline"><span class="first-letter">D</span>ASHBAORD</h3>
+		<div class="pull-right">
+			<a href="{{ route('profile.edit') }}" class="btn btn-success">Edit Profile</a>
+		</div>
 	</header><br/>
 	<div class="row">
 		<div class="col-md-3">
@@ -18,6 +21,7 @@
 					<img src="/images/{{$user->image}}">
 				</div>
 				@endif
+				<br>
 				<div class="content">
 					<button class="btn btn-success" data-toggle="modal" data-target="#myModal">Upload Avatar</button>
 				</div>

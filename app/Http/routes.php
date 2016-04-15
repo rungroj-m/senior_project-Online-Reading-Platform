@@ -90,7 +90,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('user/{id}', 'ProfileController@showProfile');
 	Route::get('profile','ProfileController@index');
 	Route::post('profile/image/',['as' => 'profile/image/','uses' => 'ProfileController@imageSave']);
-	Route::get('profile/edit','ProfileController@getEdit');
+	Route::get('profile/edit',['as' => 'profile.edit','uses' => 'ProfileController@getEdit']);
 	Route::put('profile',['as' => 'profile','uses' =>'ProfileController@update']);
 	Route::get('profile/subscription', 'SubscriptionController@index');
 	Route::get('profile/notification', 'ProfileController@notification');
