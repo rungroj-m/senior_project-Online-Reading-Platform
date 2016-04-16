@@ -261,8 +261,6 @@ class ContentController extends Controller {
 		foreach($subs as $sub) {
 			if($sub->active) {
 				$user = $sub->user;
-				if($user->facebook_id)
-					$this->facebookNotification($user);
 				Notifynder::category('book.updatechapter')
 						->from('App\Models\Book', $book->id)
 						->to('App\Models\User', $user->id)
