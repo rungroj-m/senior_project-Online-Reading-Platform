@@ -26,7 +26,7 @@
 				<h3><span class="first-letter">T</span>op Novels</h3>
 			</div>
 			<div class="row">
-				<?php $max = $books->count();
+				<?php $max = $topNovels->count();
 					if($max>2) $max = 2;
 				?>
 				@for($i = 0; $i < $max; $i++)
@@ -103,7 +103,7 @@
 				<h3><span class="first-letter">T</span>op Comics</h3>
 			</div>
 			<div class="row">
-				<?php 	$max = $books->count();
+				<?php 	$max = $topComics->count();
 						$comicCount = 0; ?>
 				@for($i = 0; $i < $max; $i++)
 					<?php $b = $topComics[$i] ?>
