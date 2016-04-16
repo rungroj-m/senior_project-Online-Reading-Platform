@@ -167,7 +167,7 @@
 		</div>
 		<div class="col-md-4">
 			@if($book->isOwner())
-				<button class="pull-right btn btn-success" data-toggle="modal" data-target="#OwnerDonation" style="padding-top: 10px">Donation</button>
+				<button class="pull-right btn btn-success" data-toggle="modal" data-target="#OwnerDonation" style="padding-top: 10px">New Donation</button>
 			@elseif($book->donations->count())
 				<button class="pull-right btn btn-success" data-toggle="modal" data-target="#pleadModal" style="padding-top: 10px">Plead</button>
 			@endif
@@ -272,16 +272,14 @@
 			{!! Form::open(['method' => 'POST','route' => ['create.donation', $book->id]]) !!}
 			<div class="modal-body">
 				<div class="form-group">
-					<label class="col-md-4 control-label">Description</label>
-					<div class="col-md-6">
-						<input type="text" class="form-control" name="description" value="{{ old('description') }}">
-					</div>
+					<h4>Description</h4>
+					<p>Short description about this donation.</p>
+					<input type="text" class="form-control" name="description" value="{{ old('description') }}">
 				</div>
 				<div class="form-group">
-					<label class="col-md-4 control-label">Goal Amount</label>
-					<div class="col-md-6">
-						<input type="text" class="form-control" name="amount" value="{{ old('amount') }}">
-					</div>
+					<h4>Goal Amount</h4>
+					<p>Goal of this donation (in THB).</p>
+					<input type="text" class="form-control" name="amount" value="{{ old('amount') }}">
 				</div>
 			</div>
 			<div class="modal-footer">
