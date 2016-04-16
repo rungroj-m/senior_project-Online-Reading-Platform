@@ -176,8 +176,7 @@
 				@if($d->active == 1)
 					<div class="thumbnail">
 						<h3>{{$d->description}}</h3>
-						<h4 align="right">Open for Pleading!</h4>
-						<h4 align="right">Goals: {{$d->goal_amount}} THB</h4>
+						<h4 align="right">Status: {{$d->sum()}} / {{$d->goal_amount}} THB</h4>
 					</div>
 				@endif
 			@endforeach

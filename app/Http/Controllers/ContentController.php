@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\Donation;
 use App\Models\User;
 use App\Models\BookReport;
 use App\Jobs\SendNotificationEmail;

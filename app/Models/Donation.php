@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Donation extends Model
 {
@@ -24,5 +25,9 @@ class Donation extends Model
 
     public function plead() {
       return $this->hasMany('App\Models\Pleading');
+    }
+
+    public function sum(){
+        return DB::table('pleadings')->where('donation_id',$this->id)->where('confirmed',1)->sum('amount');
     }
 }
