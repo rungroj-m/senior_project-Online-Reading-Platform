@@ -1,5 +1,6 @@
 <?php namespace App\Models;
 
+use Fenos\Notifynder\Facades\Notifynder;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -77,6 +78,10 @@ class User extends Model implements AuthenticatableContract,  AuthorizableContra
 
 	public function pleadings() {
 		return $this->hasMany('App\Models\Pleading');
+	}
+
+	public function readNoti($noti_id){
+		Notifynder::readOne($noti_id);
 	}
 
 }

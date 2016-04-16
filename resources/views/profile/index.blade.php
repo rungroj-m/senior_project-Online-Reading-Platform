@@ -70,7 +70,7 @@
 		                    	@endif
 		                    </td>
 		                    <td>
-		                    	<a href="{{ $noti->url }}" class="btn btn-success" style="margin-right: 3px;">
+		                    	<a href="{{ $noti->url }}" class="btn btn-success" style="margin-right: 3px;" onclick=myNotification("{{$noti->id}}");>
 		                    		New! Chapter {{ $noti->extra->chapter }}
 		                    	</a>
 		                    </td>
@@ -125,7 +125,7 @@
 			                      {{ $noti->description }}
 			                    </td>
 			                    <td>
-			                      <a href="{{ $noti->url }}" class="btn btn-success pull-left" style="margin-right: 3px;">
+			                      <a href="{{ $noti->url }}" class="btn btn-success pull-left" style="margin-right: 3px;" onclick=myNotification("{{$noti->id}}");>
 			                        Chapter {{ $noti->extra->chapter }}: {{ $noti->extra->chaptername }}
 			                      </a>
 			                    </td>
@@ -199,7 +199,7 @@
 									Total Chapters: {{$b->contents->count()}}
 									Last updated: {{$b->updated_at}}
 									in {{$b->category}}</td>
-									<td><p>+ {{$b->userRating}}</p><p>+ {{$b->criticRating}}</p></td>
+									<td><p>+ {{$b->getUserRatingAverage()}}</p><p>+ {{$b->getCriticRatingAverage()}}</p></td>
 									<td><p><span class="glyphicon glyphicon-user"></span> {{$b->user->username}}</p></td>
 								</tr>
 							@endforeach
@@ -300,3 +300,10 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	function myNotificaiton($notiId) {
+//		window.location = "/login/facebook";
+		Auth::user()->readNoti($noti->id);
+	}
+</script>

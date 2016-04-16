@@ -116,7 +116,8 @@ class ContentController extends Controller {
 			// $content->content = str_replace("\r\n", "<br/>", $request->content);
 			$book->contents()->save($content);
 			// notify subscribed user
-			$this->notify($book, $content);
+			if($content->private == 0)
+				$this->notify($book, $content);
 			return redirect($this->getURI($id).'/'.$id);
 		}
 	}
@@ -272,7 +273,7 @@ class ContentController extends Controller {
 					$this->dispatch($job);
 				}
 				if($user->facebook_id>0 && $user->facebook_noti)
-					$this->facebookNotification($user);
+					$this->facebookNotification($user,$book);
 			}
 		}
 	}
@@ -280,7 +281,7 @@ class ContentController extends Controller {
 	/**
 	 * Use this function to send notification to facebook user.
 	 */
-	public function facebookNotification($user){
+	public function facebookNotification($user,$book){
 
 		$app_id = '811596832280396';
 		$app_secret = '2f2e3fb44143bbf8543850d7cddc8c28';
@@ -297,7 +298,7 @@ class ContentController extends Controller {
 
 
 		try{
-			$response = $fb->post('/'.$user->facebook_id.'/notifications', ['template' => 'You have people waiting to play with you, play now!'], $access_token);
+			$response = $fb->post('/'.$user->facebook_id.'/notifications', ['template' => $book->name.' update new chapter.'], $access_token);
 		}catch(Facebook\Exceptions\FacebookResponseException $e){
 			echo 'Graph returned an error: ' . $e->getMessage();
 			exit;
@@ -317,6 +318,7 @@ class ContentController extends Controller {
 	 */
 	public function show($id, $chapter)
 	{
+		$id = Auth::id();
 		$content_chap = DB::table('books_contents')
 			->where('book_id', $id)
 			->join('contents', 'books_contents.content_id', '=', 'contents.id')
@@ -406,6 +408,14 @@ class ContentController extends Controller {
 			->where('contents.chapter', $chapter)->first();
 		$content = Content::find($content_chap->content_id);
 		return $content;
+	}
+
+	public function contentNoti($bookId,$chapter,$notiID){
+		$user = Auth::user();
+		if(Notifynder::findNotificationById($notiID)->to_id == $user->id){
+			$user->readNoti($notiID);
+		}
+		return redirect($this->getURI($bookId).'/'.$bookId.'/content/'.$chapter);
 	}
 
 }

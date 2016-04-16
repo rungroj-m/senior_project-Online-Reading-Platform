@@ -113,7 +113,8 @@ class ProfileController extends Controller
     public function notification() {
         $id = Auth::id();
         $user = User::find($id);
-        $noti = $user->getNotifications($limit = null, $paginate = null, $order = 'desc');
+        $noti = $user->getNotificationsNotRead($limit = null, $paginate = null, $order = 'desc');
+//        $noti = $user->getNotifications($limit = null, $paginate = null, $order = 'desc');
         foreach($noti as $no) {
             $no->category = NotificationCategory::find($no->category_id);
             $temp = str_replace('{extra.bookname}', $no->extra->bookname, $no->category->text);

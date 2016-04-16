@@ -42,6 +42,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('comics/{book}/report', ['as' => 'report', 'uses' => 'BookController@report']);
 	Route::post('comics/{book}/ratings', ['as' => 'comics.rating', 'uses' => 'BookController@rate']);
 	Route::resource('comics', 'BookController');
+	Route::get('comics/{book}/content/{content}/noti/{noti}', 'ContentController@contentNoti');
+	Route::get('books/{book}/content/{content}/noti/{noti}', 'ContentController@contentNoti');
+
 
 	// Comment Routes
 	Route::post('comics/{book}/content/comment', 'CommentController@postComment');
