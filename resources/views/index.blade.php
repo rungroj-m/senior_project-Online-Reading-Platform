@@ -30,7 +30,7 @@
 					if($max>2) $max = 2;
 				?>
 				@for($i = 0; $i < $max; $i++)
-					<?php $b = $books[$i] ?>
+					<?php $b = $topNovels[$i] ?>
 					@if($b->category == 'Novel')
 						<div class="thumbnail col-md-3 book-thumbnail content">
 							@if($b->isComic())
@@ -63,7 +63,7 @@
 				<table class="table table-bordered" align="center">
 					<tbody>
 						<?php $bookCount = 0;?>
-						@foreach($books as $b)
+						@foreach($recentNovels as $b)
 							@if($bookCount == 6)
 								<?php break; ?>
 							@endif
@@ -106,7 +106,7 @@
 				<?php 	$max = $books->count();
 						$comicCount = 0; ?>
 				@for($i = 0; $i < $max; $i++)
-					<?php $b = $books[$i] ?>
+					<?php $b = $topComics[$i] ?>
 					@if($comicCount >= 2)
 						<?php break; ?>
 					@endif
@@ -143,7 +143,7 @@
 				<table class="table table-bordered" align="center">
 					<tbody>
 						<?php $bookCount = 0;?>
-						@foreach($books as $b)
+						@foreach($recentComics as $b)
 							@if($bookCount == 6)
 								<?php break; ?>
 							@endif
@@ -180,9 +180,14 @@
 	<div class="row">
 		<div class="col-md-6">
 			<header>
-				<h3><span class="first-letter">T</span>ags</h3>
+				<h3><span class="first-letter">T</span>ags Cloud</h3>
 			</header>
+			<div>
+				@foreach($tags as $t)
+					<a href="/books/search?request={{$t->tag}}"><span class="badge">{{$t->tag}} ({{$t->books->count()}})</span></a>
+				@endforeach
+			</div>
 		</div>
-	</div>
+	</div><hr/>
 </div>
 @stop
