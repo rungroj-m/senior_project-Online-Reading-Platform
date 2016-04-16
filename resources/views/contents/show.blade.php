@@ -15,7 +15,7 @@
 					<div class="owl-carousel">
 						@foreach($content_images as $content)
 							<div class="item">
-								<img class="owl-lazy" src="/images/{{$content}}" style="height: 100%; width: 100%">
+								<img src="/images/{{$content}}" style="height: 100%; width: 100%">
 								<p align="center">{{$i}}/{{count($content_images)}}</p>
 								<?php $i++ ?>
 							</div>

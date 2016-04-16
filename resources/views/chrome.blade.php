@@ -14,13 +14,13 @@
 	<!-- Custom Fonts -->
  	<link href='https://fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
-	<!-- <link rel="stylesheet" href="asset('owlcarousel/owl.carousel.min.css')">
-	<link rel="stylesheet" href="asset('owlcarousel/owl.theme.default.min.css')"> -->
+	<link rel="stylesheet" href="{{asset('owlcarousel/owl.carousel.min.css')}}">
+	<link rel="stylesheet" href="{{asset('owlcarousel/owl.theme.default.min.css')}}">
 </head>
 <footer>
 	<script src="{{ asset('js/app.js') }}"></script>
 	<script src="{{ asset('jquery/dist/jquery.min.js') }}"></script>
-	<!-- <script src="{{ asset('owlcarousel/owl.carousel.min.js') }}"></script> -->
+	<script src="{{ asset('owlcarousel/owl.carousel.min.js') }}"></script>
 	<script src="{{ asset('js/templates.js') }}"></script>
 	<script src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
 
