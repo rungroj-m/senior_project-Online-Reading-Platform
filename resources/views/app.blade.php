@@ -41,8 +41,6 @@
 								@else
 									@if($user->image)
 										<img class="inline small-user-image-thumbnail-navbar" src="/images/{{$user->image}}">
-									@else
-										<div class="thumbnail small-user-image-thumbnail-navbar">No Image</div>
 									@endif
 									 {{$user->username}} 
 								@endif

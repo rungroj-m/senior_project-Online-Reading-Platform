@@ -6,8 +6,6 @@
 			<div style="text-align: right">
 				@if($r->user->image)
 					<img class="inline small-user-image-thumbnail" src="/images/{{$r->user->image}}">
-				@else
-					<div class="thumbnail small-user-image-thumbnail">No Image</div>
 				@endif
 				<p class="inline"><a href="/user/{{$r->user->id}}">{{$r->user->username}}</a> |
 					{{$r->rating}}
