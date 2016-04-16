@@ -166,7 +166,9 @@
 			</table>
 		</div>
 		<div class="col-md-4">
-			@if($book->donations->count())
+			@if($book->isOwner())
+				<button class="pull-right btn btn-success" data-toggle="modal" data-target="#OwnerDonation" style="padding-top: 10px">Donation</button>
+			@elseif($book->donations->count())
 				<button class="pull-right btn btn-success" data-toggle="modal" data-target="#pleadModal" style="padding-top: 10px">Plead</button>
 			@endif
 			<h3><span class="first-letter">D</span>ONATIONS</h3>
@@ -260,6 +262,38 @@
 @stop
 
 <!-- MODAL -->
+<div id="OwnerDonation" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Create Donation</h4>
+			</div>
+			{!! Form::open(['method' => 'POST','route' => ['create.donation', $book->id]]) !!}
+			<div class="modal-body">
+				<div class="form-group">
+					<label class="col-md-4 control-label">Description</label>
+					<div class="col-md-6">
+						<input type="text" class="form-control" name="description" value="{{ old('description') }}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">Goal Amount</label>
+					<div class="col-md-6">
+						<input type="text" class="form-control" name="amount" value="{{ old('amount') }}">
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default inline" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-success inline">Submit</button>
+			</div>
+			{!! Form::close() !!}
+		</div>
+	</div>
+</div>
+
 <div id="deleteModal" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 		<!-- Modal content-->
@@ -280,6 +314,7 @@
 		</div>
 	</div>
 </div>
+
 
 <div id="pleadModal" class="modal fade" role="dialog">
 	<div class="modal-dialog">

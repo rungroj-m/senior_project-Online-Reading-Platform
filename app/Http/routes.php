@@ -125,6 +125,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('donation/create', 'DonationController@create_donation');
 	Route::get('donation/plead/create', 'DonationController@create_pleading');
 	Route::post('donation/create', 'DonationController@store_donation');
+	Route::post('/books/{book}/donation/create', [ 'as' => 'create.donation','uses' =>'DonationController@store_donation2']);
+	Route::post('/comics/{book}/donation/create', [ 'as' => 'create.donation','uses' =>'DonationController@store_donation2']);
 	Route::post('donation/plead/create', 'DonationController@store_pleading');
 	Route::get('donation/{id}', 'DonationController@show');
 	Route::get('donation/{id}/edit', 'DonationController@edit');

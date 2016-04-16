@@ -30,6 +30,14 @@ class DonationController extends Controller
       return view('donation.index', compact('donations', 'pleadings', 'user'));
     }
 
+    public function getURI($id){
+        $book = Book::findOrfail($id);
+        if($book->isComic())
+            return 'comics';
+        else
+            return 'books';
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -74,11 +82,36 @@ class DonationController extends Controller
         $donation = new Donation;
         $donation->description = $request->description;
         $donation->goal_amount = $request->amount;
+        $donation->active = $request->active;
         $donation->user()->associate($user);
         $donation->book()->associate($book);
         $donation->save();
         return redirect(url('donation/'.$donation->id));
       }
+    }
+
+    public function store_donation2($bookId,Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'amount' => 'required|numeric',
+            'description' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect(url($this->getURI($bookId).'/'.$bookId))
+                ->withErrors($validator);
+        }
+        else {
+            $book = Book::findOrFail($bookId);
+            $user = Auth::user();
+            $donation = new Donation;
+            $donation->description = $request->description;
+            $donation->goal_amount = $request->amount;
+            $donation->active = 1;
+            $donation->user()->associate($user);
+            $donation->book()->associate($book);
+            $donation->save();
+            return redirect(url($this->getURI($bookId).'/'.$bookId));
+        }
     }
 
     public function store_pleading(Request $request) {

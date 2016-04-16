@@ -70,7 +70,7 @@
 		                    	@endif
 		                    </td>
 		                    <td>
-		                    	<a href="{{ $noti->url }}" class="btn btn-success" style="margin-right: 3px;" onclick=myNotification("{{$noti->id}}");>
+		                    	<a href="{{ $noti->url.'/noti/'.$noti->id }}" class="btn btn-success" style="margin-right: 3px;">
 		                    		New! Chapter {{ $noti->extra->chapter }}
 		                    	</a>
 		                    </td>
@@ -125,7 +125,7 @@
 			                      {{ $noti->description }}
 			                    </td>
 			                    <td>
-			                      <a href="{{ $noti->url }}" class="btn btn-success pull-left" style="margin-right: 3px;" onclick=myNotification("{{$noti->id}}");>
+			                      <a href="{{ $noti->url.'/noti/'.$noti->id }}" class="btn btn-success pull-left" style="margin-right: 3px;">
 			                        Chapter {{ $noti->extra->chapter }}: {{ $noti->extra->chaptername }}
 			                      </a>
 			                    </td>
