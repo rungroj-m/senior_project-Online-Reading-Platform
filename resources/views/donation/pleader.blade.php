@@ -36,12 +36,12 @@
                     <td>{{ $pleader->created_at->format('F d, Y h:ia') }}</td>
                     <td>
                       @if(!$pleader->confirmed)
-                        {!! Form::open(['method' => 'PUT','route' => ['plead-confirm', $donation->id]]) !!}
+                        {!! Form::open(['method' => 'PUT','route' => ['plead-confirm', $pleader->id]]) !!}
                         {!! Form::submit('Confirm',['class' => 'btn btn-default']) !!}
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         {!! Form::close() !!}
                       @else
-                        {!! Form::open(['method' => 'PUT','route' => ['plead-unconfirm', $donation->id]]) !!}
+                        {!! Form::open(['method' => 'PUT','route' => ['plead-unconfirm', $pleader->id]]) !!}
                         {!! Form::submit('Unconfirm',['class' => 'btn btn-default']) !!}
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         {!! Form::close() !!}
