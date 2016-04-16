@@ -86,6 +86,10 @@ textarea{
 	height: 30px;
 	width: 30px;
 }
+.small-user-image-thumbnail-navbar{
+	height: 20px;
+	width: 20px;
+}
 .book-thumbnail{
 	height: 420px;
 	width: 220px;

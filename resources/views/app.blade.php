@@ -39,9 +39,13 @@
 								@if (Auth::guest())
 									Guest 
 								@else
-									{{$user->username}} 
+									@if($user->image)
+										<img class="inline small-user-image-thumbnail-navbar" src="/images/{{$user->image}}">
+									@else
+										<div class="thumbnail small-user-image-thumbnail-navbar">No Image</div>
+									@endif
+									 {{$user->username}} 
 								@endif
-								<span class="glyphicon glyphicon-user"></span>
 								<span class="caret"></span>
 							</div>
 						</a>

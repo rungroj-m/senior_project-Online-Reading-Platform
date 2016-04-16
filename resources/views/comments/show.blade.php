@@ -3,6 +3,11 @@
 	<a href="#collapseComment{{$c->id}}" data-toggle="collapse" aria-controls="collapseComment" id ="comment{{$c->id}}"  onclick=commentaction("comment{{$c->id}}");>[-]</a>
 	</div>
 	<div class="inline">
+		@if($c->user->image)
+			<img class="inline small-user-image-thumbnail" src="/images/{{$c->user->image}}">
+		@else
+			<div class="thumbnail small-user-image-thumbnail">No Image</div>
+		@endif
 		<a href="/user/{{$c->user->id}}">{{$c->user->username}}</a> | rating:{{$c->rating}}
 		<a href="/books/{{$id}}/content/comment/{{$c->id}}/up" class="first-letter" href="">+</a>
 		<a href="/books/{{$id}}/content/comment/{{$c->id}}/down" class="first-letter">-</a>
@@ -16,7 +21,7 @@
 	</div>
 	<div class="collapse in" id="collapseComment{{$c->id}}">
 		<div class="caption">
-			<p>{{$c->comment}}</p>
+			<p class="inline"> {{$c->comment}}</p>
 			<div>
 				<p>
 				<div class="collapse" id="collapseReply{{$c->id}}">

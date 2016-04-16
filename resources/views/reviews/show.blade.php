@@ -4,7 +4,12 @@
 		<div class="caption">
 			<p>{!! $r->review !!}</p>
 			<div style="text-align: right">
-				<p><a href="/user/{{$r->user->id}}">{{$r->user->username}}</a> |
+				@if($r->user->image)
+					<img class="inline small-user-image-thumbnail" src="/images/{{$r->user->image}}">
+				@else
+					<div class="thumbnail small-user-image-thumbnail">No Image</div>
+				@endif
+				<p class="inline"><a href="/user/{{$r->user->id}}">{{$r->user->username}}</a> |
 					{{$r->rating}}
 					<a href="/books/{{$book->id}}/content/review/{{$r->id}}/up" class="first-letter" href="">+</a>
 					<a href="/books/{{$book->id}}/content/review/{{$r->id}}/down" class="first-letter">-</a>
