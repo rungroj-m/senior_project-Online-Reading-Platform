@@ -319,15 +319,15 @@ class ContentController extends Controller {
 	 */
 	public function show($id, $chapter)
 	{
-		$id = Auth::id();
+		$user_id = Auth::id();
 		$content_chap = DB::table('books_contents')
 			->where('book_id', $id)
 			->join('contents', 'books_contents.content_id', '=', 'contents.id')
 			->where('contents.chapter', $chapter)->first();
 		$book = Book::findOrFail($id);
 		if($book->isComic())
-			return view('contents.show',compact('content_chap', 'book'))->with('id',$id)->with('content_images',json_decode($content_chap->content));
-		return view('contents.show',compact('content_chap', 'book'))->with('id',$id);
+			return view('contents.show',compact('content_chap', 'book'))->with('id',$user_id)->with('content_images',json_decode($content_chap->content));
+		return view('contents.show',compact('content_chap', 'book'))->with('id',$user_id);
 	}
 
 	/**
