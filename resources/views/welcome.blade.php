@@ -9,7 +9,8 @@
 				<div class="title">
 					<span class="first-letter">R</span>EADI
 				</div>
-				<h2>Reading Scrublords PJSalt Kappa FailFish.</h2>
+				<h2>Simplicity in online reading and writing.</h2>
+				<br/><br/><br/>
 			</div>
 			<div class="col-md-6 home-right">
 				<form class="form-vertical" role="form" method="POST" action="{{ url('/login') }}">
