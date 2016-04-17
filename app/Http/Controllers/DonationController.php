@@ -180,6 +180,7 @@ class DonationController extends Controller
       $donation = Donation::find($id);
       $donation->description =  $request->description;
       $donation->goal_amount = $request->amount;
+      $donation->active = $request->active;
       $donation->save();
       return redirect(url('donation/'.$donation->id));
     }
