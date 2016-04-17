@@ -105,7 +105,6 @@
 			        <table class="table table-bordered">
 			            <thead>
 			                <tr>
-			                    <th>Notification ID</th>
 			                    <th>Category</th>
 			                    <th>Description</th>
 			                    <th>URL</th>
@@ -114,7 +113,6 @@
 			            <tbody>
 			                @foreach ($notifications as $noti)
 			                <tr>
-			                    <td>{{$noti->id}}</td>
 			                    <td>
 			                    	@if ($noti->category->name == 'book.updatechapter')
 			                        {{ $noti->extra->bookname }} updated!
@@ -142,11 +140,6 @@
 				                @foreach ($subscriptions as $subscribe)
 									@if($subscribe->active)
 									<tr>
-										<td>
-										  <a href="/books/{{ $subscribe->book_id }}/content" class="btn btn-info pull-left" style="margin-right: 3px;">
-											{{ $subscribe->book_id }}
-										  </a>
-										</td>
 										@if($subscribe->book->image == null)
 											<td align="center">
 												<div>No</div>
@@ -212,7 +205,6 @@
 					<table class="table table-bordered">
 			            <thead>
 			                <tr>
-			                    <th>No.</th>
 			                    <th>Related Book</th>
 			                    <th>Goal Amount</th>
 			                    <th>Active</th>
@@ -225,7 +217,6 @@
 			            <tbody>
 			                @foreach ($user->donations as $donation)
 			                <tr>
-			                    <td>{{ $donation->id }}</td>
 			                    <td>
 			                    	@if($donation->book->isComic())
 			                    		<a href="/comics/{{$donation->book_id}}/content">{{ $donation->book->name }}</a></td>
@@ -251,7 +242,6 @@
 			        <table class="table table-bordered">
 			            <thead>
 			                <tr>
-			                    <th>No.</th>
 			                    <th>Book</th>
 			                    <th>Description</th>
 			                    <th>Amount</th>
@@ -262,7 +252,6 @@
 			            <tbody>
 			                @foreach ($user->pleadings as $pleader)
 			                <tr>
-			                    <td>{{ $pleader->id }}</td>
 			                    <td>{{ $pleader->donation->book->name}}</td>
 			                    <td>{{ $pleader->donation->description}}</td>
 			                    <td>{{ $pleader->amount }}</td>
