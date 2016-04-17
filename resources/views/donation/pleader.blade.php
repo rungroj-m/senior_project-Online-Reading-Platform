@@ -6,7 +6,7 @@
 
 <div class="col-lg-10 col-lg-offset-1">
 
-    <h1><i class="fa fa-users"></i>Pleader of Donation No. {!! $donation->id !!}</h1>
+    <h1><i class="fa fa-users"></i>Pledger of Donation No. {!! $donation->id !!}</h1>
     <h4>Goal Amount: {!! $donation->goal_amount !!}</h4>
     <p>{!! $donation->description !!}</p>
     @if(!empty($status))
@@ -18,7 +18,7 @@
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>Pleader Username</th>
+                    <th>Pledger Username</th>
                     <th>Amount</th>
                     <th>Confirmed</th>
                     <th>Date/Time Added</th>
@@ -54,7 +54,7 @@
         </table>
     </div>
 
-    <a href="/donation/plead/create" class="btn btn-success">Add Pleader</a>
+    <a href="/donation/plead/create" class="btn btn-success">Add Pledger</a>
     <a href="/donation/{{$donation->id}}/edit" class="btn btn-success">Edit Donation</a>
 
 </div>

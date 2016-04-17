@@ -57,7 +57,7 @@
 						<span class="glyphicon glyphicon-fire"></span>
 						Report Content
 						<button type="button" class="btn btn-warning form-control" data-toggle="modal" data-target="#myModal">Report this Book</button>
-						
+
 					</li>
 					<li class="list-group-item">
 						<span class="glyphicon glyphicon-thumbs-up"></span>
@@ -169,7 +169,7 @@
 			@if($book->isOwner())
 				<button class="pull-right btn btn-success" data-toggle="modal" data-target="#OwnerDonation" style="padding-top: 10px">New Donation</button>
 			@elseif($book->donations->count())
-				<button class="pull-right btn btn-success" data-toggle="modal" data-target="#pleadModal" style="padding-top: 10px">Plead</button>
+				<button class="pull-right btn btn-success" data-toggle="modal" data-target="#pleadModal" style="padding-top: 10px">Pledge</button>
 			@endif
 			<h3><span class="first-letter">D</span>ONATIONS</h3>
 			@foreach($book->donations as $d)
@@ -319,7 +319,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Donation Pleading</h4>
+				<h4 class="modal-title">Donation Pledging</h4>
 			</div>
 			<form class="form-horizontal" role="form" method="POST" action="{{ url('donation/plead/create') }}">
 				<div class="modal-body">
@@ -331,7 +331,7 @@
                 	@endforeach
                 	<br/>
                 	<h4>Amount: </h4>
-                	<p>How much are you pleading for this donation.</p>
+                	<p>How much are you pledging for this donation.</p>
                 	<input type="text" class="form-control" name="amount" value="{{ old('amount') }}">
 				</div>
 				<div class="modal-footer">

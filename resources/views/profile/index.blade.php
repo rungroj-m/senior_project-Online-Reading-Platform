@@ -39,7 +39,7 @@
 				</div>
 				<div class="user-profile">
 					<span class="glyphicon glyphicon-lock"></span>
-					<b class="inline">Permission Level: </b> 
+					<b class="inline">Permission Level: </b>
 					@if($user->userLevel == 0)
 						Standard
 					@elseif($user->userLevel == 1)
@@ -95,7 +95,7 @@
 					<a data-toggle="tab" href="#donations"><h4><span class="first-letter">D</span>onations</h4></a>
 				</li>
 				<li>
-					<a data-toggle="tab" href="#pleads"><h4><span class="first-letter">P</span>leads</h4></a>
+					<a data-toggle="tab" href="#pleads"><h4><span class="first-letter">P</span>ledges</h4></a>
 				</li>
 			</ul>
 			<!-- Tab Content -->
@@ -185,7 +185,7 @@
 								<tr>
 									@if($b->image == null)
 										<td align="center">
-											<div>No</div> 
+											<div>No</div>
 											<div>Image</div>
 										</td>
 									@else
