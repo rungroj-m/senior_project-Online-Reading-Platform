@@ -9,9 +9,13 @@
     <h1><i class="fa fa-users"></i>Pledger of Donation No. {!! $donation->id !!}</h1>
     <h4>Goal Amount: {!! $donation->goal_amount !!}</h4>
     <p>{!! $donation->description !!}</p>
-    @if(!empty($status))
-      <p>{{$status}}</p>
+    <p>Status:
+    @if($donation->active==1)
+      Active
+    @else
+      Inactive
     @endif
+    </p>
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
 

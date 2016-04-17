@@ -19,6 +19,11 @@
 				{!! Form::text('description', $donation->description, ['class'=>'form-control']) !!}
 			</div>
 
+			<div class="form-group">
+				{!! Form::label('Active','Active:') !!}
+				{!! Form::checkbox('active', 1, $donation->active) !!}
+			</div>
+
 		<div class="form-group">
 			{!! Form::submit('Edit',['class' => 'btn btn-default']) !!}
 		</div>
