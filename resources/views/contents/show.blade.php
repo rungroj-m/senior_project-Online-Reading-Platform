@@ -28,8 +28,7 @@
 							lazyLoad: true,
 							loop:false,
 							margin:5,
-	    				loop:false,
-	    				nav:true,
+	    				// nav:true,
 							responsive:{
 					        0:{
 					            items:1
