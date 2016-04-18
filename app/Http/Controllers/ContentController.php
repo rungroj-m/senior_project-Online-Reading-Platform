@@ -106,6 +106,7 @@ class ContentController extends Controller {
 			$content->chapter = $request->chapter;
 			$content->private = $request->private;
 			if($book->isComic()) {
+//				return $this->multiple_upload($request);
 				$content->content = json_encode( $this->multiple_upload($request));
 //				return $request;
 			}
@@ -130,6 +131,7 @@ class ContentController extends Controller {
 		// Making counting of uploaded images
 		$file_count = count($files);
 		// start count how many uploaded
+
 		$uploadcount = 0;
 		$locations = [];
 		foreach($files as $file) {
@@ -146,6 +148,8 @@ class ContentController extends Controller {
 				$uploadcount ++;
 			}
 		}
+		sort($locations);
+
 		Session::flash('success', 'Upload successfully');
 		return $locations;
 	}
