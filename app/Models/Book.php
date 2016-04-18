@@ -77,4 +77,8 @@ class Book extends Model {
 		else
 			return 0;
 	}
+
+	public function getTotalSubscribers(){
+		return $this->subscribers()->where('active',1)->count();
+	}
 }

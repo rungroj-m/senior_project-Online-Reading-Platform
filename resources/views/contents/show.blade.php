@@ -9,6 +9,12 @@
 		<h3 align="center">Chapter {{ $content_chap->chapter }}</h3><br/>
 		<h4 align="center">{{ $content_chap->name }}</h1>
 		<hr>
+			{{--<div class="pull-left">--}}
+				<button id="leftbutton" class="btn-success" >&lt;</button>
+			{{--</div>--}}
+			{{--<div class="pull-right">--}}
+				<button id="rightbutton" class="btn-success">&gt;</button>
+			{{--</div>--}}
 			@if($book->isComic())
 				<!-- <p class="content-text" align="center"> -->
 					<?php $i = 1 ?>
@@ -30,7 +36,7 @@
 							lazyLoad: true,
 							loop:false,
 							margin:5,
-	    				nav:true,
+//	    				nav:true,
 							responsive:{
 					        0:{
 					            items:1
@@ -60,6 +66,16 @@
 </div>
 
 <script>
+
+	$("#leftbutton").click(function(){
+		var owl = jQuery(".owl-carousel");
+		owl.trigger('prev.owl');
+	});
+
+	$("#rightbutton").click(function(){
+		var owl = jQuery(".owl-carousel");
+		owl.trigger('next.owl');
+	});
 
 	jQuery(document.documentElement).keyup(function (event) {
 

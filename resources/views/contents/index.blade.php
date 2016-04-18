@@ -37,7 +37,8 @@
 					<li class="list-group-item">
 						<span class="glyphicon glyphicon-cloud"></span>
 						Subscription
-						@if($subscribe)
+						({!! $book-> getTotalSubscribers()!!} subscribes)
+					@if($subscribe)
 							{!! Form::open([
 								'method' => 'GET',
 								'route' => ['unsubscribe', $book->id]
