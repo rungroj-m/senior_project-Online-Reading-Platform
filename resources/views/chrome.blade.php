@@ -44,8 +44,21 @@
 
 </footer>
 
-<body>
+<body oncontextmenu="return false">
 	@yield('app')
 </body>
+
+<script language="javascript">
+	document.onmousedown=disableclick;
+//	status="ทางการ";
+	function disableclick(event)
+	{
+		if(event.button==2)
+		{
+//			alert(status);
+			return false;
+		}
+	}
+</script>
 
 </html>
