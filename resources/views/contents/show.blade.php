@@ -15,9 +15,11 @@
 					<div class="owl-carousel">
 						@foreach($content_images as $content)
 							<div class="item">
-								<img src="/images/{{$content}}">
-								<p align="center">{{$i}}/{{count($content_images)}}</p>
-								<?php $i++ ?>
+								<center>
+									<img src="/images/{{$content}}" style="display: block;width: auto;height: 100% !important;max-width: 100%">
+									<p align="center">{{$i}}/{{count($content_images)}}</p>
+									<?php $i++ ?>
+								</center>
 							</div>
 						@endforeach
 					</div>
@@ -47,7 +49,7 @@
 			<div class="btn-group-vertical">
 				{!! Form::open([
 					'method' => 'GET',
-					'route' => ['books.{book}.content.edit',$id,$content_chap->chapter]
+					'route' => ['books.{book}.content.edit',$book->id,$content_chap->chapter]
 				]) !!}
 				{!! Form::submit('Edit Chapter', ['class' => 'btn btn-default']) !!}
 				{!! Form::close() !!}
@@ -88,7 +90,7 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<h4 class="modal-title">Delete Chapter</h4>
 			</div>
-			{!! Form::open(['method' => 'DELETE','route' => ['books.{book}.content.destroy', $id, $content_chap->chapter]]) !!}
+			{!! Form::open(['method' => 'DELETE','route' => ['books.{book}.content.destroy', $book->id, $content_chap->chapter]]) !!}
 			<div class="modal-body">
 				<p>Delete this chapter?</p>
 			</div>
@@ -100,3 +102,6 @@
 		</div>
 	</div>
 </div>
+
+
+
