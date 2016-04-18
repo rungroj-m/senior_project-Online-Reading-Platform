@@ -71,6 +71,7 @@ class ProfileController extends Controller
         $user -> firstName = $request -> firstName;
         $user -> lastName = $request -> lastName;
         $user -> email = $request -> email;
+        $user -> username = $request -> username;
         $user->email_noti = $request->email_noti;
         $user->facebook_noti = $request->facebook_noti;
         $user -> save();
