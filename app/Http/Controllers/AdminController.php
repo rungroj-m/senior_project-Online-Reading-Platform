@@ -135,7 +135,7 @@ class AdminController extends Controller
         $user = User::find($id);
         $user->imageLevel = 1;
         $user->save();
-        return redirect('admin/userreport');
+        return redirect('admin/');
     }
 
 }
