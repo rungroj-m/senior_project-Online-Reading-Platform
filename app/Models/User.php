@@ -84,4 +84,8 @@ class User extends Model implements AuthenticatableContract,  AuthorizableContra
 		Notifynder::readOne($noti_id);
 	}
 
+	public function countNotification() {
+		return  $this->countNotificationsNotRead($category = null);
+	}
+
 }

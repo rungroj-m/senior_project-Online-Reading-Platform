@@ -4,23 +4,23 @@
 <div class="main-container">
 	<div class="row">
 		<div class="header">
-			<div class="pull-right">
-				<a href="{{ route('books.create') }}" class="btn btn-info">Learn More</a>
-				<a href="{{ route('books.create') }}" class="btn btn-success">Create Now</a>
-			</div>
-			<div>
-				<h1 class="inline"><span class="first-letter">C</span>REATORS</h1>
-				<h4 class="inline">feed</h4>
-			</div>
+			{{--<div class="pull-right">--}}
+				{{--<a href="{{ route('books.create') }}" class="btn btn-info">Learn More</a>--}}
+				{{--<a href="{{ route('books.create') }}" class="btn btn-success">Create Now</a>--}}
+			{{--</div>--}}
+			{{--<div>--}}
+				{{--<h1 class="inline"><span class="first-letter">C</span>REATORS</h1>--}}
+				{{--<h4 class="inline">feed</h4>--}}
+			{{--</div>--}}
 		</div><br/>
-		<div class="col-md-10 col-md-offset-1">
-			<div class="thumbnail">
-				<h1 align="middle">Welcome To <span class="first-letter">R</span>EADI!</h1>
-				<h3 align="middle">Write</h3>
-				<h3 align="middle">Read</h3>
-				<h3 align="middle">Contribute</h3>
-			</div>
-		</div>
+		{{--<div class="col-md-10 col-md-offset-1">--}}
+			{{--<div class="thumbnail">--}}
+				{{--<h1 align="middle">Welcome To <span class="first-letter">R</span>EADI!</h1>--}}
+				{{--<h3 align="middle">Write</h3>--}}
+				{{--<h3 align="middle">Read</h3>--}}
+				{{--<h3 align="middle">Contribute</h3>--}}
+			{{--</div>--}}
+		{{--</div>--}}
 		<div class="col-md-5">
 			<div class="header">
 				<h3><span class="first-letter">T</span>op Novels</h3>
@@ -57,6 +57,9 @@
 		</div>
 		<div class="col-md-7">
 			<div class="header">
+				<div class="pull-right">
+					<a href="{{ route('books.create') }}" class="btn btn-success">Create Now</a>
+				</div>
 				<h3><span class="first-letter">R</span>ecent Novels</h3><br/>
 			</div>
 			<div class="table-responsive">
@@ -137,6 +140,17 @@
 		</div>
 		<div class="col-md-7">
 			<div class="header">
+
+				@if(!Auth::user()->isComicCreator())
+					<div class="pull-right">
+						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Request for create comic</button>
+					</div>
+				@else
+					<div class="pull-right">
+						<a href="{{ route('comics.create') }}" class="btn btn-success">Create Now</a>
+					</div>
+				@endif
+
 				<h3><span class="first-letter">R</span>ecent Comics</h3><br/>
 			</div>
 			<div class="table-responsive">
