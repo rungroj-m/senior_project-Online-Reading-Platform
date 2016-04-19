@@ -46,9 +46,9 @@ class BookController extends Controller {
 	{
 		$uri = Route::getCurrentRoute()->getPath();
 		if($uri == 'comics')
-			$books = Book::where('category','Comic')->get();
+			$books = Book::where('category','Comic')->orderBy('name','ASC')->get();
 		else if($uri == 'books')
-			$books = Book::where('category','Novel')->get();
+			$books = Book::where('category','Novel')->orderBy('name','ASC')->get();
 //		$books = Book::all();
 		return view('books.index',compact('books'));
 	}
