@@ -47,15 +47,14 @@
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
 								<button type="submit" class="btn btn-success">Login</button>
-								<a class="btn btn-link" href="{{ url('/password/email') }}">Forgot Your Password?</a>
+								{{--<ul id="connect-buttons">--}}
+									<img id="connect-link-fb" style="margin-top: 10px" class="button" src="/images/signin_fb.png" onclick="myFunction()">
+								{{--</ul>--}}
 							</div>
 						</div>
 					</form>
 				</div>
 			</div>
-			<ul id="connect-buttons">
-				<img id="connect-link-fb" class="button" tabindex="4" src="/images/signin_fb.png" onclick="myFunction()">
-			</ul>
 		</div>
 	</div>
 </div>

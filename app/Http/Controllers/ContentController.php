@@ -22,6 +22,7 @@ use Auth;
 use Session;
 use Route;
 use \XMLReader ;
+use Mail;
 
 class ContentController extends Controller {
 
@@ -118,8 +119,9 @@ class ContentController extends Controller {
 			// $content->content = str_replace("\r\n", "<br/>", $request->content);
 			$book->contents()->save($content);
 			// notify subscribed user
-			if($content->private == 0)
+			if($content->private == 0) {
 				$this->notify($book, $content);
+			}
 			return redirect($this->getURI($id).'/'.$id);
 		}
 	}
@@ -274,7 +276,7 @@ class ContentController extends Controller {
 						->extra(compact('bookname', 'chapter', 'chaptername'))
 						->send();
 				if($user->email_noti) {
-					$job = (new SendNotificationEmail($user, $book, $content))->onQueue('emails');
+					$job = (new SendNotificationEmail($user, $book, $content));
 					$this->dispatch($job);
 				}
 				if($user->facebook_id>0 && $user->facebook_noti)
