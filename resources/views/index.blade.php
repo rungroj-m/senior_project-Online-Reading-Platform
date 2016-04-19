@@ -141,7 +141,11 @@
 		<div class="col-md-7">
 			<div class="header">
 
-				@if(!Auth::user()->isComicCreator())
+				@if(Auth::user()->isRequestComicCreator())
+					<div class="pull-right">
+						<button type="button" class="btn btn-info">Requested</button>
+					</div>
+				@elseif(!Auth::user()->isComicCreator())
 					<div class="pull-right">
 						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Request for create comic</button>
 					</div>
