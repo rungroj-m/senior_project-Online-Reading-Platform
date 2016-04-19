@@ -56,8 +56,9 @@
 		</div>
 		<div class="col-md-5">
 			<header>
-				<h4><span class="first-letter">N</span>otification</h4>
+				<h4><span class="first-letter">N</span>otifications <span class="badge">{{$user->countNotification()}}</span></h4>
 			</header>
+			<hr/>
 			<div class="table" style="overflow: auto; height:200px">
 		        <table class="table">
 		            <tbody>
@@ -82,10 +83,10 @@
 		</div>
 		<div class="col-md-12">
 			<ul class="nav nav-tabs">
-				<li class="active">
+				<!-- <li class="active">
 					<a data-toggle="tab" href="#notification"><h4><span class="first-letter">N</span>otifications</h4></a>
-				</li>
-				<li>
+				</li> -->
+				<li class="active">
 					<a data-toggle="tab" href="#subscription"><h4><span class="first-letter">S</span>ubscriptions</h4></a>
 				</li>
 				<li>
@@ -101,7 +102,7 @@
 			<!-- Tab Content -->
 			<div class="tab-content">
 				<!-- NOTIFICATIONS TABLE -->
-				<div id="notification" class="tab-pane fade in active">
+				<!-- <div id="notification" class="tab-pane fade in active">
 			        <table class="table table-bordered">
 			            <thead>
 			                <tr>
@@ -131,9 +132,9 @@
 			                @endforeach
 			            </tbody>
 			        </table>
-				</div>
+				</div> -->
 				<!-- SUBSCRIPTIONS TABLE -->
-				<div id="subscription" class="tab-pane fade">
+				<div id="subscription" class="tab-pane fade in active">
 					<div>
 				        <table class="table table-bordered">
 				            <tbody>

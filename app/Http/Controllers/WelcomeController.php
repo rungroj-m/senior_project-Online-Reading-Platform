@@ -33,6 +33,7 @@ class WelcomeController extends Controller {
 	 */
 	
 	public function welcome(){
+		// $count = Auth::user()->countNofitication();
 		return view('welcome');
 	}
 

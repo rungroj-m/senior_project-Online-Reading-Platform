@@ -44,6 +44,12 @@
 									@endif
 									 {{$user->username}} 
 								@endif
+								<span class="badge">
+									@if(Auth::guest())
+									@else
+										{{Auth::user()->countNotification()}}
+									@endif
+								</span>
 								<span class="caret"></span>
 							</div>
 						</a>
@@ -53,6 +59,9 @@
 							<li><a href="{{ url('/register') }}">Register</a></li>
 						@else
 							<li><a href="/profile">Profile Dashboard</a></li>
+							@if(Auth::user()->isAdmin())
+								<li><a href="/admin">Admin Dashboard</a></li>
+							@endif
 							<li role="separator" class="divider"></li>
 							<li><a href="{{ url('/logout') }}">Logout</a></li>
 						@endif

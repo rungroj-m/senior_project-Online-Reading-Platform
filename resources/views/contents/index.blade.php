@@ -42,7 +42,9 @@
 					<li class="list-group-item">
 						<span class="glyphicon glyphicon-cloud"></span>
 						Subscription
-						({!! $book-> getTotalSubscribers()!!} subscribes)
+						<h5>
+						{!! $book-> getTotalSubscribers()!!} Readers Subscribed!
+						</h5>
 					@if($subscribe)
 							{!! Form::open([
 								'method' => 'GET',
@@ -62,7 +64,7 @@
 					<li class="list-group-item">
 						<span class="glyphicon glyphicon-fire"></span>
 						Report Content
-						<button type="button" class="btn btn-warning form-control" data-toggle="modal" data-target="#myModal">Report this Book</button>
+						<button type="button" class="btn btn-warning form-control" data-toggle="modal" data-target="#myModal">Report This Content</button>
 
 					</li>
 					<li class="list-group-item">
