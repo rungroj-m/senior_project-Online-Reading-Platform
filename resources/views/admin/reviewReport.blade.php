@@ -14,10 +14,15 @@
             <tr>
                 <td>{{ $report-> id }}</td>
                 <td>{{ $report->review }}</td>
-                @if(\App\Models\Review::find($report -> id)->book->category == 'Novel')
-                    <td><a href="/books/{{\App\Models\Review::find($report -> id)->book->id}}">{{ \App\Models\Review::find($report -> id)->book->name }}</a></td>
+
+                @if(\App\Models\Review::find($report -> id)->book)
+                    @if(\App\Models\Review::find($report -> id)->book->category == 'Novel')
+                        <td><a href="/books/{{\App\Models\Review::find($report -> id)->book->id}}">{{ \App\Models\Review::find($report -> id)->book->name }}</a></td>
+                    @else
+                        <td><a href="/comics/{{\App\Models\Review::find($report -> id)->book->id}}">{{ \App\Models\Review::find($report -> id)->book->name }}</a></td>
+                    @endif
                 @else
-                    <td><a href="/comics/{{\App\Models\Review::find($report -> id)->book->id}}">{{ \App\Models\Review::find($report -> id)->book->name }}</a></td>
+                    <td> Book already Delete </td>
                 @endif
                 <td>{{ $report->count }}</td>
             </tr>

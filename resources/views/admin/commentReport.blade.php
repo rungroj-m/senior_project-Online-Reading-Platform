@@ -14,10 +14,15 @@
             <tr>
                 <td>{{ $report-> id }}</td>
                 <td>{{ $report->comment }}</td>
-                @if(\App\Models\Comment::find($report -> id)->book->category == 'Novel')
-                    <td><a href="/books/{{\App\Models\Comment::find($report -> id)->book->id}}">{{ \App\Models\Comment::find($report -> id)->book->name }}</a></td>
+
+                @if(\App\Models\Comment::find($report -> id)->book)
+                    @if(\App\Models\Comment::find($report -> id)->book->category == 'Novel')
+                        <td><a href="/books/{{\App\Models\Comment::find($report -> id)->book->id}}">{{ \App\Models\Comment::find($report -> id)->book->name }}</a></td>
+                    @else
+                        <td><a href="/comics/{{\App\Models\Comment::find($report -> id)->book->id}}">{{ \App\Models\Comment::find($report -> id)->book->name }}</a></td>
+                    @endif
                 @else
-                    <td><a href="/comics/{{\App\Models\Comment::find($report -> id)->book->id}}">{{ \App\Models\Comment::find($report -> id)->book->name }}</a></td>
+                    <td> Book already Delete </td>
                 @endif
                 <td>{{ $report->count }}</td>
             </tr>

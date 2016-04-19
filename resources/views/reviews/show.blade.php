@@ -1,5 +1,5 @@
 <div class="thumbnail">
-	<a href="#collapseReview{{$r->id}}" data-toggle="collapse" aria-controls="collapseComment" id ="review{{$c->id}}"  onclick=reviewaction("review{{$c->id}}");>[-]</a>
+	<a href="#collapseReview{{$r->id}}" data-toggle="collapse" aria-controls="collapseComment" id ="review{{$r->id}}"  onclick=reviewaction("review{{$r->id}}");>[-]</a>
 	<div class="collapse in" id="collapseReview{{$r->id}}">
 		<div class="caption">
 			<p>{!! $r->review !!}</p>
