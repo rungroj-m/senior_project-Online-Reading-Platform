@@ -4,15 +4,11 @@
 
 
 <div>
-	<div class="col-md-8 col-md-offset-2 content-body">
+	<div class="col-md-8 col-md-offset-2 content-body" style="padding-bottom: 100px">
 		<h1 align="center">{{ $book-> name }}</h1><br/>
 		<h3 align="center">Chapter {{ $content_chap->chapter }}</h3><br/>
 		<h4 align="center">{{ $content_chap->name }}</h1>
 		<hr>
-			{{--<div class="pull-left">--}}
-			{{--</div>--}}
-			{{--<div class="pull-right">--}}
-			{{--</div>--}}
 			@if($book->isComic())
 				<button id="leftbutton" class="btn-success" >&lt;</button>
 				<button id="rightbutton" class="btn-success">&gt;</button>
@@ -50,24 +46,6 @@
 			@endif
 	</div>
 
-	@if($book->isComic())
-		@if($book->prevChapter($content_chap->chapter) >= 0)
-			<a href="comics/{{$book->id}}/content/{{$book->prevChapter($content_chap->chapter)}}">Previous Chapter</a>
-		@endif
-		@if($book->nextChapter($content_chap->chapter) >= 0)
-			<a href="comics/{{$book->id}}/content/{{$book->nextChapter($content_chap->chapter)}}">Next Chapter</a>
-		@endif
-		<a href="comics/{{$book->id}}/content/">Go back to main page</a>
-	@else
-		@if($book->prevChapter($content_chap->chapter) >= 0)
-			<a href="/books/{{$book->id}}/content/{{$book->prevChapter($content_chap->chapter)}}/">Previous Chapter</a>
-		@endif
-		@if($book->nextChapter($content_chap->chapter) >= 0)
-			<a href="/books/{{$book->id}}/content/{{$book->nextChapter($content_chap->chapter)}}">Next Chapter</a>
-		@endif
-		<a href="/books/{{$book->id}}/content/">Go back to main page</a>
-	@endif
-
 	<div class="col-md-2">
 		@if($book->isOwner())
 			<div class="btn-group-vertical">
@@ -82,6 +60,43 @@
 		@endif
 	</div>
 </div>
+
+<!-- FIXED NAVBAR BOTTOM -->
+<nav class="navbar-default navbar-fixed-bottom">
+	<div class="container-fluid">
+		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
+			<span class="sr-only">Toggle Navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+			<ul class="nav navbar-left">
+				@if($book->isComic())
+					@if($book->prevChapter($content_chap->chapter) >= 0)
+						<a class="btn btn-success" href="/comics/{{$book->id}}/content/{{$book->prevChapter($content_chap->chapter)}}" role="button">Previous Chapter</a>
+					@endif
+					@if($book->nextChapter($content_chap->chapter) >= 0)
+						<a class="btn btn-success" href="/comics/{{$book->id}}/content/{{$book->nextChapter($content_chap->chapter)}}" role="button">Next Chapter</a><
+					@endif
+				@else
+					@if($book->prevChapter($content_chap->chapter) >= 0)
+						<a class="btn btn-success" href="/books/{{$book->id}}/content/{{$book->prevChapter($content_chap->chapter)}}/" role="button">Previous Chapter</a>
+					@endif
+					@if($book->nextChapter($content_chap->chapter) >= 0)
+						<a class="btn btn-success" href="/books/{{$book->id}}/content/{{$book->nextChapter($content_chap->chapter)}}" role="button">Next Chapter</a>
+					@endif
+				@endif
+			</ul>
+			<ul class="nav navbar-right">
+				@if($book->isComic())
+					<a class="btn btn-primary" href="/comics/{{$book->id}}/content/" role="button">Content Page</a>
+				@else
+					<a class="btn btn-primary" href="/books/{{$book->id}}/content/" role="button">Content Page</a>
+				@endif
+			</ul>
+		</div>
+	</div>
+</nav>
 
 <script>
 
@@ -136,6 +151,3 @@
 		</div>
 	</div>
 </div>
-
-
-
