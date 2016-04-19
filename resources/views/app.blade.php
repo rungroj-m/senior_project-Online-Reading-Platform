@@ -44,6 +44,12 @@
 									@endif
 									 {{$user->username}} 
 								@endif
+								<span class="badge">
+									@if(Auth::guest())
+									@else
+										{{Auth::user()->countNotification()}}
+									@endif
+								</span>
 								<span class="caret"></span>
 							</div>
 						</a>

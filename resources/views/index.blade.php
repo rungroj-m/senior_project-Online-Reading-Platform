@@ -198,7 +198,7 @@
 	</div>
 	<hr/>
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-10">
 			<header>
 				<h3><span class="first-letter">T</span>ags Cloud</h3>
 			</header>
