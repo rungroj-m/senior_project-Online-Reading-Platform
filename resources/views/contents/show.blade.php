@@ -10,12 +10,12 @@
 		<h4 align="center">{{ $content_chap->name }}</h1>
 		<hr>
 			{{--<div class="pull-left">--}}
-				<button id="leftbutton" class="btn-success" >&lt;</button>
 			{{--</div>--}}
 			{{--<div class="pull-right">--}}
-				<button id="rightbutton" class="btn-success">&gt;</button>
 			{{--</div>--}}
 			@if($book->isComic())
+				<button id="leftbutton" class="btn-success" >&lt;</button>
+				<button id="rightbutton" class="btn-success">&gt;</button>
 				<!-- <p class="content-text" align="center"> -->
 					<?php $i = 1 ?>
 					<div class="owl-carousel">
@@ -49,6 +49,24 @@
 				<p class="content-text">{!! $content_chap->content !!}</p>
 			@endif
 	</div>
+
+	@if($book->isComic())
+		@if($book->prevChapter($content_chap->chapter) >= 0)
+			<a href="comics/{{$book->id}}/content/{{$book->prevChapter($content_chap->chapter)}}">Previous Chapter</a>
+		@endif
+		@if($book->nextChapter($content_chap->chapter) >= 0)
+			<a href="comics/{{$book->id}}/content/{{$book->nextChapter($content_chap->chapter)}}">Next Chapter</a>
+		@endif
+		<a href="comics/{{$book->id}}/content/">Go back to main page</a>
+	@else
+		@if($book->prevChapter($content_chap->chapter) >= 0)
+			<a href="/books/{{$book->id}}/content/{{$book->prevChapter($content_chap->chapter)}}/">Previous Chapter</a>
+		@endif
+		@if($book->nextChapter($content_chap->chapter) >= 0)
+			<a href="/books/{{$book->id}}/content/{{$book->nextChapter($content_chap->chapter)}}">Next Chapter</a>
+		@endif
+		<a href="/books/{{$book->id}}/content/">Go back to main page</a>
+	@endif
 
 	<div class="col-md-2">
 		@if($book->isOwner())

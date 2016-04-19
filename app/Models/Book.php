@@ -81,4 +81,29 @@ class Book extends Model {
 	public function getTotalSubscribers(){
 		return $this->subscribers()->where('active',1)->count();
 	}
+
+	public function chapterList(){
+		$ret = [];
+		$runner = 0;
+		foreach ($this->contents as $content ){
+			$ret[$runner++] = $content->chapter;
+		}
+		return $ret;
+	}
+
+	public function nextChapter($currentChapter){
+		$chapterList = $this->chapterList();
+		$currentKey = array_search($currentChapter,$chapterList);
+		if($currentKey + 1 >= count($chapterList))
+			return -1;
+		return $chapterList[$currentKey + 1];
+	}
+
+	public function prevChapter($currentChapter){
+		$chapterList = $this->chapterList();
+		$currentKey = array_search($currentChapter,$chapterList);
+		if($currentKey - 1 < 0)
+			return -1;
+		return $chapterList[$currentKey - 1];
+	}
 }
