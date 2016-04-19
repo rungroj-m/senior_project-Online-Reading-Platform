@@ -18,9 +18,14 @@
 					<span class="glyphicon glyphicon-list"></span> Tags <span class="badge">{{$book->tags->count()}}</span>
 				</div>
 				<div>
-					@foreach($book->tags as $tag)
-						<span class="badge">{{$tag->tag}}</span>
+
+					@foreach($book->tags as $t)
+						<a href="/books/search?request={{$t->tag}}"><span class="badge">{{$t->tag}}</span></a>
 					@endforeach
+
+				{{--@foreach($book->tags as $tag)--}}
+						{{--<span class="badge">{{$tag->tag}}</span>--}}
+					{{--@endforeach--}}
 				</div>
 			</div><br/>
 		</div>

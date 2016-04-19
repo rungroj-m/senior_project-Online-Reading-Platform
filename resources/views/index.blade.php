@@ -21,6 +21,12 @@
 				{{--<h3 align="middle">Contribute</h3>--}}
 			{{--</div>--}}
 		{{--</div>--}}
+		@if(!Auth::guest())
+			{{Auth::user()->countNotification()}}
+		@endif
+
+		count notification
+		{{Auth::user()->countNotification()}}
 		<div class="col-md-5">
 			<div class="header">
 				<h3><span class="first-letter">T</span>op Novels</h3>
