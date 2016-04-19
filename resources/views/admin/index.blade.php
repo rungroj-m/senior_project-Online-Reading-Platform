@@ -16,10 +16,10 @@
 		<div class="col-md-12">
 			<ul class="nav nav-tabs">
 				<li class="active">
-					<a data-toggle="tab" href="#userrequest"><h4><span class="first-letter">U</span>ser <span class="first-letter">R</span>equest</h4></a>
+					<a data-toggle="tab" href="#userrequest"><h4><span class="first-letter">C</span>omic <span class="first-letter">P</span>ermission</h4></a>
 				</li>
 				<li>
-					<a data-toggle="tab" href="#bookreport"><h4><span class="first-letter">B</span>ook <span class="first-letter">R</span>eport</h4></a>
+					<a data-toggle="tab" href="#bookreport"><h4><span class="first-letter">C</span>ontent <span class="first-letter">R</span>eport</h4></a>
 				</li>
 				<li>
 					<a data-toggle="tab" href="#commentreport"><h4><span class="first-letter">C</span>omment <span class="first-letter">R</span>eport</h4></a>
