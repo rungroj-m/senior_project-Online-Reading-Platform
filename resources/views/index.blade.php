@@ -13,20 +13,14 @@
 				{{--<h4 class="inline">feed</h4>--}}
 			{{--</div>--}}
 		</div><br/>
-		{{--<div class="col-md-10 col-md-offset-1">--}}
-			{{--<div class="thumbnail">--}}
-				{{--<h1 align="middle">Welcome To <span class="first-letter">R</span>EADI!</h1>--}}
-				{{--<h3 align="middle">Write</h3>--}}
-				{{--<h3 align="middle">Read</h3>--}}
-				{{--<h3 align="middle">Contribute</h3>--}}
-			{{--</div>--}}
-		{{--</div>--}}
-		@if(!Auth::guest())
-			{{Auth::user()->countNotification()}}
-		@endif
-
-		count notification
-		{{Auth::user()->countNotification()}}
+		<div class="col-md-10 col-md-offset-1">
+			<div class="thumbnail">
+				<h1 align="middle">Welcome To <span class="first-letter">R</span>EADI!</h1>
+				<h4 align="middle"></h4>
+				<h3 align="middle"></h3>
+				<h3 align="middle"></h3>
+			</div>
+		</div>
 		<div class="col-md-5">
 			<div class="header">
 				<h3><span class="first-letter">T</span>op Novels</h3>
