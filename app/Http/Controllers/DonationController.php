@@ -67,7 +67,7 @@ class DonationController extends Controller
     public function store_donation(Request $request)
     {
       $validator = Validator::make($request->all(), [
-          'amount' => 'required|numeric',
+          'amount' => 'required|numeric|min:1',
           'book' => 'required',
           'description' => 'required'
       ]);
@@ -93,7 +93,7 @@ class DonationController extends Controller
     public function store_donation2($bookId,Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'amount' => 'required|numeric',
+            'amount' => 'required|numeric|min:1',
             'description' => 'required'
         ]);
         if ($validator->fails()) {
@@ -116,7 +116,7 @@ class DonationController extends Controller
 
     public function store_pleading(Request $request) {
       $validator = Validator::make($request->all(), [
-          'amount' => 'required|numeric',
+          'amount' => 'required|numeric|min:1',
           'donation' => 'required'
       ]);
       if ($validator->fails()) {
@@ -177,21 +177,41 @@ class DonationController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $donation = Donation::find($id);
-      $donation->description =  $request->description;
-      $donation->goal_amount = $request->amount;
-      $donation->active = $request->active;
-      $donation->save();
-      return redirect(url('donation/'.$donation->id));
+      $validator = Validator::make($request->all(), [
+          'amount' => 'required|numeric|min:1',
+      ]);
+      if ($validator->fails()) {
+        return redirect()->action('DonationController@edit', ['id' => $id])
+                         ->withErrors($validator)
+                         ->withInput();
+      }
+      else {
+        $donation = Donation::find($id);
+        $donation->description =  $request->description;
+        $donation->goal_amount = $request->amount;
+        $donation->active = $request->active;
+        $donation->save();
+        return redirect(url('donation/'.$donation->id));
+      }
     }
 
     public function update_plead(Request $request, $id) {
-      $plead = Pleading::findOrFail($id);
-      $plead->confirmed = $request->confirmed;
-      $plead->amount = $request->amount;
-      $plead->save();
-      $donation = $plead->donation;
-      return redirect(url('donation/'.$donation->id));
+      $validator = Validator::make($request->all(), [
+          'amount' => 'required|numeric|min:1',
+      ]);
+      if ($validator->fails()) {
+         return redirect()->action('DonationController@edit_plead', ['id' => $id])
+                          ->withErrors($validator)
+                          ->withInput();
+      }
+      else {
+        $plead = Pleading::findOrFail($id);
+        $plead->confirmed = $request->confirmed;
+        $plead->amount = $request->amount;
+        $plead->save();
+        $donation = $plead->donation;
+        return redirect(url('donation/'.$donation->id));
+      }
     }
 
     /**
@@ -203,12 +223,12 @@ class DonationController extends Controller
     public function destroy($id)
     {
       Donation::destroy($id);
-      return redirect(url('donation'))->with('status', 'Delete donation no.'+$id+' succeed.');
+      return redirect(url('donation'))->with('status', 'Delete donation no.'.$id.' succeed.');
     }
 
     public function destroy_plead($id) {
       Pleading::destroy($id);
-      return redirect(url('donation'))->with('status', 'Delete plead no.'+$id+' succeed.');
+      return redirect(url('donation'))->with('status', 'Delete plead no.'.$id.' succeed.');
     }
 
     public function confirm_plead($id) {
