@@ -9,6 +9,8 @@ Route::get('login', 'Auth\AuthController@getLogin');
 Route::post('login', 'Auth\AuthController@postLogin');
 Route::get('logout', 'Auth\AuthController@getLogout');
 
+Route::post('index', 'WelcomeController@index');
+
 //Social Login
 Route::get('/login/{provider?}',[
 	'uses' => 'Auth\AuthController@getSocialAuth',
