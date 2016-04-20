@@ -9,9 +9,7 @@ Route::get('login', 'Auth\AuthController@getLogin');
 Route::post('login', 'Auth\AuthController@postLogin');
 Route::get('logout', 'Auth\AuthController@getLogout');
 
-Route::get('ingresar', array('as' => 'ingresar', 'uses' => 'ingresar@index'));
-
-Route::post('index', 'WelcomeController@index');
+Route::any('/', 'WelcomeController@index');
 
 //Social Login
 Route::get('/login/{provider?}',[
