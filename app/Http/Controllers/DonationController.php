@@ -132,7 +132,7 @@ class DonationController extends Controller
         $pleading->user()->associate($user);
         $pleading->donation()->associate($donation);
         $pleading->save();
-        return redirect(url('donation/'.$donation->id));
+        return redirect(url('profile/#pleads'));
       }
     }
 
