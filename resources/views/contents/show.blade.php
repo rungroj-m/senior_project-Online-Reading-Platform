@@ -10,8 +10,9 @@
 		<h4 align="center">{{ $content_chap->name }}</h1>
 		<hr>
 			@if($book->isComic())
-				<button id="leftbutton" class="btn-success" >&lt;</button>
-				<button id="rightbutton" class="btn-success">&gt;</button>
+				<button id="leftbutton" class="btn-success pull-left" >&lt;</button>
+				<button id="rightbutton" class="btn-success pull-right">&gt;</button>
+				<br>
 				<!-- <p class="content-text" align="center"> -->
 					<?php $i = 1 ?>
 					<div class="owl-carousel">
